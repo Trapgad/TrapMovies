@@ -32,3 +32,38 @@ function displayMovies(movies) {
 }
 
 fetchTrendingMovies();
+
+// Function to fetch specific movie details
+async function fetchMovieDetails() {
+    const detailsContainer = document.querySelector('.details-container');
+    if (!detailsContainer) return;
+
+    // Get ID from URL
+    const params = new URLSearchParams(window.location.search);
+    const movieId = params.get('id');
+
+    if (!movieId) return;
+
+    const response = await fetch(`${BASE_URL}/movie/${movieId}?api_key=${API_KEY}`);
+    const movie = await response.json();
+
+    // Render the details
+    detailsContainer.innerHTML = `
+        <div class="movie-poster">
+            <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
+        </div>
+        <div class="movie-info">
+            <h1>${movie.title}</h1>
+            <div class="meta">
+                <span>${movie.release_date}</span> | 
+                <span>⭐ ${movie.vote_average.toFixed(1)}/10</span>
+            </div>
+            <p class="synopsis">${movie.overview}</p>
+            <button class="play-btn">▶ Watch Now</button>
+        </div>
+    `;
+}
+
+// Call this function
+fetchMovieDetails();
+
