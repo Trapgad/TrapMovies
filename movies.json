@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "title": "The Reckoning",
+        "poster": "https://via.placeholder.com/200x300",
+        "synopsis": "In a city that never sleeps, the only way to survive is to be the one holding the cards."
+    },
+    {
+        "id": 2,
+        "title": "Shadow Ops",
+        "poster": "https://via.placeholder.com/200x300",
+        "synopsis": "An elite team discovers a conspiracy that goes deeper than the ocean floor."
+    },
+    {
+        "id": 3,
+        "title": "Neon Nights",
+        "poster": "https://via.placeholder.com/200x300",
+        "synopsis": "A detective tracks a phantom criminal through the rain-slicked streets of a futuristic metropolis."
+    }
+]
