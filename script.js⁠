@@ -1,12 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
     const grid = document.querySelector('.movie-grid');
+    const detailsContainer = document.querySelector('.details-container');
 
-    // Only run this if we are on the index page where .movie-grid exists
-    if (grid) {
-        fetch('movies.json')
-            .then(response => response.json())
-            .then(data => {
-                grid.innerHTML = ''; 
+    // Load data from movies.json
+    fetch('movies.json')
+        .then(response => response.json())
+        .then(data => {
+            
+            // 1. Handle Home Page
+            if (grid) {
+                grid.innerHTML = '';
                 data.forEach(movie => {
                     grid.innerHTML += `
                         <a href="movie.html?id=${movie.id}" class="movie-card-link">
@@ -17,7 +20,29 @@ document.addEventListener('DOMContentLoaded', () => {
                         </a>
                     `;
                 });
-            })
-            .catch(error => console.error('Error loading movies:', error));
-    }
+            }
+
+            // 2. Handle Details Page
+            if (detailsContainer) {
+                const params = new URLSearchParams(window.location.search);
+                const movieId = parseInt(params.get('id'));
+                const movie = data.find(m => m.id === movieId);
+
+                if (movie) {
+                    detailsContainer.innerHTML = `
+                        <div class="movie-poster">
+                            <img src="${movie.poster}" alt="${movie.title}">
+                        </div>
+                        <div class="movie-info">
+                            <h1>${movie.title}</h1>
+                            <p class="synopsis">${movie.synopsis}</p>
+                            <div class="action-buttons">
+                                <button class="play-btn">▶ Watch Now</button>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+        })
+        .catch(error => console.error('Error:', error));
 });
