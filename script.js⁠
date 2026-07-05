@@ -1,0 +1,23 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const grid = document.querySelector('.movie-grid');
+
+    // Only run this if we are on the index page where .movie-grid exists
+    if (grid) {
+        fetch('movies.json')
+            .then(response => response.json())
+            .then(data => {
+                grid.innerHTML = ''; 
+                data.forEach(movie => {
+                    grid.innerHTML += `
+                        <a href="movie.html?id=${movie.id}" class="movie-card-link">
+                            <div class="movie-card">
+                                <img src="${movie.poster}" alt="${movie.title}">
+                                <h3>${movie.title}</h3>
+                            </div>
+                        </a>
+                    `;
+                });
+            })
+            .catch(error => console.error('Error loading movies:', error));
+    }
+});
