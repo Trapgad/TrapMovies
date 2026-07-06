@@ -6,11 +6,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Movie Details | TRAP MOVIES</title>
+<title>Movies | TRAP MOVIES</title>
 
 <link rel="stylesheet" href="style.css">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
 </head>
 
@@ -20,33 +20,69 @@
 
 <header>
 
-    <div class="logo">
-        <h2>🎬 TRAP MOVIES</h2>
-    </div>
+<div class="logo">
+<h2>🎬 TRAP MOVIES</h2>
+</div>
+
+
+<nav>
+
+<ul>
+
+<li><a href="index.html">Home</a></li>
+
+<li><a href="movies.html" class="active">Movies</a></li>
+
+<li><a href="series.html">Series</a></li>
+
+<li><a href="about.html">About</a></li>
+
+<li><a href="contact.html">Contact</a></li>
+
+<li><a href="signin.html">Sign In</a></li>
+
+</ul>
+
+</nav>
 
 </header>
 
 
 
-<div class="back-btn">
 
-    <button onclick="history.back()">
-        ⬅ Back
-    </button>
+<section class="movies">
+
+
+<h2>
+All Movies
+</h2>
+
+
+<div class="movie-grid" id="popular">
+
+<!-- Movies will load here from app.js -->
+
 
 </div>
 
 
-
-<div class="movie-details" id="movieDetails">
-
-    <p>Loading movie...</p>
-
-</div>
+</section>
 
 
 
-<script src="movie.js"></script>
+
+
+<footer>
+
+<p>
+© 2026 TRAP MOVIES | Created by <strong>TRAP GAD</strong>
+</p>
+
+</footer>
+
+
+
+<script src="app.js"></script>
 
 
 </body>
