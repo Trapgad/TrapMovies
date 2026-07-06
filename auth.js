@@ -1,72 +1,150 @@
+// ===============================
+// TRAP MOVIES - AUTH.JS
+// ===============================
+
+
 import {
-  auth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword
+
+    auth,
+
+    createUserWithEmailAndPassword,
+
+    signInWithEmailAndPassword
+
 } from "./firebase.js";
+
+
+
 
 // ===============================
 // SIGN UP
 // ===============================
-window.signup = async function () {
 
-  const name = document.getElementById("name")?.value.trim();
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
 
-  if (!name || !email || !password) {
-    alert("Please fill in all fields.");
-    return;
-  }
+window.signup = async function(){
 
-  try {
 
-    await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
+    const name =
+    document.getElementById("name")?.value.trim();
 
-    alert("Account created successfully!");
 
-    window.location.href = "signin.html";
+    const email =
+    document.getElementById("email").value.trim();
 
-  } catch (error) {
 
-    alert(error.message);
+    const password =
+    document.getElementById("password").value;
 
-  }
+
+
+    if(!name || !email || !password){
+
+        alert("Please fill all fields");
+
+        return;
+
+    }
+
+
+
+    try{
+
+
+        await createUserWithEmailAndPassword(
+
+            auth,
+
+            email,
+
+            password
+
+        );
+
+
+
+        alert("Account created successfully!");
+
+
+        window.location.href =
+        "signin.html";
+
+
+
+    }catch(error){
+
+
+        alert(error.message);
+
+
+    }
+
 
 };
 
+
+
+
+
 // ===============================
-// SIGN IN
+// LOGIN
 // ===============================
-window.login = async function () {
 
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
 
-  if (!email || !password) {
-    alert("Please enter your email and password.");
-    return;
-  }
+window.login = async function(){
 
-  try {
 
-    await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
+    const email =
+    document.getElementById("email").value.trim();
 
-    alert("Welcome to TRAP MOVIES!");
 
-    window.location.href = "index.html";
 
-  } catch (error) {
+    const password =
+    document.getElementById("password").value;
 
-    alert(error.message);
 
-  }
+
+
+    if(!email || !password){
+
+        alert("Enter email and password");
+
+        return;
+
+    }
+
+
+
+    try{
+
+
+        await signInWithEmailAndPassword(
+
+            auth,
+
+            email,
+
+            password
+
+        );
+
+
+
+        alert("Welcome to TRAP MOVIES 🎬");
+
+
+
+        window.location.href =
+        "index.html";
+
+
+
+    }catch(error){
+
+
+        alert(error.message);
+
+
+    }
+
 
 };
