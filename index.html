@@ -1,100 +1,264 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TRAP MOVIES</title>
 
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<title>TRAP MOVIES | Home</title>
 
-    <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<link rel="stylesheet" href="style.css">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
 </head>
+
 
 <body>
 
+
 <header>
 
+
 <div class="logo">
+
 <h2>🎬 TRAP MOVIES</h2>
+
 </div>
+
+
 
 <nav>
+
 <ul>
-<li><a href="index.html" class="active">Home</a></li>
-<li><a href="movies.html">Movies</a></li>
-<li><a href="series.html">Series</a></li>
-<li><a href="about.html">About</a></li>
-<li><a href="contact.html">Contact</a></li>
-<li><a href="signin.html">Sign In</a></li>
+
+<li>
+<a href="index.html" class="active">
+Home
+</a>
+</li>
+
+
+<li>
+<a href="movies.html">
+Movies
+</a>
+</li>
+
+
+<li>
+<a href="series.html">
+Series
+</a>
+</li>
+
+
+<li>
+<a href="about.html">
+About
+</a>
+</li>
+
+
+<li>
+<a href="contact.html">
+Contact
+</a>
+</li>
+
+
+<li>
+<a href="signin.html">
+Sign In
+</a>
+</li>
+
+
 </ul>
+
 </nav>
 
+
+
 <div class="search-box">
-<input type="search" placeholder="Search movies...">
-<button><i class="fas fa-search"></i></button>
+
+<input 
+type="search" 
+placeholder="Search movies..."
+>
+
+
+<button>
+
+<i class="fas fa-search"></i>
+
+</button>
+
+
 </div>
+
 
 </header>
 
+
+
+
+
 <section class="hero">
+
 
 <div class="hero-content">
 
-<h1>Unlimited Movies & TV Shows</h1>
 
-<p>Watch thousands of blockbuster movies and exciting TV series anytime, anywhere.</p>
+<h1>
+Unlimited Movies & TV Shows
+</h1>
 
-<a href="movies.html" class="btn">Explore Movies</a>
+
+<p>
+Watch thousands of blockbuster movies and exciting TV series anytime, anywhere.
+</p>
+
+
+
+<a href="movies.html" class="btn">
+Explore Movies
+</a>
+
 
 </div>
 
+
 </section>
+
+
+
+
+
+<!-- POPULAR MOVIES -->
 
 <section class="movies">
 
-<h2>Featured Movies</h2>
 
-<div class="movie-grid">
+<h2>
+Popular Movies
+</h2>
 
-<div class="movie-card"></div>
-<div class="movie-card"></div>
-<div class="movie-card"></div>
-<div class="movie-card"></div>
-<div class="movie-card"></div>
-<div class="movie-card"></div>
+
+<div class="movie-grid" id="popular">
+
+
+<!-- Movies loaded by app.js -->
+
 
 </div>
 
+
 </section>
+
+
+
+
+
+<!-- TRENDING -->
 
 <section class="movies">
 
-<h2>Trending Now</h2>
 
-<div class="movie-grid">
+<h2>
+Trending Now
+</h2>
 
-<div class="movie-card"></div>
-<div class="movie-card"></div>
-<div class="movie-card"></div>
-<div class="movie-card"></div>
-<div class="movie-card"></div>
-<div class="movie-card"></div>
+
+<div class="movie-grid" id="trending">
+
+
+<!-- Movies loaded by app.js -->
+
 
 </div>
 
+
 </section>
+
+
+
+
+
+<!-- TOP RATED -->
+
+<section class="movies">
+
+
+<h2>
+Top Rated Movies
+</h2>
+
+
+<div class="movie-grid" id="toprated">
+
+
+<!-- Movies loaded by app.js -->
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+<!-- SERIES -->
+
+<section class="movies">
+
+
+<h2>
+Popular Series
+</h2>
+
+
+<div class="movie-grid" id="tvshows">
+
+
+<!-- Series loaded by app.js -->
+
+
+</div>
+
+
+</section>
+
+
+
+
 
 <footer>
 
-<p>© 2026 TRAP MOVIES | Created by <strong>TRAP GAD</strong></p>
+
+<p>
+© 2026 TRAP MOVIES | Created by 
+<strong>TRAP GAD</strong>
+</p>
+
 
 </footer>
 
-<script src="script.js"></script>
+
+
+
+
+<script src="app.js"></script>
+
 
 </body>
+
 </html>
