@@ -225,3 +225,73 @@ nav ul{
 }
 
 }
+/* =========================
+   MOVIE DETAILS UPGRADE
+========================= */
+
+.movie-main{
+    display:flex;
+    gap:30px;
+    flex-wrap:wrap;
+    padding:40px 8%;
+}
+
+.movie-main img{
+    width:300px;
+    border-radius:10px;
+}
+
+.movie-info{
+    max-width:600px;
+}
+
+.movie-info h1{
+    color:#ff2d55;
+    margin-bottom:10px;
+}
+
+.movie-info p{
+    margin-bottom:10px;
+    color:#ddd;
+    line-height:1.6;
+}
+
+/* TRAILER */
+.trailer{
+    padding:40px 8%;
+}
+
+.trailer h2{
+    color:#ff2d55;
+    margin-bottom:15px;
+}
+
+/* CAST */
+.cast{
+    padding:40px 8%;
+}
+
+.cast h2{
+    color:#ff2d55;
+    margin-bottom:15px;
+}
+
+.cast-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+    gap:15px;
+}
+
+.cast-card{
+    text-align:center;
+    background:#1b1b1b;
+    padding:10px;
+    border-radius:10px;
+}
+
+.cast-card img{
+    width:100%;
+    height:140px;
+    object-fit:cover;
+    border-radius:10px;
+}
