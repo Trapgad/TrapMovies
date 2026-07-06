@@ -8,15 +8,17 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
 const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "YOUR_AUTH_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_STORAGE_BUCKET",
-  messagingSenderId: "YOUR_SENDER_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyBLHlSlMPvwSS5MB8JqG2JB1R-ANIopQZU",
+  authDomain: "trap-270792.firebaseapp.com",
+  projectId: "trap-270792",
+  storageBucket: "trap-270792.firebasestorage.app",
+  messagingSenderId: "248838190395",
+  appId: "1:248838190395:web:9d319e9732b0550670331e",
+  measurementId: "G-ZCHXNX0LX8"
 };
 
 const app = initializeApp(firebaseConfig);
+
 export const auth = getAuth(app);
 
 export {
