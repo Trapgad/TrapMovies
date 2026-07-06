@@ -1,108 +1,42 @@
-// ===============================
-// TRAP MOVIES - script.js
-// ===============================
-
-const API_KEY = "17a1834e273320eef8a2a36b38a11964";
+const API_KEY = "YOUR_API_KEY";
 const BASE_URL = "https://api.themoviedb.org/3";
 const IMAGE_URL = "https://image.tmdb.org/t/p/w500";
 
-const movieGrid = document.querySelector(".movie-grid");
-const searchInput = document.querySelector(".search-box input");
-const searchBtn = document.querySelector(".search-box button");
+const seriesGrid = document.getElementById("seriesGrid");
 
-// ===============================
-// LOAD POPULAR MOVIES (HOME)
-// ===============================
-async function loadMovies() {
+// Load TV Series
+async function loadSeries() {
     try {
         const res = await fetch(
-            `${BASE_URL}/movie/popular?api_key=${API_KEY}`
+            `${BASE_URL}/tv/popular?api_key=${API_KEY}`
         );
+
         const data = await res.json();
 
-        displayMovies(data.results);
+        displaySeries(data.results);
 
     } catch (error) {
-        console.log("Error loading movies:", error);
+        console.log(error);
     }
 }
 
-// ===============================
-// SEARCH MOVIES
-// ===============================
-async function searchMovies(query) {
-    try {
-        const res = await fetch(
-            `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${query}`
-        );
-        const data = await res.json();
+// Display Series
+function displaySeries(seriesList) {
+    seriesGrid.innerHTML = "";
 
-        displayMovies(data.results);
+    seriesList.forEach(show => {
 
-    } catch (error) {
-        console.log("Search error:", error);
-    }
-}
-
-// ===============================
-// DISPLAY MOVIES
-// ===============================
-function displayMovies(movies) {
-    movieGrid.innerHTML = "";
-
-    movies.forEach(movie => {
-
-        const poster = movie.poster_path
-            ? IMAGE_URL + movie.poster_path
+        const poster = show.poster_path
+            ? IMAGE_URL + show.poster_path
             : "https://via.placeholder.com/500x750?text=No+Image";
 
-        const card = document.createElement("div");
-        card.className = "movie-card";
-
-        card.innerHTML = `
-            <img src="${poster}" alt="${movie.title}">
-            <h3>${movie.title}</h3>
+        seriesGrid.innerHTML += `
+            <div class="movie-card">
+                <img src="${poster}" alt="${show.name}">
+                <h3>${show.name}</h3>
+            </div>
         `;
-
-        // CLICK TO OPEN MOVIE DETAILS
-        card.addEventListener("click", () => {
-            openMovie(movie.id);
-        });
-
-        movieGrid.appendChild(card);
     });
 }
 
-// ===============================
-// OPEN MOVIE DETAILS PAGE
-// ===============================
-function openMovie(id) {
-    window.location.href = `movie.html?id=${id}`;
-}
-
-// ===============================
-// SEARCH BUTTON CLICK
-// ===============================
-searchBtn.addEventListener("click", () => {
-    const query = searchInput.value.trim();
-
-    if (query !== "") {
-        searchMovies(query);
-    } else {
-        loadMovies();
-    }
-});
-
-// ===============================
-// PRESS ENTER TO SEARCH
-// ===============================
-searchInput.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") {
-        searchBtn.click();
-    }
-});
-
-// ===============================
-// START APP
-// ===============================
-loadMovies();
+loadSeries();
