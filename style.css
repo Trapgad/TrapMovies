@@ -1,0 +1,216 @@
+/* ===========================
+   TRAP MOVIES - STYLE.CSS
+=========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#0d0d0d;
+    color:#fff;
+}
+
+/* Header */
+
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px 8%;
+    background:#111;
+    position:sticky;
+    top:0;
+    z-index:1000;
+}
+
+.logo h2{
+    color:#ff2d55;
+}
+
+nav ul{
+    display:flex;
+    list-style:none;
+}
+
+nav ul li{
+    margin:0 15px;
+}
+
+nav ul li a{
+    color:#fff;
+    text-decoration:none;
+    font-weight:500;
+    transition:.3s;
+}
+
+nav ul li a:hover,
+nav ul li a.active{
+    color:#ff2d55;
+}
+
+/* Search */
+
+.search-box{
+    display:flex;
+}
+
+.search-box input{
+    padding:10px;
+    width:220px;
+    border:none;
+    outline:none;
+    border-radius:5px 0 0 5px;
+}
+
+.search-box button{
+    background:#ff2d55;
+    color:#fff;
+    border:none;
+    padding:10px 15px;
+    cursor:pointer;
+    border-radius:0 5px 5px 0;
+}
+
+/* Hero */
+
+.hero{
+    height:80vh;
+    background:linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.7)),
+    url("https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1600&q=80");
+    background-size:cover;
+    background-position:center;
+    display:flex;
+    align-items:center;
+    padding:0 8%;
+}
+
+.hero-content{
+    max-width:600px;
+}
+
+.hero h1{
+    font-size:55px;
+    margin-bottom:20px;
+}
+
+.hero p{
+    font-size:18px;
+    margin-bottom:30px;
+    color:#ddd;
+}
+
+.btn{
+    display:inline-block;
+    background:#ff2d55;
+    color:#fff;
+    padding:12px 28px;
+    text-decoration:none;
+    border-radius:5px;
+    transition:.3s;
+}
+
+.btn:hover{
+    background:#ff0033;
+}
+
+/* Sections */
+
+.movies{
+    padding:60px 8%;
+}
+
+.movies h2{
+    margin-bottom:25px;
+    color:#ff2d55;
+}
+
+/* Movie Grid */
+
+.movie-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+    gap:20px;
+}
+
+.movie-card{
+    height:270px;
+    background:#222;
+    border-radius:10px;
+    transition:.3s;
+    cursor:pointer;
+}
+
+.movie-card:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 15px #ff2d55;
+}
+
+/* Footer */
+
+footer{
+    text-align:center;
+    padding:25px;
+    background:#111;
+    color:#bbb;
+}
+
+/* Responsive */
+
+@media(max-width:900px){
+
+header{
+    flex-direction:column;
+    gap:15px;
+}
+
+nav ul{
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+.hero{
+    text-align:center;
+    justify-content:center;
+}
+
+.hero h1{
+    font-size:40px;
+}
+
+.search-box input{
+    width:180px;
+}
+
+}
+
+@media(max-width:600px){
+
+.hero{
+    height:65vh;
+}
+
+.hero h1{
+    font-size:30px;
+}
+
+.hero p{
+    font-size:15px;
+}
+
+.search-box{
+    width:100%;
+}
+
+.search-box input{
+    width:100%;
+}
+
+.movies{
+    padding:40px 5%;
+}
+
+}
