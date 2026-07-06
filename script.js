@@ -1,50 +1,37 @@
-// ===============================
-// TRAP MOVIES - script.js
-// ===============================
-
-const movies = [
-{
-title: "Avatar",
-image: "https://image.tmdb.org/t/p/w500/jRXYjXNq0Cs2TcJjLkki24MLp7u.jpg"
-},
-{
-title: "John Wick 4",
-image: "https://image.tmdb.org/t/p/w500/vZloFAK7NmvMGKE7VkF5UHaz0I.jpg"
-},
-{
-title: "Spider-Man: No Way Home",
-image: "https://image.tmdb.org/t/p/w500/1g0dhYtq4irTY1GPXvft6k4YLjm.jpg"
-},
-{
-title: "Black Panther",
-image: "https://image.tmdb.org/t/p/w500/uxzzxijgPIY7slzFvMotPv8wjKA.jpg"
-},
-{
-title: "The Batman",
-image: "https://image.tmdb.org/t/p/w500/74xTEgt7R36Fpooo50r9T25onhq.jpg"
-},
-{
-title: "Fast X",
-image: "https://image.tmdb.org/t/p/w500/fiVW06jE7z9YnO4trhaMEdclSiC.jpg"
-}
-];
+const API_KEY = "17a1834e273320eef8a2a36b38a11964";
+const BASE_URL = "https://api.themoviedb.org/3";
+const IMAGE_URL = "https://image.tmdb.org/t/p/w500";
 
 const grids = document.querySelectorAll(".movie-grid");
 
-grids.forEach(grid => {
+async function loadMovies() {
+    try {
+        const response = await fetch(
+            `${BASE_URL}/movie/popular?api_key=${API_KEY}`
+        );
 
-movies.forEach(movie => {
+        const data = await response.json();
 
-const card = document.createElement("div");
-card.className = "movie-card";
+        grids.forEach(grid => {
+            grid.innerHTML = "";
 
-card.innerHTML = `
-<img src="${movie.image}" alt="${movie.title}">
-<h3>${movie.title}</h3>
-`;
+            data.results.forEach(movie => {
 
-grid.appendChild(card);
+                const card = document.createElement("div");
+                card.className = "movie-card";
 
-});
+                card.innerHTML = `
+                    <img src="${IMAGE_URL + movie.poster_path}" alt="${movie.title}">
+                    <h3>${movie.title}</h3>
+                `;
 
-});
+                grid.appendChild(card);
+            });
+        });
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+loadMovies();
