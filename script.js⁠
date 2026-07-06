@@ -1,5 +1,5 @@
 // --- 1. Configuration & Setup ---
-const API_KEY = 'YOUR_V3_API_KEY_HERE'; // Replace with your actual key
+const API_KEY = 'Y17a1834e273320eef8a2a36b38a11964'; // Replace with your actual key
 const BASE_URL = 'https://api.themoviedb.org/3';
 
 // --- 2. Shared Functions ---
