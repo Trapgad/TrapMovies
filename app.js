@@ -356,4 +356,4 @@ if(searchBtn && searchInput){
 // START WEBSITE
 // ===============================
 
-loadHome();
+loadHome(); 
