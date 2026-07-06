@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sign In | TRAP MOVIES</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign In | TRAP MOVIES</title>
 
-<link rel="stylesheet" href="style.css">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -20,19 +21,35 @@
 <section class="auth">
 
     <div class="auth-box">
-        <h2>Sign In</h2>
 
-        <input type="email" id="email" placeholder="Email">
-        <input type="password" id="password" placeholder="Password">
+        <h2>Welcome Back</h2>
 
-        <button onclick="login()">Login</button>
+        <input
+            type="email"
+            id="email"
+            placeholder="Enter your email"
+            required
+        >
 
-        <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
+        <input
+            type="password"
+            id="password"
+            placeholder="Enter your password"
+            required
+        >
+
+        <button onclick="login()">Sign In</button>
+
+        <p>
+            Don't have an account?
+            <a href="signup.html">Create Account</a>
+        </p>
+
     </div>
 
 </section>
 
-<script src="auth.js"></script>
+<script type="module" src="auth.js"></script>
 
 </body>
 </html>
