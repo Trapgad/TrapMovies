@@ -1,87 +1,96 @@
-// --- 1. Configuration & Setup ---
-const API_KEY = 'Y17a1834e273320eef8a2a36b38a11964'; // Replace with your actual key
-const BASE_URL = 'https://api.themoviedb.org/3';
+const BASE_URL = "https://api.themoviedb.org/3";
+const API_KEY = "17a1834e273320eef8a2a36b38a11964";
 
-// --- 2. Shared Functions ---
-
-// Display movies in the grid
+// ------------------------
+// DISPLAY MOVIES
+// ------------------------
 function displayMovies(movies) {
-    const grid = document.querySelector('.movie-grid');
+    const grid = document.querySelector(".movie-grid");
     if (!grid) return;
-    
+
     grid.innerHTML = movies.map(movie => `
         <a href="movie.html?id=${movie.id}" class="movie-card-link">
             <div class="movie-card">
-                <img src="${movie.poster_path ? 'https://image.tmdb.org/t/p/w500' + movie.poster_path : 'placeholder.jpg'}" alt="${movie.title}">
+                <img src="${movie.poster_path 
+                    ? 'https://image.tmdb.org/t/p/w500' + movie.poster_path 
+                    : 'placeholder.jpg'}" 
+                    alt="${movie.title}">
                 <h3>${movie.title}</h3>
             </div>
         </a>
-    `).join('');
+    `).join("");
 }
 
-// --- 3. Home Page Logic ---
+// ------------------------
+// TRENDING MOVIES
+// ------------------------
 async function fetchTrendingMovies() {
-    const grid = document.querySelector('.movie-grid');
-    if (!grid) return;
+    const res = await fetch(`${BASE_URL}/trending/movie/day?api_key=${API_KEY}`);
+    const data = await res.json();
 
-    try {
-        const response = await fetch(`${BASE_URL}/trending/movie/day?api_key=${API_KEY}`);
-        const data = await response.json();
-        if (data.results) displayMovies(data.results);
-    } catch (error) {
-        console.error('Error fetching trending:', error);
+    if (data.results) {
+        displayMovies(data.results);
     }
 }
 
-// Search Logic
-const searchInput = document.getElementById('search-input');
-if (searchInput) {
-    searchInput.addEventListener('keypress', async (e) => {
-        if (e.key === 'Enter') {
-            const query = searchInput.value;
+// ------------------------
+// SEARCH MOVIES
+// ------------------------
+function searchMovies() {
+    const input = document.getElementById("search-input");
+    if (!input) return;
+
+    input.addEventListener("keypress", async (e) => {
+        if (e.key === "Enter") {
+            const query = input.value;
             if (!query) return;
-            const response = await fetch(`${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}`);
-            const data = await response.json();
-            displayMovies(data.results);
+
+            const res = await fetch(
+                `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}`
+            );
+
+            const data = await res.json();
+
+            if (data.results) {
+                displayMovies(data.results);
+            }
         }
     });
 }
 
-// --- 4. Details Page Logic ---
+// ------------------------
+// MOVIE DETAILS
+// ------------------------
 async function fetchMovieDetails() {
-    const detailsContainer = document.querySelector('.details-container');
-    if (!detailsContainer) return;
+    const container = document.querySelector(".details-container");
+    if (!container) return;
 
-    const params = new URLSearchParams(window.location.search);
-    const movieId = params.get('id');
-    if (!movieId) return;
+    const id = new URLSearchParams(window.location.search).get("id");
+    if (!id) return;
 
-    try {
-        const response = await fetch(`${BASE_URL}/movie/${movieId}?api_key=${API_KEY}`);
-        const movie = await response.json();
+    const res = await fetch(`${BASE_URL}/movie/${id}?api_key=${API_KEY}`);
+    const movie = await res.json();
 
-        detailsContainer.innerHTML = `
-            <div class="movie-poster">
-                <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
-            </div>
-            <div class="movie-info">
-                <h1>${movie.title}</h1>
-                <div class="meta">
-                    <span>${movie.release_date}</span> | 
-                    <span>⭐ ${movie.vote_average.toFixed(1)}/10</span>
-                </div>
-                <p class="synopsis">${movie.overview}</p>
-                <button class="play-btn">▶ Watch Now</button>
-            </div>
-        `;
-    } catch (error) {
-        console.error('Error fetching details:', error);
-    }
+    container.innerHTML = `
+        <div class="movie-poster">
+            <img src="https://image.tmdb.org/t/p/w500${movie.poster_path}" alt="${movie.title}">
+        </div>
+
+        <div class="movie-info">
+            <h1>${movie.title}</h1>
+            <p>${movie.release_date}</p>
+            <p>⭐ ${movie.vote_average}/10</p>
+            <p>${movie.overview}</p>
+            <button>Watch Now</button>
+        </div>
+    `;
 }
 
-// --- 5. Execution ---
-// Run functions based on page
-document.addEventListener('DOMContentLoaded', () => {
+// ------------------------
+// RUN ON PAGE LOAD
+// ------------------------
+document.addEventListener("DOMContentLoaded", () => {
     fetchTrendingMovies();
+    searchMovies();
     fetchMovieDetails();
 });
