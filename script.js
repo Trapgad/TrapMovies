@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded",()=>{
         TMDB CONFIG
 ========================= */
 
-
 const API_KEY = "17a1834e273320eef8a2a36b38a11964";
 
 const BASE_URL =
