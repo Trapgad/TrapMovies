@@ -8,14 +8,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-<title>TRAP MOVIES | Premium Streaming</title>
+<title>TRAP MOVIES</title>
 
 
 <link rel="stylesheet" href="style.css">
 
 
 
-<!-- Font Awesome Icons -->
+<!-- Font Awesome -->
 
 <link 
 rel="stylesheet" 
@@ -38,11 +38,7 @@ rel="stylesheet">
 
 
 
-
-<!-- =========================
-        HEADER
-========================= -->
-
+<!-- HEADER -->
 
 <header class="header">
 
@@ -56,9 +52,11 @@ rel="stylesheet">
 
 
 
+
 <div class="logo">
 
-TRAP 
+TRAP
+
 <span>MOVIES</span>
 
 </div>
@@ -74,7 +72,6 @@ TRAP
 </button>
 
 
-
 </header>
 
 
@@ -84,11 +81,7 @@ TRAP
 
 
 
-
-<!-- =========================
-        MAIN NAVIGATION
-========================= -->
-
+<!-- MAIN NAV -->
 
 <nav class="main-nav">
 
@@ -135,13 +128,9 @@ Contact
 
 
 
-<!-- =========================
-        SIDE MENU
-========================= -->
-
+<!-- SIDE MENU -->
 
 <aside class="side-menu">
-
 
 
 <div class="menu-header">
@@ -152,7 +141,6 @@ Contact
 TRAP MOVIES
 
 </h2>
-
 
 
 
@@ -170,19 +158,26 @@ TRAP MOVIES
 
 
 
-
-
 <ul>
+
+
+<li>
+
+<i class="fa-solid fa-house"></i>
+
+Home
+
+</li>
+
 
 
 <li>
 
 <i class="fa-solid fa-user"></i>
 
-My Account
+Account
 
 </li>
-
 
 
 
@@ -198,22 +193,17 @@ Favorites
 
 
 
-
 <li>
 
 <i class="fa-solid fa-clock"></i>
 
-Watch History
+History
 
 </li>
 
 
 
-
-
 <hr>
-
-
 
 
 
@@ -229,8 +219,6 @@ Movies
 
 
 
-
-
 <li>
 
 <i class="fa-solid fa-tv"></i>
@@ -238,21 +226,6 @@ Movies
 Series
 
 </li>
-
-
-
-
-
-
-<li>
-
-<i class="fa-solid fa-video"></i>
-
-Reels
-
-</li>
-
-
 
 
 
@@ -268,8 +241,6 @@ Trending
 
 
 
-
-
 <li>
 
 <i class="fa-solid fa-star"></i>
@@ -281,26 +252,7 @@ Top Rated
 
 
 
-
-
-
 <hr>
-
-
-
-
-
-
-
-<li>
-
-<i class="fa-solid fa-phone"></i>
-
-Contact
-
-</li>
-
-
 
 
 
@@ -315,10 +267,7 @@ Settings
 
 
 
-
-
-
-<li class="logout">
+<li>
 
 <i class="fa-solid fa-right-from-bracket"></i>
 
@@ -328,11 +277,7 @@ Logout
 
 
 
-
-
 </ul>
-
-
 
 
 
@@ -346,10 +291,7 @@ Logout
 
 
 
-<!-- =========================
-        OVERLAY
-========================= -->
-
+<!-- OVERLAY -->
 
 <div class="overlay-bg"></div>
 
@@ -360,16 +302,9 @@ Logout
 
 
 
-
-<!-- =========================
-        SEARCH PAGE
-========================= -->
-
+<!-- SEARCH PAGE -->
 
 <section class="search-page">
-
-
-
 
 
 <div class="search-header">
@@ -383,7 +318,6 @@ Logout
 
 
 
-
 <h2>
 
 Search TRAP MOVIES
@@ -391,9 +325,7 @@ Search TRAP MOVIES
 </h2>
 
 
-
 </div>
-
 
 
 
@@ -408,18 +340,16 @@ Search TRAP MOVIES
 <i class="fa-solid fa-magnifying-glass"></i>
 
 
-
 <input
 
 type="text"
 
 id="searchInput"
 
-placeholder="Search movies, actors, genres...">
+placeholder="Search movies, actors...">
 
 
 </div>
-
 
 
 
@@ -438,7 +368,6 @@ All
 
 
 
-
 <button class="filter">
 
 Movies
@@ -447,15 +376,11 @@ Movies
 
 
 
-
-
 <button class="filter">
 
 Series
 
 </button>
-
-
 
 
 
@@ -474,12 +399,125 @@ Actors
 
 
 
-
-
-
 <div class="search-results" id="searchResults">
 
-<!-- TMDB SEARCH RESULTS -->
+
+</div>
+
+
+
+</section>
+<!-- =========================
+        MAIN CONTENT
+========================= -->
+
+<main>
+
+
+
+<!-- =========================
+        HERO SLIDER
+========================= -->
+
+
+<section class="hero">
+
+
+<div class="slides-container">
+
+
+
+
+
+<!-- SLIDE 1 -->
+
+
+<div class="slide active">
+
+
+<img 
+src="assets/images/banner1.jpg"
+alt="Featured Movie">
+
+
+
+
+
+<div class="hero-overlay">
+
+
+
+<div class="movie-info">
+
+
+
+<span class="tag">
+
+🔥 Trending
+
+</span>
+
+
+
+
+<h1>
+
+Mission Impossible
+
+</h1>
+
+
+
+
+
+<p>
+
+The biggest missions. The biggest action.
+Experience cinema like never before.
+
+</p>
+
+
+
+
+
+
+<div class="movie-details">
+
+
+<span>
+
+⭐ 8.5
+
+</span>
+
+
+
+<span>
+
+2026
+
+</span>
+
+
+
+
+<span>
+
+Action
+
+</span>
+
+
+
+
+<span>
+
+2h 43min
+
+</span>
+
+
 
 </div>
 
@@ -489,10 +527,497 @@ Actors
 
 
 
+<div class="hero-buttons">
+
+
+
+<button class="watch">
+
+<i class="fa-solid fa-play"></i>
+
+Watch Now
+
+</button>
+
+
+
+
+
+
+<button class="info">
+
+<i class="fa-solid fa-circle-info"></i>
+
+More Info
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<!-- SLIDE 2 -->
+
+
+<div class="slide">
+
+
+<img 
+
+src="assets/images/banner2.jpg"
+
+alt="Featured Movie">
+
+
+
+
+
+
+<div class="hero-overlay">
+
+
+
+<div class="movie-info">
+
+
+
+<span class="tag">
+
+⭐ Top Rated
+
+</span>
+
+
+
+
+
+<h1>
+
+Avengers Endgame
+
+</h1>
+
+
+
+
+
+<p>
+
+The ultimate battle that changed the universe forever.
+
+</p>
+
+
+
+
+
+
+
+<div class="movie-details">
+
+
+<span>
+
+⭐ 8.4
+
+</span>
+
+
+
+<span>
+
+2019
+
+</span>
+
+
+
+<span>
+
+Action
+
+</span>
+
+
+
+<span>
+
+3h 2min
+
+</span>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="hero-buttons">
+
+
+<button class="watch">
+
+<i class="fa-solid fa-play"></i>
+
+Watch Now
+
+</button>
+
+
+
+
+
+
+<button class="info">
+
+<i class="fa-solid fa-circle-info"></i>
+
+More Info
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- SLIDER DOTS -->
+
+
+<div class="slider-dots">
+
+
+<span class="active"></span>
+
+<span></span>
+
+
+</div>
+
+
+
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- =========================
+        MOVIES
+========================= -->
+
+
+<section id="movies" class="movie-sections">
+
+
+
+
+
+
+<section class="movie-row">
+
+
+<h2>
+
+🔥 Trending Movies
+
+</h2>
+
+
+
+<div class="movie-container">
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+<section class="movie-row">
+
+
+<h2>
+
+⭐ Popular Movies
+
+</h2>
+
+
+
+<div class="movie-container">
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+<section class="movie-row">
+
+
+<h2>
+
+🎬 Latest Releases
+
+</h2>
+
+
+
+<div class="movie-container">
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+<section class="movie-row">
+
+
+<h2>
+
+🏆 Top Rated
+
+</h2>
+
+
+
+<div class="movie-container">
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+<section class="movie-row">
+
+
+<h2>
+
+🎭 Upcoming Movies
+
+</h2>
+
+
+
+<div class="movie-container">
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- =========================
+        REELS SECTION
+========================= -->
+
+
+<section id="reels" class="movie-row">
+
+
+<h2>
+
+🎥 Movie Reels
+
+</h2>
+
+
+
+
+<div class="movie-container">
+
+
+<div class="movie-card">
+
+
+<img src="assets/images/reel1.jpg">
+
+
+<h3>
+
+Action Clips
+
+</h3>
+
+
+<p>
+
+🔥 Trending
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+<div class="movie-card">
+
+
+<img src="assets/images/reel2.jpg">
+
+
+<h3>
+
+Movie Moments
+
+</h3>
+
+
+<p>
+
+⭐ Popular
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+<div class="movie-card">
+
+
+<img src="assets/images/reel3.jpg">
+
+
+<h3>
+
+Behind The Scenes
+
+</h3>
+
+
+<p>
+
+🎬 Exclusive
+
+</p>
+
+
+</div>
+
+
+
+
+</div>
+
+
+
 </section>
 <!-- =========================
         ABOUT SECTION
 ========================= -->
+
 
 <section id="about" class="movie-extra-info">
 
@@ -506,23 +1031,26 @@ About TRAP MOVIES
 
 
 
+
 <div class="info-grid">
 
 
 
+
+
 <div class="info-box">
 
 
 <h3>
 
-Premium Streaming
+Premium Entertainment
 
 </h3>
 
 
 <p>
 
-TRAP MOVIES brings you the latest movies, trending releases, trailers and entertainment content in a premium cinematic experience.
+TRAP MOVIES is a modern streaming platform designed to bring movies, trailers and entertainment together in one premium experience.
 
 </p>
 
@@ -534,19 +1062,20 @@ TRAP MOVIES brings you the latest movies, trending releases, trailers and entert
 
 
 
+
 <div class="info-box">
 
 
 <h3>
 
-Our Mission
+Our Vision
 
 </h3>
 
 
 <p>
 
-To create a modern movie platform where users can discover, explore and enjoy movies from around the world.
+To create a cinematic online experience where movie lovers can discover and enjoy content from around the world.
 
 </p>
 
@@ -558,19 +1087,20 @@ To create a modern movie platform where users can discover, explore and enjoy mo
 
 
 
+
 <div class="info-box">
 
 
 <h3>
 
-Entertainment First
+What We Offer
 
 </h3>
 
 
 <p>
 
-From action and comedy to horror and classics, TRAP MOVIES delivers entertainment for every movie lover.
+Trending movies, top rated films, action, comedy, horror, classics and exclusive entertainment.
 
 </p>
 
@@ -580,7 +1110,10 @@ From action and comedy to horror and classics, TRAP MOVIES delivers entertainmen
 
 
 
+
+
 </div>
+
 
 
 </section>
@@ -603,7 +1136,7 @@ From action and comedy to horror and classics, TRAP MOVIES delivers entertainmen
 
 <h2>
 
-Contact Us
+Contact TRAP MOVIES
 
 </h2>
 
@@ -611,7 +1144,33 @@ Contact Us
 
 
 
+
 <div class="info-grid">
+
+
+
+
+
+<div class="info-box">
+
+
+<h3>
+
+Support
+
+</h3>
+
+
+<p>
+
+Need help or have suggestions? Contact our team anytime.
+
+</p>
+
+
+</div>
+
+
 
 
 
@@ -666,29 +1225,6 @@ Follow TRAP MOVIES for updates, trailers and new releases.
 
 
 
-<div class="info-box">
-
-
-<h3>
-
-Support
-
-</h3>
-
-
-<p>
-
-Need help? Our team is always ready to assist.
-
-</p>
-
-
-</div>
-
-
-
-
-
 </div>
 
 
@@ -712,12 +1248,12 @@ Need help? Our team is always ready to assist.
 
 
 
-
 <h2>
 
 TRAP MOVIES
 
 </h2>
+
 
 
 
@@ -734,7 +1270,9 @@ Discover • Watch • Enjoy 🎬
 
 
 
+
 <div class="socials">
+
 
 
 <a href="#">
@@ -745,11 +1283,15 @@ Discover • Watch • Enjoy 🎬
 
 
 
+
+
 <a href="#">
 
 <i class="fa-brands fa-instagram"></i>
 
 </a>
+
+
 
 
 
@@ -763,6 +1305,9 @@ Discover • Watch • Enjoy 🎬
 
 
 
+
+
+
 <a href="#">
 
 <i class="fa-brands fa-youtube"></i>
@@ -771,8 +1316,9 @@ Discover • Watch • Enjoy 🎬
 
 
 
-</div>
 
+
+</div>
 
 
 
@@ -788,7 +1334,18 @@ Discover • Watch • Enjoy 🎬
 
 
 
+
+
 </footer>
+
+
+
+
+
+
+
+
+</main>
 
 
 
@@ -804,6 +1361,8 @@ Discover • Watch • Enjoy 🎬
 
 
 <script src="script.js"></script>
+
+
 
 
 
