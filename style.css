@@ -1,7 +1,7 @@
 /* ==================================
         TRAP MOVIES PREMIUM UI
-        GLASS CINEMA DESIGN V2
-        PART 1
+        GLASS CINEMA DESIGN V3
+        PART 1/3
 ================================== */
 
 
@@ -9,23 +9,31 @@
         GLOBAL RESET
 ========================= */
 
-
 *{
+
     margin:0;
+
     padding:0;
+
     box-sizing:border-box;
+
     font-family:'Poppins',sans-serif;
+
 }
 
 
 html{
+
     scroll-behavior:smooth;
+
 }
+
 
 
 body{
 
     min-height:100vh;
+
 
     background:
 
@@ -42,6 +50,7 @@ body{
     ),
 
     #050505;
+
 
     color:white;
 
@@ -83,6 +92,8 @@ button{
 
     border:none;
 
+    outline:none;
+
     cursor:pointer;
 
     font-family:inherit;
@@ -122,9 +133,12 @@ button{
         #8a2be2
     );
 
+
     border-radius:20px;
 
 }
+
+
 
 
 
@@ -137,9 +151,11 @@ button{
 
 .glass{
 
+
     background:
 
     rgba(20,20,25,.65);
+
 
 
     backdrop-filter:
@@ -147,9 +163,11 @@ button{
     blur(25px);
 
 
+
     -webkit-backdrop-filter:
 
     blur(25px);
+
 
 
     border:
@@ -157,11 +175,14 @@ button{
     1px solid rgba(255,255,255,.12);
 
 
+
     box-shadow:
 
     0 25px 80px rgba(0,0,0,.6);
 
+
 }
+
 
 
 
@@ -246,15 +267,17 @@ button{
 
 
 
-
 /* LOGO */
 
 
 .logo{
 
+
     font-size:26px;
 
+
     font-weight:900;
+
 
     letter-spacing:1px;
 
@@ -276,10 +299,11 @@ button{
 
     -webkit-background-clip:text;
 
+
     color:transparent;
 
-}
 
+}
 
 
 
@@ -297,6 +321,7 @@ button{
 
 
     height:45px;
+
 
 
     display:flex;
@@ -331,8 +356,8 @@ button{
 
     transition:.35s;
 
-}
 
+}
 
 
 
@@ -343,6 +368,7 @@ button{
     transform:scale(1.1);
 
 
+
     background:
 
     linear-gradient(
@@ -350,6 +376,7 @@ button{
         #e50914,
         #8a2be2
     );
+
 
 }
 
@@ -362,7 +389,7 @@ button{
 
 
 /* =========================
-        MAIN NAV
+        MAIN NAVIGATION
 ========================= */
 
 
@@ -423,7 +450,11 @@ button{
 
 
 
+
 .main-nav a{
+
+
+    position:relative;
 
 
     color:#aaa;
@@ -435,18 +466,16 @@ button{
     font-weight:600;
 
 
-    position:relative;
-
-
     transition:.3s;
+
 
 }
 
 
 
-
 .main-nav a:hover,
 .main-nav a.active{
+
 
     color:white;
 
@@ -472,10 +501,12 @@ button{
     transform:translateX(-50%);
 
 
+
     width:0;
 
 
     height:3px;
+
 
 
     border-radius:20px;
@@ -494,6 +525,7 @@ button{
 
     transition:.3s;
 
+
 }
 
 
@@ -504,6 +536,7 @@ button{
 
 
     width:100%;
+
 
 }
 
@@ -544,6 +577,10 @@ button{
 
 
 
+    overflow-y:auto;
+
+
+
     background:
 
     rgba(15,15,20,.88);
@@ -568,16 +605,24 @@ button{
 
     transition:.4s ease;
 
+
 }
+
 
 
 
 
 .side-menu.active{
 
+
     left:0;
 
+
 }
+
+
+
+
 
 
 
@@ -595,7 +640,9 @@ button{
 
     margin-bottom:35px;
 
+
 }
+
 
 
 
@@ -611,6 +658,7 @@ button{
     border-radius:50%;
 
 
+
     color:white;
 
 
@@ -623,6 +671,7 @@ button{
         #8a2be2
     );
 
+
 }
 
 
@@ -632,7 +681,9 @@ button{
 
 .side-menu ul{
 
+
     list-style:none;
+
 
 }
 
@@ -677,8 +728,8 @@ button{
 
     transition:.3s;
 
-}
 
+}
 
 
 
@@ -693,7 +744,10 @@ button{
 
     rgba(138,43,226,.35);
 
+
 }
+
+
 
 
 
@@ -740,6 +794,7 @@ button{
 
     transition:.3s;
 
+
 }
 
 
@@ -752,49 +807,35 @@ button{
 
     visibility:visible;
 
+
 }
 /* ==================================
         HERO SLIDER
 ================================== */
 
-
 .hero{
 
     position:relative;
-
     height:520px;
-
     margin:160px 20px 40px;
 
     border-radius:35px;
-
     overflow:hidden;
 
-
-    border:
-
-    1px solid rgba(255,255,255,.15);
-
-
+    border:1px solid rgba(255,255,255,.15);
 
     box-shadow:
-
     0 30px 100px rgba(0,0,0,.8);
 
 }
 
 
-
-
-
 .slide{
 
     position:absolute;
-
     inset:0;
 
     opacity:0;
-
     visibility:hidden;
 
     transition:1s ease;
@@ -802,11 +843,9 @@ button{
 }
 
 
-
 .slide.active{
 
     opacity:1;
-
     visibility:visible;
 
 }
@@ -816,7 +855,6 @@ button{
 .slide img{
 
     width:100%;
-
     height:100%;
 
     object-fit:cover;
@@ -830,119 +868,79 @@ button{
 @keyframes zoom{
 
     from{
-
         transform:scale(1);
-
     }
 
-
     to{
-
         transform:scale(1.1);
-
     }
 
 }
-
-
 
 
 
 
 .hero-overlay{
 
-
     position:absolute;
-
 
     inset:0;
 
-
     display:flex;
 
-
     align-items:flex-end;
-
-
 
     padding:45px;
 
 
-
     background:
-
     linear-gradient(
-
-    90deg,
-
-    rgba(0,0,0,.95),
-
-    rgba(0,0,0,.55),
-
-    transparent
-
+        90deg,
+        rgba(0,0,0,.95),
+        rgba(0,0,0,.55),
+        transparent
     );
 
 }
 
 
 
-
-
-
-
 .movie-info{
-
 
     max-width:600px;
 
-
     padding:30px;
-
 
     border-radius:30px;
 
 
-
     background:
-
     rgba(15,15,20,.55);
 
 
-
-    backdrop-filter:
-
-    blur(18px);
-
+    backdrop-filter:blur(18px);
 
 
     border:
-
     1px solid rgba(255,255,255,.15);
 
 }
 
 
 
-
 .movie-info h1{
-
 
     font-size:52px;
 
-
     font-weight:900;
 
-
     margin:15px 0;
-
 
 }
 
 
 
 .movie-info p{
-
 
     color:#ddd;
 
@@ -952,29 +950,21 @@ button{
 
 
 
-
-
 .tag{
-
 
     display:inline-block;
 
-
     padding:8px 18px;
-
 
     border-radius:30px;
 
 
-
     background:
-
     linear-gradient(
         135deg,
         #e50914,
         #8a2be2
     );
-
 
 
     font-weight:700;
@@ -984,19 +974,13 @@ button{
 
 
 
-
-
 .movie-details{
-
 
     display:flex;
 
-
-    gap:12px;
-
-
     flex-wrap:wrap;
 
+    gap:12px;
 
     margin:20px 0;
 
@@ -1006,37 +990,25 @@ button{
 
 .movie-details span{
 
-
     padding:8px 16px;
-
 
     border-radius:30px;
 
 
-
     background:
-
     rgba(255,255,255,.12);
 
 
-
     border:
-
     1px solid rgba(255,255,255,.15);
 
 }
 
 
 
-
-
-
-
 .hero-buttons{
 
-
     display:flex;
-
 
     gap:15px;
 
@@ -1047,18 +1019,13 @@ button{
 .watch,
 .info{
 
-
     padding:14px 30px;
-
 
     border-radius:40px;
 
-
     color:white;
 
-
     font-weight:700;
-
 
     transition:.35s;
 
@@ -1068,9 +1035,7 @@ button{
 
 .watch{
 
-
     background:
-
     linear-gradient(
         135deg,
         #e50914,
@@ -1083,15 +1048,8 @@ button{
 
 .info{
 
-
     background:
-
     rgba(255,255,255,.12);
-
-
-    border:
-
-    1px solid rgba(255,255,255,.2);
 
 }
 
@@ -1103,7 +1061,6 @@ button{
     transform:translateY(-5px);
 
 }
-
 
 
 
@@ -1144,15 +1101,11 @@ button{
 
 .movie-container{
 
-
     display:flex;
-
 
     gap:22px;
 
-
     overflow-x:auto;
-
 
     scroll-behavior:smooth;
 
@@ -1170,9 +1123,6 @@ button{
 
 
 
-
-
-
 /* ==================================
         MOVIE CARD
 ================================== */
@@ -1180,44 +1130,28 @@ button{
 
 .movie-card{
 
-
     min-width:190px;
-
 
     overflow:hidden;
 
-
     cursor:pointer;
-
 
     border-radius:25px;
 
 
-
     background:
-
     linear-gradient(
-
-    180deg,
-
-    rgba(255,255,255,.12),
-
-    rgba(255,255,255,.04)
-
+        180deg,
+        rgba(255,255,255,.12),
+        rgba(255,255,255,.04)
     );
 
 
-
-    backdrop-filter:
-
-    blur(15px);
-
+    backdrop-filter:blur(15px);
 
 
     border:
-
     1px solid rgba(255,255,255,.15);
-
 
 
     transition:.4s;
@@ -1226,20 +1160,14 @@ button{
 
 
 
-
-
 .movie-card:hover{
 
-
     transform:
-
     translateY(-12px)
     scale(1.03);
 
 
-
     box-shadow:
-
     0 30px 70px rgba(138,43,226,.45);
 
 }
@@ -1248,9 +1176,7 @@ button{
 
 .movie-card img{
 
-
     height:270px;
-
 
     object-fit:cover;
 
@@ -1260,9 +1186,7 @@ button{
 
 .movie-card h3{
 
-
     padding:14px;
-
 
 }
 
@@ -1270,12 +1194,9 @@ button{
 
 .movie-card p{
 
-
     padding:0 14px 15px;
 
-
     color:#aaa;
-
 
     font-size:14px;
 
@@ -1295,41 +1216,27 @@ button{
 
 .search-page{
 
-
     position:fixed;
-
 
     inset:0;
 
-
     z-index:3000;
-
-
 
     padding:35px;
 
 
-
     background:
-
-    rgba(5,5,5,.9);
-
+    rgba(5,5,5,.92);
 
 
-    backdrop-filter:
-
-    blur(25px);
-
+    backdrop-filter:blur(25px);
 
 
     transform:translateY(100%);
 
-
-
     transition:.5s;
 
 }
-
 
 
 
@@ -1341,16 +1248,11 @@ button{
 
 
 
-
-
 .search-header{
-
 
     display:flex;
 
-
     align-items:center;
-
 
     gap:20px;
 
@@ -1358,63 +1260,45 @@ button{
 
 
 
-
 .back-search{
-
 
     width:45px;
 
-
     height:45px;
 
-
     border-radius:50%;
-
 
     color:white;
 
 
     background:
-
     rgba(255,255,255,.12);
 
 }
 
 
 
-
-
-
 .search-box{
-
 
     max-width:850px;
 
-
     margin:40px auto;
 
-
     display:flex;
-
 
     gap:15px;
 
 
     padding:18px 25px;
 
-
     border-radius:40px;
 
 
-
     background:
-
     rgba(255,255,255,.1);
 
 
-
     border:
-
     1px solid rgba(255,255,255,.15);
 
 }
@@ -1423,21 +1307,15 @@ button{
 
 .search-box input{
 
-
     width:100%;
-
 
     background:none;
 
-
     border:none;
-
 
     outline:none;
 
-
     color:white;
-
 
     font-size:17px;
 
@@ -1445,18 +1323,11 @@ button{
 
 
 
-
-
-
-
 .search-results{
-
 
     display:grid;
 
-
     grid-template-columns:
-
     repeat(auto-fit,minmax(160px,1fr));
 
 
@@ -1466,25 +1337,11 @@ button{
 
 
 
-
-.search-results .movie-card{
-
-
-    min-width:0;
-
-}
-
-
-
-
 .search-results img{
 
     height:240px;
 
 }
-
-
-
 
 
 
@@ -1505,18 +1362,13 @@ button{
 
 .movie-hero{
 
-
     position:relative;
-
 
     margin:20px;
 
-
     min-height:650px;
 
-
     border-radius:35px;
-
 
     overflow:hidden;
 
@@ -1524,25 +1376,17 @@ button{
 
 
 
-
-
 .movie-backdrop{
-
 
     position:absolute;
 
-
     inset:0;
-
 
     background-size:cover;
 
-
     background-position:center;
 
-
     opacity:.45;
-
 
     filter:blur(3px);
 
@@ -1550,617 +1394,72 @@ button{
 
 
 
-
 .movie-content{
-
 
     position:relative;
 
-
     z-index:2;
-
 
     display:flex;
 
-
     align-items:center;
 
-
     gap:45px;
-
 
     padding:60px;
 
 
-
     background:
-
     linear-gradient(
-
-    90deg,
-
-    rgba(0,0,0,.9),
-
-    rgba(0,0,0,.35)
-
+        90deg,
+        rgba(0,0,0,.9),
+        rgba(0,0,0,.35)
     );
 
 }
-
-
-
 
 
 
 .movie-poster img{
 
-
     width:280px;
-
 
     height:420px;
 
-
     object-fit:cover;
-
 
     border-radius:30px;
 
 }
-
-
-
 
 
 
 .movie-info-box{
 
-
     max-width:650px;
 
-
     padding:35px;
-
 
     border-radius:30px;
 
 
-
     background:
-
     rgba(255,255,255,.08);
 
 
-
-    backdrop-filter:
-
-    blur(25px);
+    backdrop-filter:blur(25px);
 
 }
-
-
 
 
 
 .movie-info-box h1{
 
-
     font-size:50px;
 
-
     font-weight:900;
 
 }
-
-
-
-
-
-.movie-meta,
-.genres{
-
-
-    display:flex;
-
-
-    gap:12px;
-
-
-    flex-wrap:wrap;
-
-
-    margin:20px 0;
-
-}
-
-
-
-
-.movie-meta span,
-.genres span{
-
-
-    padding:8px 18px;
-
-
-    border-radius:25px;
-
-
-    background:
-
-    rgba(255,255,255,.12);
-
-}
-
-
-
-
-
-
-#movieDescription{
-
-
-    color:#ddd;
-
-
-    line-height:1.8;
-
-}
-
-
-
-
-
-
-
-
-/* ==================================
-        TRAILER
-================================== */
-
-
-.trailer-section,
-.cast-section,
-.similar-section{
-
-
-    margin:60px 20px;
-
-}
-
-
-
-.trailer-box{
-
-
-    min-height:420px;
-
-
-    border-radius:30px;
-
-
-    overflow:hidden;
-
-
-
-    background:
-
-    rgba(255,255,255,.08);
-
-}
-
-
-
-.trailer-box iframe{
-
-
-    width:100%;
-
-
-    height:450px;
-
-
-    border:none;
-
-}
-/* ==================================
-        CAST SECTION
-================================== */
-
-
-.cast-container{
-
-    display:flex;
-
-    gap:20px;
-
-    overflow-x:auto;
-
-    scroll-behavior:smooth;
-
-}
-
-
-
-.cast-container::-webkit-scrollbar{
-
-    display:none;
-
-}
-
-
-
-
-
-.cast-card{
-
-
-    min-width:145px;
-
-
-    max-width:145px;
-
-
-    text-align:center;
-
-
-    overflow:hidden;
-
-
-    border-radius:22px;
-
-
-
-    background:
-
-    rgba(255,255,255,.07);
-
-
-
-    backdrop-filter:
-
-    blur(18px);
-
-
-
-    border:
-
-    1px solid rgba(255,255,255,.15);
-
-
-
-    transition:.35s;
-
-}
-
-
-
-
-
-.cast-card:hover{
-
-
-    transform:translateY(-10px);
-
-
-
-    background:
-
-    rgba(138,43,226,.25);
-
-}
-
-
-
-.cast-card img{
-
-
-    width:145px;
-
-
-    height:170px;
-
-
-    object-fit:cover;
-
-}
-
-
-
-.cast-card h3{
-
-
-    padding:12px 5px 5px;
-
-
-    font-size:14px;
-
-
-    white-space:nowrap;
-
-
-    overflow:hidden;
-
-
-    text-overflow:ellipsis;
-
-}
-
-
-
-.cast-card p{
-
-
-    color:#aaa;
-
-
-    font-size:12px;
-
-
-    padding-bottom:15px;
-
-
-}
-
-
-
-
-
-
-
-
-
-/* ==================================
-        SIMILAR MOVIES
-================================== */
-
-
-.similar-section .movie-card{
-
-
-    min-width:180px;
-
-}
-
-
-
-
-
-
-
-
-
-
-/* ==================================
-        FOOTER
-================================== */
-
-
-footer{
-
-
-    margin-top:80px;
-
-
-    padding:55px 20px;
-
-
-    text-align:center;
-
-
-
-    background:
-
-    rgba(255,255,255,.06);
-
-
-
-    backdrop-filter:
-
-    blur(25px);
-
-
-
-    border-top:
-
-    1px solid rgba(255,255,255,.12);
-
-}
-
-
-
-footer h2{
-
-
-    font-size:32px;
-
-
-    font-weight:900;
-
-
-
-    background:
-
-    linear-gradient(
-        45deg,
-        #e50914,
-        #8a2be2
-    );
-
-
-
-    -webkit-background-clip:text;
-
-
-    color:transparent;
-
-}
-
-
-
-footer p{
-
-
-    margin-top:12px;
-
-
-    color:#aaa;
-
-}
-
-
-
-
-
-
-
-
-
-/* ==================================
-        SERIES PAGE HERO
-================================== */
-
-
-.series-hero{
-
-
-    position:relative;
-
-
-    height:600px;
-
-
-    margin:130px 20px 50px;
-
-
-
-    border-radius:35px;
-
-
-    overflow:hidden;
-
-
-
-    display:flex;
-
-
-    align-items:flex-end;
-
-
-
-    border:
-
-    1px solid rgba(255,255,255,.15);
-
-
-
-    box-shadow:
-
-    0 30px 100px rgba(0,0,0,.8);
-
-}
-
-
-
-
-
-.series-backdrop{
-
-
-    position:absolute;
-
-
-    inset:0;
-
-
-
-    background-size:cover;
-
-
-    background-position:center;
-
-
-
-    filter:brightness(.75);
-
-}
-
-
-
-
-
-.series-content{
-
-
-    position:relative;
-
-
-    z-index:2;
-
-
-
-    max-width:650px;
-
-
-    padding:60px;
-
-
-
-    background:
-
-    rgba(15,15,20,.55);
-
-
-
-    backdrop-filter:
-
-    blur(20px);
-
-
-
-    border-radius:35px;
-
-}
-
-
-
-
-
-.series-content h1{
-
-
-    font-size:55px;
-
-
-    font-weight:900;
-
-}
-
-
-
-
-
-.series-content p{
-
-
-    color:#ddd;
-
-
-    line-height:1.8;
-
-
-    margin:20px 0;
-
-}
-
-
-
-
-
-
-
-
-
 /* ==================================
         REELS TIKTOK UI
 ================================== */
@@ -2168,17 +1467,15 @@ footer p{
 
 #reelsContainer{
 
-
     height:100vh;
 
+    width:100%;
 
-    overflow-y:scroll;
-
+    overflow-y:auto;
 
     scroll-snap-type:y mandatory;
 
-
-    background:black;
+    background:#000;
 
 }
 
@@ -2194,23 +1491,19 @@ footer p{
 
 
 
+/* SINGLE REEL */
+
 .reel{
-
-
-    height:100vh;
-
-
-    width:100%;
-
 
     position:relative;
 
+    width:100%;
 
-    scroll-snap-align:start;
-
+    height:100vh;
 
     overflow:hidden;
 
+    scroll-snap-align:start;
 
     background:#000;
 
@@ -2220,31 +1513,29 @@ footer p{
 
 
 
-.reel-video,
-.reel-video iframe{
+/* VIDEO */
 
+.reel-video,
+.reel-video video,
+.reel-video iframe{
 
     position:absolute;
 
-
     inset:0;
-
 
     width:100%;
 
-
     height:100%;
 
+    object-fit:cover;
+
 }
-
-
 
 
 
 .reel-video iframe{
 
-
-    transform:scale(1.35);
+    transform:scale(1.25);
 
 }
 
@@ -2252,53 +1543,22 @@ footer p{
 
 
 
-
+/* DARK GRADIENT */
 
 .reel-gradient{
 
-
     position:absolute;
-
 
     inset:0;
 
-
-
     background:
 
     linear-gradient(
-
-    transparent 40%,
-
-    rgba(0,0,0,.9)
-
+        transparent 45%,
+        rgba(0,0,0,.95)
     );
 
-}
-
-
-
-
-
-
-
-
-.reel-info{
-
-
-    position:absolute;
-
-
-    bottom:80px;
-
-
-    left:20px;
-
-
-    width:70%;
-
-
-    z-index:5;
+    z-index:2;
 
 }
 
@@ -2306,125 +1566,9 @@ footer p{
 
 
 
-.reel-info h1{
+/* LOADING CENTER */
 
-
-    font-size:30px;
-
-
-    font-weight:900;
-
-}
-
-
-
-
-
-.reel-info p{
-
-
-    margin:15px 0;
-
-
-    font-size:17px;
-
-}
-
-
-
-
-
-.reel-info button{
-
-
-    padding:13px 30px;
-
-
-    border-radius:30px;
-
-
-    color:white;
-
-
-
-    background:
-
-    linear-gradient(
-        135deg,
-        #e50914,
-        #8a2be2
-    );
-
-}
-
-
-
-
-
-
-
-.reel-actions{
-
-
-    position:absolute;
-
-
-    right:20px;
-
-
-    bottom:120px;
-
-
-    display:flex;
-
-
-    flex-direction:column;
-
-
-    gap:22px;
-
-
-    z-index:10;
-
-}
-
-
-
-.reel-actions button{
-
-
-    width:55px;
-
-
-    height:55px;
-
-
-    border-radius:50%;
-
-
-    color:white;
-
-
-    font-size:25px;
-
-
-
-    background:
-
-    rgba(255,255,255,.15);
-
-
-
-    backdrop-filter:
-
-    blur(15px);
-
-}
-/* =========================
-        REELS LOADING
-========================= */
-
-.loading{
+.reel .loading{
 
     position:absolute;
 
@@ -2442,13 +1586,10 @@ footer p{
 
     justify-content:center;
 
-    width:100%;
-
-    color:white;
-
     z-index:20;
 
 }
+
 
 
 .loader{
@@ -2459,29 +1600,44 @@ footer p{
 
     border-radius:50%;
 
-    border:5px solid rgba(255,255,255,.2);
+
+    border:
+
+    5px solid rgba(255,255,255,.25);
+
 
     border-top-color:#e50914;
 
-    animation:spin 1s linear infinite;
 
-    margin-bottom:20px;
+    animation:
+
+    spin 1s linear infinite;
 
 }
+
 
 
 .loading p{
 
-    font-size:18px;
+    margin-top:15px;
+
+    color:white;
+
+    font-size:16px;
 
     font-weight:600;
-
-    color:#ddd;
 
 }
 
 
+
 @keyframes spin{
+
+    from{
+
+        transform:rotate(0deg);
+
+    }
 
     to{
 
@@ -2495,232 +1651,19 @@ footer p{
 
 
 
-/* ==================================
-        MOBILE DESIGN
-================================== */
+/* REEL INFORMATION */
 
+.reel-info{
 
-@media(max-width:768px){
+    position:absolute;
 
+    left:20px;
 
-.header{
+    bottom:90px;
 
-    top:12px;
+    width:70%;
 
-    left:12px;
-
-    right:12px;
-
-    height:65px;
-
-}
-
-
-
-.logo{
-
-    font-size:20px;
-
-}
-
-
-
-.main-nav{
-
-
-    top:90px;
-
-
-    gap:20px;
-
-
-    padding:12px 20px;
-
-}
-
-
-
-.main-nav a{
-
-
-    font-size:13px;
-
-}
-
-
-
-
-
-.hero{
-
-
-    height:480px;
-
-
-    margin:140px 12px 30px;
-
-}
-
-
-
-
-
-.hero-overlay{
-
-
-    padding:20px;
-
-}
-
-
-
-
-
-.movie-info{
-
-
-    padding:20px;
-
-}
-
-
-
-
-
-.movie-info h1{
-
-
-    font-size:32px;
-
-}
-
-
-
-
-
-.hero-buttons{
-
-
-    flex-direction:column;
-
-}
-
-
-
-
-
-.watch,
-.info{
-
-
-    width:100%;
-
-}
-
-
-
-
-
-.movie-row{
-
-
-    margin:40px 12px;
-
-}
-
-
-
-
-
-.movie-card{
-
-
-    min-width:150px;
-
-}
-
-
-
-
-
-.movie-card img{
-
-
-    height:220px;
-
-}
-
-
-
-
-
-.movie-content{
-
-
-    flex-direction:column;
-
-
-    padding:35px 20px;
-
-
-    text-align:center;
-
-}
-
-
-
-
-
-.movie-poster img{
-
-
-    width:220px;
-
-
-    height:330px;
-
-}
-
-
-
-
-
-.movie-info-box h1{
-
-
-    font-size:32px;
-
-}
-
-
-
-
-
-.series-hero{
-
-
-    height:520px;
-
-
-    margin:120px 12px 40px;
-
-}
-
-
-
-.series-content{
-
-
-    padding:30px 20px;
-
-}
-
-
-
-.series-content h1{
-
-
-    font-size:35px;
+    z-index:5;
 
 }
 
@@ -2728,8 +1671,75 @@ footer p{
 
 .reel-info h1{
 
+    font-size:30px;
 
-    font-size:24px;
+    font-weight:900;
+
+    margin-bottom:10px;
+
+}
+
+
+
+.reel-info p{
+
+    font-size:16px;
+
+    color:#ddd;
+
+    line-height:1.5;
+
+}
+
+
+
+
+
+.reel-info button{
+
+    margin-top:15px;
+
+    padding:13px 30px;
+
+    border-radius:30px;
+
+    color:white;
+
+
+    background:
+
+    linear-gradient(
+        135deg,
+        #e50914,
+        #8a2be2
+    );
+
+
+    font-weight:700;
+
+}
+
+
+
+
+
+/* RIGHT SIDE ACTION BUTTONS */
+
+.reel-actions{
+
+    position:absolute;
+
+    right:20px;
+
+    bottom:120px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:20px;
+
+    z-index:10;
 
 }
 
@@ -2737,12 +1747,123 @@ footer p{
 
 .reel-actions button{
 
+    width:55px;
+
+    height:55px;
+
+    border-radius:50%;
+
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+
+    color:white;
+
+    font-size:23px;
+
+
+    background:
+
+    rgba(255,255,255,.15);
+
+
+    backdrop-filter:blur(15px);
+
+
+    border:
+
+    1px solid rgba(255,255,255,.2);
+
+
+    transition:.3s;
+
+}
+
+
+
+.reel-actions button:hover{
+
+    transform:scale(1.15);
+
+
+    background:
+
+    linear-gradient(
+        135deg,
+        #e50914,
+        #8a2be2
+    );
+
+}
+
+
+
+
+
+/* LIKE ANIMATION */
+
+.reel-actions .liked{
+
+    color:#e50914;
+
+    transform:scale(1.2);
+
+}
+
+
+
+
+
+/* MOBILE OPTIMIZATION */
+
+@media(max-width:768px){
+
+
+.reel-info{
+
+    bottom:70px;
+
+    width:75%;
+
+}
+
+
+
+.reel-info h1{
+
+    font-size:24px;
+
+}
+
+
+
+.reel-info p{
+
+    font-size:14px;
+
+}
+
+
+
+.reel-actions{
+
+    right:12px;
+
+    bottom:100px;
+
+}
+
+
+
+.reel-actions button{
 
     width:48px;
 
-
     height:48px;
-
 
     font-size:20px;
 
@@ -2750,60 +1871,13 @@ footer p{
 
 
 
-.search-page{
+.loader{
 
+    width:45px;
 
-    padding:20px;
-
-}
-
-
-
-.search-results{
-
-
-    grid-template-columns:repeat(2,1fr);
+    height:45px;
 
 }
 
-
-}
-
-
-
-
-
-@media(max-width:450px){
-
-
-.main-nav{
-
-    gap:15px;
-
-}
-
-
-
-.main-nav a{
-
-    font-size:11px;
-
-}
-
-
-
-.movie-info h1{
-
-    font-size:27px;
-
-}
-
-
-
-.side-menu{
-
-    width:280px;
-
-}
 
 }
