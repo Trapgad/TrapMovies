@@ -395,101 +395,30 @@ ${genre.name}
 
 
 
-/* ===============================
-        TRAILER
-================================ */
+const watchBtn =
+document.querySelector(".watch-trailer");
 
 
-async function loadTrailer(){
+if(watchBtn){
+
+watchBtn.addEventListener(
+"click",
+()=>{
 
 
-const data =
-await fetchMovie(
+document
+.querySelector("#trailerBox")
+.scrollIntoView({
 
-`/movie/${movieID}/videos`
+behavior:"smooth"
 
-);
-
-
-
-if(!data)
-return;
+});
 
 
-
-
-const trailer =
-data.results.find(video=>
-
-video.type==="Trailer"
-
-&&
-
-video.site==="YouTube"
-
-);
-
-
-
-
-
-
-const trailerBox =
-document.querySelector(
-"#trailerBox"
-);
-
-
-
-
-
-if(trailerBox && trailer){
-
-
-trailerBox.innerHTML =
-
-`
-
-<iframe
-
-src="https://www.youtube.com/embed/${trailer.key}"
-
-frameborder="0"
-
-allowfullscreen>
-
-</iframe>
-
-`;
-
+});
 
 
 }
-
-else if(trailerBox){
-
-
-trailerBox.innerHTML =
-
-`
-<p>
-Trailer not available
-</p>
-`;
-
-}
-
-
-
-}
-
-
-
-
-
-
-
-
 
 /* ===============================
         CAST
