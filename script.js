@@ -671,3 +671,365 @@ window.location.href =
 
 
 }
+/* ==================================
+        TRAP MOVIES REELS SYSTEM
+================================== */
+
+
+const reels = document.querySelectorAll(".reel");
+
+
+/* ==================================
+        VIDEO OBSERVER
+================================== */
+
+
+const reelObserver = new IntersectionObserver((entries)=>{
+
+
+    entries.forEach(entry=>{
+
+
+        const reel = entry.target;
+
+        const video = reel.querySelector("video");
+
+        const iframe = reel.querySelector("iframe");
+
+
+        if(entry.isIntersecting){
+
+
+            // VIDEO PLAY
+
+            if(video){
+
+                video.play();
+
+            }
+
+
+            // SHOW VIEW
+
+            increaseViews(reel);
+
+
+
+        }else{
+
+
+            // VIDEO PAUSE
+
+            if(video){
+
+                video.pause();
+
+            }
+
+
+        }
+
+
+
+    });
+
+
+},{
+
+    threshold:0.75
+
+});
+
+
+
+
+
+reels.forEach(reel=>{
+
+
+    reelObserver.observe(reel);
+
+
+
+});
+
+
+
+
+
+
+/* ==================================
+        REMOVE LOADING
+================================== */
+
+
+document.querySelectorAll(".reel video")
+.forEach(video=>{
+
+
+    const loading = video
+    .closest(".reel")
+    .querySelector(".loading");
+
+
+
+    video.addEventListener("loadeddata",()=>{
+
+
+        if(loading){
+
+            loading.style.display="none";
+
+        }
+
+
+    });
+
+
+
+});
+
+
+
+
+
+
+
+
+/* ==================================
+        LIKE SYSTEM
+================================== */
+
+
+document.querySelectorAll(".like-btn")
+.forEach(button=>{
+
+
+    button.addEventListener("click",()=>{
+
+
+        button.classList.toggle("liked");
+
+
+
+        if(button.classList.contains("liked")){
+
+
+            button.innerHTML="❤️";
+
+
+        }else{
+
+
+            button.innerHTML="🤍";
+
+
+        }
+
+
+
+    });
+
+
+
+});
+
+
+
+
+
+
+
+/* ==================================
+        DOUBLE TAP LIKE
+================================== */
+
+
+reels.forEach(reel=>{
+
+
+    let lastTap=0;
+
+
+
+    reel.addEventListener("click",(e)=>{
+
+
+        const now = new Date()
+        .getTime();
+
+
+
+        if(now-lastTap < 300){
+
+
+            const likeBtn =
+            reel.querySelector(".like-btn");
+
+
+
+            if(likeBtn){
+
+
+                likeBtn.classList.add("liked");
+
+                likeBtn.innerHTML="❤️";
+
+
+            }
+
+
+
+        }
+
+
+
+        lastTap=now;
+
+
+
+    });
+
+
+
+});
+
+
+
+
+
+
+
+
+/* ==================================
+        MUTE / UNMUTE
+================================== */
+
+
+document.querySelectorAll(".mute-btn")
+.forEach(button=>{
+
+
+    button.addEventListener("click",()=>{
+
+
+        const reel =
+        button.closest(".reel");
+
+
+        const video =
+        reel.querySelector("video");
+
+
+
+        if(video){
+
+
+            video.muted =
+            !video.muted;
+
+
+
+            button.innerHTML =
+            video.muted ? "🔇":"🔊";
+
+
+
+        }
+
+
+
+    });
+
+
+
+});
+
+
+
+
+
+
+
+
+/* ==================================
+        VIEW COUNTER
+================================== */
+
+
+function increaseViews(reel){
+
+
+    const viewText =
+    reel.querySelector(".views");
+
+
+
+    if(!viewText) return;
+
+
+
+    let views =
+    Number(
+        viewText.dataset.views || 0
+    );
+
+
+
+    if(!reel.dataset.viewed){
+
+
+        views++;
+
+
+        reel.dataset.viewed=true;
+
+
+        viewText.dataset.views=views;
+
+
+        viewText.innerHTML =
+        views + " views";
+
+
+    }
+
+
+}
+
+
+
+
+
+
+
+/* ==================================
+        REEL BUTTON RIPPLE
+================================== */
+
+
+document.querySelectorAll(".reel-actions button")
+.forEach(btn=>{
+
+
+    btn.addEventListener("click",()=>{
+
+
+        btn.style.transform="scale(1.2)";
+
+
+        setTimeout(()=>{
+
+
+            btn.style.transform="scale(1)";
+
+
+        },200);
+
+
+
+    });
+
+
+
+});
