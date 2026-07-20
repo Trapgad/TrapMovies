@@ -657,17 +657,14 @@ closeSearch();
 
 
 
-
 /* =========================
         OPEN MOVIE PAGE
 ========================= */
 
 
-function openMovie(id){
+window.openMovie = function(id){
 
+    window.location.href =
+    `movie.html?id=${id}`;
 
-window.location.href =
-`movie.html?id=${id}`;
-
-
-}
+};
