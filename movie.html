@@ -1,223 +1,193 @@
-<!DOCTYPE html>
-<html lang="en">
+<!-- =========================
+     MOVIE DETAILS PAGE
+========================= -->
 
-<head>
-
-<meta charset="UTF-8">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<section class="movie-details-page">
 
 
-<title>TRAP MOVIES | Movie Details</title>
+<div class="movie-hero">
 
 
-<link rel="stylesheet" href="style.css">
+    <div class="movie-backdrop"></div>
 
 
-<link 
-rel="stylesheet" 
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <div class="movie-content">
 
 
-<link 
-href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" 
-rel="stylesheet">
+
+        <!-- POSTER -->
+
+        <div class="movie-poster">
+
+            <img 
+            id="moviePoster"
+            src="assets/images/no-image.jpg"
+            alt="Movie Poster">
+
+        </div>
 
 
-</head>
 
 
-<body>
+
+        <!-- INFO -->
+
+        <div class="movie-info-box">
+
+
+            <h1 id="movieTitle">
+                Movie Title
+            </h1>
+
+
+
+
+            <div class="movie-meta">
+
+
+                <span id="movieRating">
+                    ⭐ 0.0
+                </span>
+
+
+                <span id="movieYear">
+                    2026
+                </span>
+
+
+                <span id="movieRuntime">
+                    120 min
+                </span>
+
+
+                <span id="moviePopularity">
+                    Popularity
+                </span>
+
+
+            </div>
+
+
+
+
+
+            <!-- GENRES -->
+
+            <div 
+            class="genres"
+            id="movieGenres">
+
+            </div>
+
+
+
+
+
+
+
+            <p 
+            id="movieDescription"
+            class="movie-description">
+
+            Movie description
+
+            </p>
+
+
+
+
+
+
+
+            <!-- BUTTONS -->
+
+            <div class="hero-buttons">
+
+
+                <button 
+                class="watch">
+
+                ▶ Watch Trailer
+
+                </button>
+
+
+
+
+                <button
+                id="watchlistBtn"
+                class="info">
+
+                + Add To My List
+
+                </button>
+
+
+            </div>
+
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
+
+
+
+
+
+
 
 
 
 <!-- =========================
-        HEADER
+     MOVIE INFORMATION
 ========================= -->
 
 
-<header class="header">
+<section class="movie-extra-info">
 
 
-<div class="menu-btn">
+<h2>
+Movie Information
+</h2>
 
-<i class="fa-solid fa-bars"></i>
 
-</div>
 
+<div class="info-grid">
 
 
-<div class="logo">
 
-TRAP 
-<span>MOVIES</span>
+<div class="info-box glass">
 
-</div>
+<h3>
+Director
+</h3>
 
-
-
-
-<div class="search-btn">
-
-<i class="fa-solid fa-magnifying-glass"></i>
-
-</div>
-
-
-
-</header>
-
-
-
-
-
-
-
-<!-- =========================
-        MOVIE DETAILS
-========================= -->
-
-
-<main class="movie-details-page">
-
-
-
-
-
-<section class="movie-hero">
-
-
-
-<div class="movie-backdrop"></div>
-
-
-
-
-
-<div class="movie-content">
-
-
-
-
-
-<div class="movie-poster">
-
-
-<img 
-id="moviePoster"
-src="assets/images/no-image.jpg"
-alt="Movie Poster">
-
-
-</div>
-
-
-
-
-
-
-
-<div class="movie-info-box">
-
-
-
-<h1 id="movieTitle">
-
-Loading...
-
-</h1>
-
-
-
-
-
-
-<div class="movie-meta">
-
-
-<span id="movieRating">
-
-⭐ 0.0
-
-</span>
-
-
-
-<span id="movieYear">
-
-2026
-
-</span>
-
-
-
-<span id="movieRuntime">
-
-120 min
-
-</span>
-
-
-</div>
-
-
-
-
-
-
-<div class="genres" id="movieGenres">
-
-
-</div>
-
-
-
-
-
-
-
-
-<p id="movieDescription">
-
-Loading movie information...
-
+<p id="movieDirector">
+N/A
 </p>
 
+</div>
 
 
 
 
 
 
+<div class="info-box glass">
 
-<div class="movie-actions">
+<h3>
+Writer
+</h3>
 
-
-
-<button class="watch">
-
-
-<i class="fa-solid fa-play"></i>
-
-Watch Trailer
-
-
-</button>
-
-
-
-
-<button class="info">
-
-
-<i class="fa-solid fa-bookmark"></i>
-
-Add To List
-
-
-</button>
-
-
+<p id="movieWriter">
+N/A
+</p>
 
 </div>
 
@@ -225,17 +195,99 @@ Add To List
 
 
 
+
+
+<div class="info-box glass">
+
+<h3>
+Production
+</h3>
+
+<p id="movieCompanies">
+N/A
+</p>
+
 </div>
 
 
 
 
 
+
+
+<div class="info-box glass">
+
+<h3>
+Country
+</h3>
+
+<p id="movieCountry">
+N/A
+</p>
+
 </div>
 
+
+
+
+
+
+
+<div class="info-box glass">
+
+<h3>
+Language
+</h3>
+
+<p id="movieLanguages">
+N/A
+</p>
+
+</div>
+
+
+
+
+
+
+
+<div class="info-box glass">
+
+<h3>
+Budget
+</h3>
+
+<p id="movieBudget">
+N/A
+</p>
+
+</div>
+
+
+
+
+
+
+
+<div class="info-box glass">
+
+<h3>
+Revenue
+</h3>
+
+<p id="movieRevenue">
+N/A
+</p>
+
+</div>
+
+
+
+</div>
 
 
 </section>
+
 
 
 
@@ -253,20 +305,18 @@ Add To List
 
 
 <h2>
-
-🎬 Official Trailer
-
+Official Trailer
 </h2>
 
 
 
-<div class="trailer-box" id="trailerBox">
+<div 
+id="trailerBox"
+class="trailer-box">
 
 
 <p>
-
-Trailer loading...
-
+Loading Trailer...
 </p>
 
 
@@ -275,6 +325,7 @@ Trailer loading...
 
 
 </section>
+
 
 
 
@@ -292,23 +343,21 @@ Trailer loading...
 
 
 <h2>
-
-⭐ Cast
-
+Cast
 </h2>
 
 
 
-
-<div class="cast-container" id="castContainer">
-
+<div 
+id="castContainer"
+class="cast-container">
 
 </div>
 
 
 
-
 </section>
+
 
 
 
@@ -326,19 +375,16 @@ Trailer loading...
 
 
 <h2>
-
-🔥 Similar Movies
-
+More Like This
 </h2>
 
 
 
-
-<div class="movie-container" id="similarMovies">
-
+<div 
+id="similarMovies"
+class="movie-container">
 
 </div>
-
 
 
 
@@ -346,60 +392,4 @@ Trailer loading...
 
 
 
-
-
-
-</main>
-
-
-
-
-
-
-
-<!-- =========================
-        FOOTER
-========================= -->
-
-
-<footer>
-
-
-<h2>
-
-TRAP MOVIES
-
-</h2>
-
-
-
-<p>
-
-Discover • Watch • Enjoy 🎬
-
-</p>
-
-
-
-<p>
-
-© 2026 TRAP MOVIES
-
-</p>
-
-
-
-</footer>
-
-
-
-
-
-
-<script src="movie.js"></script>
-
-
-</body>
-
-
-</html>
+</section>
