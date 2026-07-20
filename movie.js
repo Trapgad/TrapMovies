@@ -1,17 +1,11 @@
 /* ==================================
    TRAP MOVIES
-   MAIN SCRIPT ENGINE
-   TMDB + MENU + SLIDER + SEARCH
+   PREMIUM MOVIE DETAILS ENGINE V2
+   TMDB + TRAILER + CAST + LIST
 ================================== */
 
 
 document.addEventListener("DOMContentLoaded",()=>{
-
-
-
-/* =========================
-        TMDB CONFIG
-========================= */
 
 
 const API_KEY =
@@ -24,723 +18,10 @@ const BASE_URL =
 
 const IMAGE_URL =
 "https://image.tmdb.org/t/p/w500/";
-
-
-
-
-
-
-/* =========================
-        MOVIE CARDS
-========================= */
-
-
-const movieContainers =
-document.querySelectorAll(".movie-container");
-
-
-
-
-
-async function getMovies(endpoint){
-
-
-try{
-
-
-const response =
-await fetch(
-
-`${BASE_URL}${endpoint}?api_key=${API_KEY}&language=en-US`
-
-);
-
-
-const data =
-await response.json();
-
-
-return data.results || [];
-
-
-}
-
-catch(error){
-
-
-console.log(
-"TMDB ERROR:",
-error
-);
-
-
-return [];
-
-}
-
-
-}
-
-
-
-
-
-
-
-function createMovieCard(movie){
-
-
-const poster =
-
-movie.poster_path
-
-?
-
-IMAGE_URL + movie.poster_path
-
-:
-
-"assets/images/no-image.jpg";
-
-
-
-return `
-
-
-<div class="movie-card"
-onclick="openMovie(${movie.id})">
-
-
-<img src="${poster}">
-
-
-<h3>
-${movie.title || "Unknown"}
-</h3>
-
-
-<p>
-⭐ ${
-movie.vote_average
-?
-movie.vote_average.toFixed(1)
-:
-"N/A"
-}
-</p>
-
-
-</div>
-
-
-`;
-
-}
-
-
-
-
-
-
-
-
-
-async function loadMovies(){
-
-
-const sections = [
-
-"/trending/movie/week",
-
-"/movie/popular",
-
-"/movie/now_playing",
-
-"/movie/top_rated",
-
-"/movie/upcoming"
-
-];
-
-
-
-for(
-let i=0;
-i<movieContainers.length;
-i++
-){
-
-
-const movies =
-await getMovies(
-sections[i]
-);
-
-
-
-movieContainers[i].innerHTML="";
-
-
-
-movies.forEach(movie=>{
-
-
-movieContainers[i].innerHTML +=
-
-createMovieCard(movie);
-
-
-});
-
-
-}
-
-
-}
-
-
-loadMovies();
-
-
-
-
-
-
-
-
-/* =========================
-        SIDE MENU
-========================= */
-
-
-const menuBtn =
-document.querySelector(".menu-btn");
-
-
-const closeBtn =
-document.querySelector(".close-btn");
-
-
-const sideMenu =
-document.querySelector(".side-menu");
-
-
-const overlay =
-document.querySelector(".overlay-bg");
-
-
-
-
-
-
-
-function openMenu(){
-
-
-sideMenu?.classList.add(
-"active"
-);
-
-
-overlay?.classList.add(
-"active"
-);
-
-
-}
-
-
-
-
-
-function closeMenu(){
-
-
-sideMenu?.classList.remove(
-"active"
-);
-
-
-overlay?.classList.remove(
-"active"
-);
-
-
-}
-
-
-
-
-
-
-
-menuBtn?.addEventListener(
-"click",
-openMenu
-);
-
-
-
-closeBtn?.addEventListener(
-"click",
-closeMenu
-);
-
-
-
-overlay?.addEventListener(
-"click",
-closeMenu
-);
-
-
-
-
-
-
-
-
-
-/* =========================
-        HERO SLIDER
-========================= */
-
-
-const slides =
-document.querySelectorAll(".slide");
-
-
-const dots =
-document.querySelectorAll(
-".slider-dots span"
-);
-
-
-let currentSlide=0;
-
-
-let sliderTimer;
-
-
-
-
-
-
-
-function showSlide(index){
-
-
-slides.forEach(slide=>{
-
-slide.classList.remove(
-"active"
-);
-
-});
-
-
-dots.forEach(dot=>{
-
-dot.classList.remove(
-"active"
-);
-
-});
-
-
-
-slides[index]?.classList.add(
-"active"
-);
-
-
-dots[index]?.classList.add(
-"active"
-);
-
-
-}
-
-
-
-
-
-
-
-function nextSlide(){
-
-
-currentSlide++;
-
-
-if(
-currentSlide >= slides.length
-){
-
-currentSlide=0;
-
-}
-
-
-showSlide(
-currentSlide
-);
-
-
-}
-
-
-
-
-
-
-function startSlider(){
-
-
-sliderTimer =
-setInterval(
-nextSlide,
-5000
-);
-
-
-}
-
-
-
-
-
-
-dots.forEach(
-(dot,index)=>{
-
-
-dot.onclick=()=>{
-
-
-currentSlide=index;
-
-
-showSlide(index);
-
-
-clearInterval(
-sliderTimer
-);
-
-
-startSlider();
-
-
-};
-
-
-});
-
-
-
-
-
-
-if(slides.length){
-
-
-showSlide(0);
-
-
-startSlider();
-
-
-}
-
-
-
-
-
-
-
-
-
-
-/* =========================
-        SEARCH SYSTEM
-========================= */
-
-
-const searchBtn =
-document.querySelector(
-".search-btn"
-);
-
-
-const searchPage =
-document.querySelector(
-".search-page"
-);
-
-
-
-const backSearch =
-document.querySelector(
-".back-search"
-);
-
-
-
-const searchInput =
-document.querySelector(
-"#searchInput"
-);
-
-
-
-const searchResults =
-document.querySelector(
-"#searchResults"
-);
-
-
-
-
-
-
-
-
-
-function openSearch(){
-
-
-searchPage?.classList.add(
-"active"
-);
-
-
-searchInput?.focus();
-
-
-}
-
-
-
-
-
-
-
-function closeSearch(){
-
-
-searchPage?.classList.remove(
-"active"
-);
-
-
-}
-
-
-
-
-
-
-
-
-searchBtn?.addEventListener(
-"click",
-openSearch
-);
-
-
-
-backSearch?.addEventListener(
-"click",
-closeSearch
-);
-
-
-
-
-
-
-
-
-
-async function searchMovies(query){
-
-
-try{
-
-
-const response =
-await fetch(
-
-`${BASE_URL}/search/movie?api_key=${API_KEY}&query=${query}`
-
-);
-
-
-const data =
-await response.json();
-
-
-return data.results || [];
-
-
-}
-
-catch(error){
-
-
-return [];
-
-}
-
-
-}
-
-
-
-
-
-
-
-
-searchInput?.addEventListener(
-"input",
-async()=>{
-
-
-const value =
-searchInput.value.trim();
-
-
-
-if(!value){
-
-
-searchResults.innerHTML="";
-
-
-return;
-
-
-}
-
-
-
-searchResults.innerHTML =
-
-`
-<div class="loading">
-Searching...
-</div>
-`;
-
-
-
-const movies =
-await searchMovies(value);
-
-
-
-searchResults.innerHTML="";
-
-
-
-movies.forEach(movie=>{
-
-
-searchResults.innerHTML +=
-
-createMovieCard(movie);
-
-
-});
-
-
-}
-
-);
-
-
-
-
-
-
-
-
-
-/* =========================
-        KEYBOARD CONTROL
-========================= */
-
-
-document.addEventListener(
-"keydown",
-(e)=>{
-
-
-if(e.key==="Escape"){
-
-
-closeMenu();
-
-closeSearch();
-
-
-}
-
-
-});
-
-
-
-
-
-});
-
-
-
-
-
-
-
-
-/* =========================
-        OPEN MOVIE PAGE
-========================= */
-
-
-function openMovie(id){
-
-
-window.location.href =
-`movie.html?id=${id}`;
-
-
-}
-/* ==================================
-   TRAP MOVIES
-   MOVIE DETAILS ENGINE
-   PREMIUM VERSION
-================================== */
-
-
-document.addEventListener("DOMContentLoaded",()=>{
-
-
-const API_KEY =
-"17a1834e273320eef8a2a36b38a11964";
-
-
-const BASE_URL =
-"https://api.themoviedb.org/3";
 
 
 const ORIGINAL_IMAGE =
 "https://image.tmdb.org/t/p/original/";
-
-
-const IMAGE_URL =
-"https://image.tmdb.org/t/p/w500/";
 
 
 
@@ -753,9 +34,7 @@ window.location.search
 
 if(!movieID){
 
-console.log(
-"No movie ID found"
-);
+console.log("Movie ID missing");
 
 return;
 
@@ -765,7 +44,14 @@ return;
 
 
 
-async function fetchData(endpoint){
+
+
+/* =========================
+        FETCH SYSTEM
+========================= */
+
+
+async function fetchTMDB(url){
 
 
 try{
@@ -774,7 +60,7 @@ try{
 const response =
 await fetch(
 
-`${BASE_URL}${endpoint}?api_key=${API_KEY}&language=en-US`
+`${BASE_URL}${url}?api_key=${API_KEY}&language=en-US`
 
 );
 
@@ -803,18 +89,19 @@ return null;
 
 
 
-function setText(selector,value){
+
+function updateText(id,text){
 
 
 const element =
-document.querySelector(selector);
+document.getElementById(id);
 
 
 
 if(element){
 
 element.textContent =
-value || "N/A";
+text || "N/A";
 
 }
 
@@ -830,7 +117,7 @@ value || "N/A";
 
 
 /* =========================
-        MOVIE DETAILS
+        LOAD MOVIE
 ========================= */
 
 
@@ -838,17 +125,21 @@ async function loadMovie(){
 
 
 const movie =
-await fetchData(
+await fetchTMDB(
 `/movie/${movieID}`
 );
 
 
 
-if(!movie)
-return;
+if(!movie) return;
 
 
 
+
+
+
+
+// BACKDROP
 
 const backdrop =
 document.querySelector(
@@ -867,10 +158,12 @@ backdrop.style.backgroundImage =
 linear-gradient(
 90deg,
 rgba(5,5,5,.95),
-rgba(5,5,5,.3)
+rgba(5,5,5,.35)
 ),
 
-url(${ORIGINAL_IMAGE}${movie.backdrop_path})
+url(
+${ORIGINAL_IMAGE}${movie.backdrop_path}
+)
 
 `;
 
@@ -880,9 +173,14 @@ url(${ORIGINAL_IMAGE}${movie.backdrop_path})
 
 
 
+
+
+
+// POSTER
+
 const poster =
-document.querySelector(
-"#moviePoster"
+document.getElementById(
+"moviePoster"
 );
 
 
@@ -910,75 +208,65 @@ IMAGE_URL + movie.poster_path
 
 
 
-setText(
-"#movieTitle",
+
+// BASIC INFO
+
+
+updateText(
+"movieTitle",
 movie.title
 );
 
 
 
-setText(
-"#movieYear",
-movie.release_date?.substring(0,4)
+updateText(
+"movieYear",
+movie.release_date?.slice(0,4)
 );
 
 
 
-setText(
-"#movieRuntime",
-`${movie.runtime || 0} min`
+updateText(
+"movieRuntime",
+movie.runtime + " min"
 );
 
 
 
-setText(
-"#movieDescription",
+updateText(
+"moviePopularity",
+Math.floor(movie.popularity)
++
+" Views"
+);
+
+
+
+updateText(
+"movieDescription",
 movie.overview
 );
 
 
 
-setText(
-"#movieLanguage",
-movie.original_language?.toUpperCase()
-);
-
-
-
-setText(
-"#moviePopularity",
-movie.popularity?.toFixed(0)
-);
-
-
-
-setText(
-"#movieBudget",
-movie.budget
-?
-"$"+movie.budget.toLocaleString()
-:
-"N/A"
-);
-
-
-
-setText(
-"#movieRevenue",
-movie.revenue
-?
-"$"+movie.revenue.toLocaleString()
-:
-"N/A"
+updateText(
+"storyText",
+movie.overview
 );
 
 
 
 
+
+
+
+
+
+// RATING
 
 const rating =
-document.querySelector(
-"#movieRating"
+document.getElementById(
+"movieRating"
 );
 
 
@@ -996,9 +284,13 @@ rating.innerHTML =
 
 
 
+
+
+// GENRES
+
 const genres =
-document.querySelector(
-"#movieGenres"
+document.getElementById(
+"movieGenres"
 );
 
 
@@ -1009,16 +301,14 @@ if(genres){
 genres.innerHTML="";
 
 
-movie.genres.forEach(
-genre=>{
+movie.genres.forEach(item=>{
 
 
 genres.innerHTML +=
 
 `
-
 <span>
-${genre.name}
+${item.name}
 </span>
 
 `;
@@ -1028,6 +318,46 @@ ${genre.name}
 
 }
 
+
+
+
+
+
+
+
+
+// MONEY
+
+
+updateText(
+"movieBudget",
+
+movie.budget
+
+?
+"$"+movie.budget.toLocaleString()
+
+:
+
+"N/A"
+
+);
+
+
+
+updateText(
+"movieRevenue",
+
+movie.revenue
+
+?
+"$"+movie.revenue.toLocaleString()
+
+:
+
+"N/A"
+
+);
 
 
 
@@ -1054,15 +384,17 @@ async function loadTrailer(){
 
 
 const data =
-await fetchData(
+await fetchTMDB(
+
 `/movie/${movieID}/videos`
+
 );
 
 
 
 const box =
-document.querySelector(
-"#trailerBox"
+document.getElementById(
+"trailerBox"
 );
 
 
@@ -1075,8 +407,7 @@ return;
 
 
 const trailer =
-data.results.find(
-video=>
+data.results.find(video=>
 
 video.type==="Trailer"
 &&
@@ -1098,9 +429,7 @@ box.innerHTML =
 
 <iframe
 
-src="
-https://www.youtube.com/embed/${trailer.key}
-"
+src="https://www.youtube.com/embed/${trailer.key}"
 
 allowfullscreen>
 
@@ -1108,18 +437,16 @@ allowfullscreen>
 
 `;
 
-
-
 }
 
 else{
 
 
-box.innerHTML =
+box.innerHTML=
 
 `
 <p>
-Trailer not available
+Trailer unavailable
 </p>
 
 `;
@@ -1146,7 +473,7 @@ async function loadCast(){
 
 
 const data =
-await fetchData(
+await fetchTMDB(
 
 `/movie/${movieID}/credits`
 
@@ -1154,20 +481,20 @@ await fetchData(
 
 
 
-const container =
-document.querySelector(
-"#castContainer"
+const box =
+document.getElementById(
+"castContainer"
 );
 
 
 
-if(!container || !data)
+if(!box || !data)
 return;
 
 
 
+box.innerHTML="";
 
-container.innerHTML="";
 
 
 
@@ -1176,13 +503,14 @@ data.cast
 .forEach(actor=>{
 
 
+
 const image =
 
 actor.profile_path
 
 ?
 
-IMAGE_URL + actor.profile_path
+IMAGE_URL+actor.profile_path
 
 :
 
@@ -1190,7 +518,9 @@ IMAGE_URL + actor.profile_path
 
 
 
-container.innerHTML +=
+
+
+box.innerHTML +=
 
 `
 
@@ -1201,12 +531,17 @@ container.innerHTML +=
 
 
 <h3>
+
 ${actor.name}
+
 </h3>
 
 
+
 <p>
+
 ${actor.character}
+
 </p>
 
 
@@ -1217,6 +552,7 @@ ${actor.character}
 
 
 });
+
 
 
 }
@@ -1238,7 +574,7 @@ async function loadCrew(){
 
 
 const data =
-await fetchData(
+await fetchTMDB(
 
 `/movie/${movieID}/credits`
 
@@ -1263,37 +599,41 @@ person.job==="Director"
 
 
 
-
-
 const writers =
+
 data.crew
-.filter(
-person=>
+
+.filter(person=>
 
 person.job==="Writer"
 ||
 person.job==="Screenplay"
 
 )
+
 .slice(0,3)
-.map(
-person=>person.name
+
+.map(person=>
+
+person.name
+
 )
+
 .join(", ");
 
 
 
 
 
-setText(
-"#movieDirector",
+updateText(
+"movieDirector",
 director?.name
 );
 
 
 
-setText(
-"#movieWriter",
+updateText(
+"movieWriter",
 writers
 );
 
@@ -1309,16 +649,18 @@ writers
 
 
 /* =========================
-        PRODUCTION
+        COMPANY INFO
 ========================= */
 
 
-async function loadProduction(){
+async function loadCompany(){
 
 
 const movie =
-await fetchData(
+await fetchTMDB(
+
 `/movie/${movieID}`
+
 );
 
 
@@ -1329,46 +671,42 @@ return;
 
 
 
+updateText(
 
-setText(
-
-"#movieCompanies",
+"movieCompanies",
 
 movie.production_companies
-?.map(
-company=>company.name
-)
+
+?.map(x=>x.name)
+
 .join(", ")
 
 );
 
 
 
+updateText(
 
-setText(
-
-"#movieCountry",
+"movieCountry",
 
 movie.production_countries
-?.map(
-country=>country.name
-)
+
+?.map(x=>x.name)
+
 .join(", ")
 
 );
 
 
 
+updateText(
 
-
-setText(
-
-"#movieLanguages",
+"movieLanguages",
 
 movie.spoken_languages
-?.map(
-lang=>lang.english_name
-)
+
+?.map(x=>x.english_name)
+
 .join(", ")
 
 );
@@ -1393,7 +731,7 @@ async function loadSimilar(){
 
 
 const data =
-await fetchData(
+await fetchTMDB(
 
 `/movie/${movieID}/similar`
 
@@ -1402,8 +740,8 @@ await fetchData(
 
 
 const box =
-document.querySelector(
-"#similarMovies"
+document.getElementById(
+"similarMovies"
 );
 
 
@@ -1414,6 +752,7 @@ return;
 
 
 box.innerHTML="";
+
 
 
 
@@ -1433,24 +772,34 @@ onclick="openMovie(${movie.id})">
 
 <img src="${
 movie.poster_path
+
 ?
+
 IMAGE_URL+movie.poster_path
+
 :
+
 "assets/images/no-image.jpg"
+
 }">
 
 
 <h3>
+
 ${movie.title}
+
 </h3>
 
 
 <p>
+
 ⭐ ${movie.vote_average.toFixed(1)}
+
 </p>
 
 
 </div>
+
 
 `;
 
@@ -1478,8 +827,8 @@ function loadWatchlist(movie){
 
 
 const button =
-document.querySelector(
-"#watchlistBtn"
+document.getElementById(
+"watchlistBtn"
 );
 
 
@@ -1490,10 +839,13 @@ return;
 
 
 let list =
+
 JSON.parse(
 localStorage.getItem("watchlist")
 )
+
 || [];
+
 
 
 
@@ -1501,10 +853,12 @@ localStorage.getItem("watchlist")
 button.onclick=()=>{
 
 
-let exists =
+const exists =
+
 list.find(
 item=>item.id===movie.id
 );
+
 
 
 
@@ -1513,13 +867,15 @@ if(exists){
 
 
 list =
+
 list.filter(
 item=>item.id!==movie.id
 );
 
 
-button.innerHTML =
-"+ Add To My List";
+button.innerHTML=
+
+"+ My List";
 
 
 }
@@ -1538,22 +894,27 @@ poster:movie.poster_path
 });
 
 
-button.innerHTML =
-"✓ Added To My List";
+button.innerHTML=
+
+"✓ Added";
 
 
 }
 
 
 
+
+
 localStorage.setItem(
+
 "watchlist",
+
 JSON.stringify(list)
+
 );
 
 
 };
-
 
 
 
@@ -1572,15 +933,14 @@ JSON.stringify(list)
 ========================= */
 
 
-document
-.querySelector(".watch")
+document.querySelector(".watch")
 ?.addEventListener(
 "click",
 ()=>{
 
 
 document
-.querySelector("#trailerBox")
+.getElementById("trailerBox")
 ?.scrollIntoView({
 
 behavior:"smooth"
@@ -1597,7 +957,9 @@ behavior:"smooth"
 
 
 
-/* START */
+
+/* START ENGINE */
+
 
 loadMovie();
 
@@ -1607,7 +969,7 @@ loadCast();
 
 loadCrew();
 
-loadProduction();
+loadCompany();
 
 loadSimilar();
 
@@ -1622,9 +984,13 @@ loadSimilar();
 
 
 
-function openMovie(id){
 
-window.location.href =
+window.openMovie=function(id){
+
+
+window.location.href=
+
 `movie.html?id=${id}`;
 
-}
+
+};
