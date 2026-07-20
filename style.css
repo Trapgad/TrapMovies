@@ -1,110 +1,350 @@
+/* =========================
+   TRAP MOVIES GLOBAL STYLE
+========================= */
+
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Poppins',sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
 }
+
 
 body{
 
-background:#000;
-color:#fff;
+    background:#050505;
+    color:white;
+    overflow-x:hidden;
 
 }
 
-header{
 
-display:flex;
 
-justify-content:space-between;
+/* =========================
+   HEADER
+========================= */
 
-align-items:center;
+.header{
 
-padding:20px;
+    position:fixed;
+    top:20px;
+    left:20px;
+    right:20px;
 
-position:sticky;
+    height:70px;
 
-top:0;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
 
-background:#000;
+    padding:0 25px;
 
-z-index:1000;
+    background:rgba(255,255,255,0.08);
+
+    backdrop-filter:blur(15px);
+
+    border:1px solid rgba(255,255,255,0.1);
+
+    border-radius:25px;
+
+    z-index:1000;
 
 }
+
+
+
+/* LOGO */
+
+.logo{
+
+    font-size:25px;
+    font-weight:800;
+    letter-spacing:1px;
+
+}
+
+
+.logo span{
+
+    background:linear-gradient(
+    45deg,
+    #e50914,
+    #8a2be2
+    );
+
+    -webkit-background-clip:text;
+    color:transparent;
+
+}
+
+
+
+/* ICON BUTTONS */
 
 .menu-btn,
 .search-btn{
 
-font-size:28px;
+    width:45px;
+    height:45px;
 
-cursor:pointer;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.12);
+
+    cursor:pointer;
+
+    transition:.3s;
 
 }
+
+
+.menu-btn:hover,
+.search-btn:hover{
+
+    background:#e50914;
+
+    transform:scale(1.1);
+
+}
+
+
+
+/* =========================
+   SIDE MENU
+========================= */
+
+
+.side-menu{
+
+    position:fixed;
+
+    top:0;
+    left:-320px;
+
+    width:300px;
+    height:100vh;
+
+    background:
+
+    linear-gradient(
+    180deg,
+    #12001f,
+    #050505
+    );
+
+
+    padding:25px;
+
+    z-index:2000;
+
+    transition:.4s ease;
+
+    box-shadow:
+    10px 0 40px rgba(0,0,0,.7);
+
+}
+
+
+
+.side-menu.active{
+
+    left:0;
+
+}
+
+
+
+/* MENU HEADER */
+
+.menu-header{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    margin-bottom:40px;
+
+}
+
+
+
+.menu-header h2{
+
+    font-size:22px;
+
+}
+
+
+.close-btn{
+
+    width:40px;
+    height:40px;
+
+    border-radius:50%;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    background:#e50914;
+
+    cursor:pointer;
+
+}
+
+
+
+/* MENU ITEMS */
+
+.side-menu ul{
+
+    list-style:none;
+
+}
+
+
+.side-menu li{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    padding:15px;
+
+    margin:8px 0;
+
+    border-radius:15px;
+
+    color:#ddd;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+
+
+.side-menu li i{
+
+    width:20px;
+
+    color:#e50914;
+
+}
+
+
+
+.side-menu li:hover{
+
+    background:
+    rgba(138,43,226,.25);
+
+    color:white;
+
+    transform:translateX(8px);
+
+}
+
+
+
+.side-menu hr{
+
+    border:none;
+
+    height:1px;
+
+    background:rgba(255,255,255,.15);
+
+    margin:20px 0;
+
+}
+
+
+
+.logout{
+
+    margin-top:30px;
+
+}
+
+
+
+/* =========================
+   BACKGROUND OVERLAY
+========================= */
+
+
+.overlay-bg{
+
+    position:fixed;
+
+    inset:0;
+
+    background:rgba(0,0,0,.7);
+
+    z-index:1500;
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transition:.3s;
+
+}
+
+
+
+.overlay-bg.active{
+
+    opacity:1;
+
+    visibility:visible;
+
+}
+
+
+
+/* =========================
+   MOBILE OPTIMIZATION
+========================= */
+
+
+@media(max-width:600px){
+
+
+.header{
+
+    top:12px;
+    left:12px;
+    right:12px;
+
+    height:65px;
+
+}
+
 
 .logo{
 
-font-size:28px;
-
-font-weight:700;
+    font-size:20px;
 
 }
 
-.logo span{
 
-color:#e50914;
 
-}
+.side-menu{
 
-.tabs{
-
-display:flex;
-
-gap:18px;
-
-padding:20px;
-
-overflow-x:auto;
-
-scrollbar-width:none;
+    width:280px;
 
 }
 
-.tabs::-webkit-scrollbar{
-
-display:none;
-
-}
-
-.tabs button{
-
-background:none;
-
-border:none;
-
-color:white;
-
-font-size:18px;
-
-padding:14px 28px;
-
-border-radius:40px;
-
-cursor:pointer;
-
-transition:.35s;
-
-white-space:nowrap;
-
-}
-
-.tabs button.active{
-
-background:#444;
-
-}
-
-.tabs button:hover{
-
-background:#222;
 
 }
