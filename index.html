@@ -4,20 +4,27 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
 <title>TRAP MOVIES</title>
+
 
 <link rel="stylesheet" href="style.css">
 
 
+
 <!-- Font Awesome -->
+
 <link 
 rel="stylesheet" 
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 
+
 <!-- Google Font -->
+
 <link 
 href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" 
 rel="stylesheet">
@@ -26,37 +33,41 @@ rel="stylesheet">
 </head>
 
 
+
 <body>
 
 
+
 <!-- =========================
-     HEADER
+        HEADER
 ========================= -->
 
 
 <header class="header">
 
 
-<div class="menu-btn">
-<i class="fa-solid fa-bars"></i>
-</div>
+    <div class="menu-btn">
+
+        <i class="fa-solid fa-bars"></i>
+
+    </div>
 
 
 
-<div class="logo">
+    <div class="logo">
 
-TRAP 
-<span>MOVIES</span>
+        TRAP 
+        <span>MOVIES</span>
 
-</div>
+    </div>
 
 
 
-<div class="search-btn">
+    <div class="search-btn">
 
-<i class="fa-solid fa-magnifying-glass"></i>
+        <i class="fa-solid fa-magnifying-glass"></i>
 
-</div>
+    </div>
 
 
 </header>
@@ -65,8 +76,49 @@ TRAP
 
 
 
+
+
 <!-- =========================
-     SIDE MENU
+        MAIN NAVIGATION
+========================= -->
+
+
+<nav class="main-nav">
+
+
+    <a href="#" class="active">
+
+        Movies
+
+    </a>
+
+
+
+    <a href="#">
+
+        Reels
+
+    </a>
+
+
+
+    <a href="#">
+
+        About Us
+
+    </a>
+
+
+</nav>
+
+
+
+
+
+
+
+<!-- =========================
+        SIDE MENU
 ========================= -->
 
 
@@ -76,20 +128,23 @@ TRAP
 <div class="menu-header">
 
 
-<h2>
-TRAP MOVIES
-</h2>
+    <h2>
+
+        TRAP MOVIES
+
+    </h2>
 
 
 
-<div class="close-btn">
+    <div class="close-btn">
 
-<i class="fa-solid fa-xmark"></i>
+        <i class="fa-solid fa-xmark"></i>
+
+    </div>
+
 
 </div>
 
-
-</div>
 
 
 
@@ -98,21 +153,34 @@ TRAP MOVIES
 
 
 <li>
+
 <i class="fa-solid fa-user"></i>
+
 My Account
+
 </li>
 
 
+
 <li>
+
 <i class="fa-solid fa-heart"></i>
+
 Favorites
+
 </li>
 
 
+
+
 <li>
+
 <i class="fa-solid fa-clock"></i>
+
 Watch History
+
 </li>
+
 
 
 
@@ -120,34 +188,60 @@ Watch History
 
 
 
+
 <li>
+
 <i class="fa-solid fa-film"></i>
+
 Movies
+
 </li>
 
 
+
+
 <li>
+
 <i class="fa-solid fa-tv"></i>
+
 Series
+
 </li>
 
 
+
+
 <li>
+
 <i class="fa-solid fa-video"></i>
+
 Reels
+
 </li>
 
 
+
+
 <li>
+
 <i class="fa-solid fa-fire"></i>
+
 Trending
+
 </li>
+
+
 
 
 <li>
+
 <i class="fa-solid fa-star"></i>
+
 Top Rated
+
 </li>
+
+
 
 
 
@@ -157,15 +251,25 @@ Top Rated
 
 
 <li>
+
 <i class="fa-solid fa-phone"></i>
+
 Contact
+
 </li>
+
+
 
 
 <li>
+
 <i class="fa-solid fa-gear"></i>
+
 Settings
+
 </li>
+
+
 
 
 
@@ -182,13 +286,20 @@ Logout
 </ul>
 
 
+
 </nav>
 
 
 
 
 
-<!-- MENU OVERLAY -->
+
+
+
+
+<!-- =========================
+        OVERLAY
+========================= -->
 
 
 <div class="overlay-bg"></div>
@@ -198,8 +309,135 @@ Logout
 
 
 
+
+
+
 <!-- =========================
-     MAIN CONTENT
+        SEARCH OVERLAY
+========================= -->
+
+
+<section class="search-page">
+
+
+
+<div class="search-header">
+
+
+<button class="back-search">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+</button>
+
+
+
+<h2>
+
+Search TRAP MOVIES
+
+</h2>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="search-box">
+
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+
+
+<input 
+
+type="text"
+
+id="searchInput"
+
+placeholder="Search movies, series, actors...">
+
+
+</div>
+
+
+
+
+
+
+
+<div class="search-filter">
+
+
+<button class="filter active">
+
+All
+
+</button>
+
+
+
+<button class="filter">
+
+Movies
+
+</button>
+
+
+
+<button class="filter">
+
+Series
+
+</button>
+
+
+
+<button class="filter">
+
+Actors
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="search-results" id="searchResults">
+
+
+<!-- Search results will appear here -->
+
+
+</div>
+
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- =========================
+        MAIN CONTENT
 ========================= -->
 
 
@@ -210,12 +448,11 @@ Logout
 
 
 <!-- =========================
-     HERO SLIDER
+        HERO SLIDER
 ========================= -->
 
 
 <section class="hero">
-
 
 
 <div class="slides-container">
@@ -227,16 +464,19 @@ Logout
 <!-- SLIDE 1 -->
 
 
-<div class="slide active" data-slide="1">
+<div class="slide active">
 
 
 <img 
 src="assets/images/banner1.jpg"
-alt="Mission Impossible Movie Banner">
+alt="Mission Impossible">
+
+
 
 
 
 <div class="hero-overlay">
+
 
 
 <div class="movie-info">
@@ -271,30 +511,47 @@ Experience the biggest action movie of the year.
 
 
 
+
+
 <div class="movie-details">
 
 
 <span>
+
 ⭐ 8.5
+
 </span>
 
 
+
 <span>
+
 2026
+
 </span>
 
 
+
+
 <span>
+
 Action
+
 </span>
+
+
 
 
 <span>
+
 2h 43min
+
 </span>
+
 
 
 </div>
+
 
 
 
@@ -303,38 +560,49 @@ Action
 <div class="hero-buttons">
 
 
+
 <button class="watch">
+
 
 <i class="fa-solid fa-play"></i>
 
 Watch Now
 
+
 </button>
+
 
 
 
 
 <button class="info">
 
+
 <i class="fa-solid fa-circle-info"></i>
 
 More Info
 
+
 </button>
 
 
-</div>
-
-
-
 
 </div>
 
 
+
+
+
 </div>
 
 
 </div>
+
+
+</div>
+
+
+
 
 
 
@@ -344,16 +612,21 @@ More Info
 <!-- SLIDE 2 -->
 
 
-<div class="slide" data-slide="2">
+<div class="slide">
+
 
 
 <img 
 src="assets/images/banner2.jpg"
-alt="Avengers Endgame Movie Banner">
+alt="Avengers Endgame">
+
+
+
 
 
 
 <div class="hero-overlay">
+
 
 
 <div class="movie-info">
@@ -368,11 +641,14 @@ alt="Avengers Endgame Movie Banner">
 
 
 
+
+
 <h1>
 
 Avengers Endgame
 
 </h1>
+
 
 
 
@@ -387,31 +663,46 @@ Heroes unite for one final mission.
 
 
 
+
+
+
 <div class="movie-details">
 
 
 <span>
+
 ⭐ 8.4
+
 </span>
 
 
+
 <span>
+
 2019
+
 </span>
 
 
+
 <span>
+
 Action
+
 </span>
 
 
+
 <span>
+
 3h 2min
+
 </span>
 
 
 
 </div>
+
 
 
 
@@ -445,16 +736,6 @@ More Info
 </button>
 
 
-</div>
-
-
-
-
-</div>
-
-
-</div>
-
 
 </div>
 
@@ -462,7 +743,22 @@ More Info
 
 
 
+
 </div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+</div>
+
+
 
 
 
@@ -479,10 +775,6 @@ More Info
 
 <span></span>
 
-<span></span>
-
-<span></span>
-
 
 </div>
 
@@ -490,6 +782,8 @@ More Info
 
 
 </section>
+
+
 
 
 
@@ -498,23 +792,32 @@ More Info
 
 
 <!-- =========================
-     MOVIE SECTIONS
+        MOVIE SECTIONS
 ========================= -->
+
+
 
 
 <section class="movie-sections">
 
 
 
+
+
+
 <section class="movie-row">
 
 
 <h2>
+
 🔥 Trending
+
 </h2>
 
 
+
 <div class="movie-container">
+
 
 </div>
 
@@ -525,15 +828,21 @@ More Info
 
 
 
+
+
 <section class="movie-row">
 
 
 <h2>
+
 ⭐ Popular Movies
+
 </h2>
 
 
+
 <div class="movie-container">
+
 
 </div>
 
@@ -544,15 +853,22 @@ More Info
 
 
 
+
+
+
 <section class="movie-row">
 
 
 <h2>
+
 🎬 Latest Releases
+
 </h2>
 
 
+
 <div class="movie-container">
+
 
 </div>
 
@@ -564,20 +880,29 @@ More Info
 
 
 
+
+
 <section class="movie-row">
 
 
 <h2>
+
 ❤️ Top Rated
+
 </h2>
 
 
+
 <div class="movie-container">
+
 
 </div>
 
 
 </section>
+
+
+
 
 
 
@@ -587,11 +912,15 @@ More Info
 
 
 <h2>
+
 🎭 Genres
+
 </h2>
 
 
+
 <div class="movie-container">
+
 
 </div>
 
@@ -600,7 +929,13 @@ More Info
 
 
 
+
+
 </section>
+
+
+
+
 
 
 
@@ -615,12 +950,14 @@ More Info
 
 
 
+
 <!-- =========================
-     FOOTER
+        FOOTER
 ========================= -->
 
 
 <footer>
+
 
 
 <h2>
@@ -630,11 +967,16 @@ TRAP MOVIES
 </h2>
 
 
+
+
 <p>
 
 Discover • Watch • Enjoy 🎬
 
 </p>
+
+
+
 
 
 <p>
@@ -644,6 +986,7 @@ Discover • Watch • Enjoy 🎬
 </p>
 
 
+
 </footer>
 
 
@@ -651,10 +994,18 @@ Discover • Watch • Enjoy 🎬
 
 
 
+
+
+<!-- =========================
+        JAVASCRIPT
+========================= -->
+
+
 <script src="script.js"></script>
 
 
-</body>
 
+
+</body>
 
 </html>
