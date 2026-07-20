@@ -1,5 +1,724 @@
 /* ==================================
    TRAP MOVIES
+   MAIN SCRIPT ENGINE
+   TMDB + MENU + SLIDER + SEARCH
+================================== */
+
+
+document.addEventListener("DOMContentLoaded",()=>{
+
+
+
+/* =========================
+        TMDB CONFIG
+========================= */
+
+
+const API_KEY =
+"17a1834e273320eef8a2a36b38a11964";
+
+
+const BASE_URL =
+"https://api.themoviedb.org/3";
+
+
+const IMAGE_URL =
+"https://image.tmdb.org/t/p/w500/";
+
+
+
+
+
+
+/* =========================
+        MOVIE CARDS
+========================= */
+
+
+const movieContainers =
+document.querySelectorAll(".movie-container");
+
+
+
+
+
+async function getMovies(endpoint){
+
+
+try{
+
+
+const response =
+await fetch(
+
+`${BASE_URL}${endpoint}?api_key=${API_KEY}&language=en-US`
+
+);
+
+
+const data =
+await response.json();
+
+
+return data.results || [];
+
+
+}
+
+catch(error){
+
+
+console.log(
+"TMDB ERROR:",
+error
+);
+
+
+return [];
+
+}
+
+
+}
+
+
+
+
+
+
+
+function createMovieCard(movie){
+
+
+const poster =
+
+movie.poster_path
+
+?
+
+IMAGE_URL + movie.poster_path
+
+:
+
+"assets/images/no-image.jpg";
+
+
+
+return `
+
+
+<div class="movie-card"
+onclick="openMovie(${movie.id})">
+
+
+<img src="${poster}">
+
+
+<h3>
+${movie.title || "Unknown"}
+</h3>
+
+
+<p>
+⭐ ${
+movie.vote_average
+?
+movie.vote_average.toFixed(1)
+:
+"N/A"
+}
+</p>
+
+
+</div>
+
+
+`;
+
+}
+
+
+
+
+
+
+
+
+
+async function loadMovies(){
+
+
+const sections = [
+
+"/trending/movie/week",
+
+"/movie/popular",
+
+"/movie/now_playing",
+
+"/movie/top_rated",
+
+"/movie/upcoming"
+
+];
+
+
+
+for(
+let i=0;
+i<movieContainers.length;
+i++
+){
+
+
+const movies =
+await getMovies(
+sections[i]
+);
+
+
+
+movieContainers[i].innerHTML="";
+
+
+
+movies.forEach(movie=>{
+
+
+movieContainers[i].innerHTML +=
+
+createMovieCard(movie);
+
+
+});
+
+
+}
+
+
+}
+
+
+loadMovies();
+
+
+
+
+
+
+
+
+/* =========================
+        SIDE MENU
+========================= */
+
+
+const menuBtn =
+document.querySelector(".menu-btn");
+
+
+const closeBtn =
+document.querySelector(".close-btn");
+
+
+const sideMenu =
+document.querySelector(".side-menu");
+
+
+const overlay =
+document.querySelector(".overlay-bg");
+
+
+
+
+
+
+
+function openMenu(){
+
+
+sideMenu?.classList.add(
+"active"
+);
+
+
+overlay?.classList.add(
+"active"
+);
+
+
+}
+
+
+
+
+
+function closeMenu(){
+
+
+sideMenu?.classList.remove(
+"active"
+);
+
+
+overlay?.classList.remove(
+"active"
+);
+
+
+}
+
+
+
+
+
+
+
+menuBtn?.addEventListener(
+"click",
+openMenu
+);
+
+
+
+closeBtn?.addEventListener(
+"click",
+closeMenu
+);
+
+
+
+overlay?.addEventListener(
+"click",
+closeMenu
+);
+
+
+
+
+
+
+
+
+
+/* =========================
+        HERO SLIDER
+========================= */
+
+
+const slides =
+document.querySelectorAll(".slide");
+
+
+const dots =
+document.querySelectorAll(
+".slider-dots span"
+);
+
+
+let currentSlide=0;
+
+
+let sliderTimer;
+
+
+
+
+
+
+
+function showSlide(index){
+
+
+slides.forEach(slide=>{
+
+slide.classList.remove(
+"active"
+);
+
+});
+
+
+dots.forEach(dot=>{
+
+dot.classList.remove(
+"active"
+);
+
+});
+
+
+
+slides[index]?.classList.add(
+"active"
+);
+
+
+dots[index]?.classList.add(
+"active"
+);
+
+
+}
+
+
+
+
+
+
+
+function nextSlide(){
+
+
+currentSlide++;
+
+
+if(
+currentSlide >= slides.length
+){
+
+currentSlide=0;
+
+}
+
+
+showSlide(
+currentSlide
+);
+
+
+}
+
+
+
+
+
+
+function startSlider(){
+
+
+sliderTimer =
+setInterval(
+nextSlide,
+5000
+);
+
+
+}
+
+
+
+
+
+
+dots.forEach(
+(dot,index)=>{
+
+
+dot.onclick=()=>{
+
+
+currentSlide=index;
+
+
+showSlide(index);
+
+
+clearInterval(
+sliderTimer
+);
+
+
+startSlider();
+
+
+};
+
+
+});
+
+
+
+
+
+
+if(slides.length){
+
+
+showSlide(0);
+
+
+startSlider();
+
+
+}
+
+
+
+
+
+
+
+
+
+
+/* =========================
+        SEARCH SYSTEM
+========================= */
+
+
+const searchBtn =
+document.querySelector(
+".search-btn"
+);
+
+
+const searchPage =
+document.querySelector(
+".search-page"
+);
+
+
+
+const backSearch =
+document.querySelector(
+".back-search"
+);
+
+
+
+const searchInput =
+document.querySelector(
+"#searchInput"
+);
+
+
+
+const searchResults =
+document.querySelector(
+"#searchResults"
+);
+
+
+
+
+
+
+
+
+
+function openSearch(){
+
+
+searchPage?.classList.add(
+"active"
+);
+
+
+searchInput?.focus();
+
+
+}
+
+
+
+
+
+
+
+function closeSearch(){
+
+
+searchPage?.classList.remove(
+"active"
+);
+
+
+}
+
+
+
+
+
+
+
+
+searchBtn?.addEventListener(
+"click",
+openSearch
+);
+
+
+
+backSearch?.addEventListener(
+"click",
+closeSearch
+);
+
+
+
+
+
+
+
+
+
+async function searchMovies(query){
+
+
+try{
+
+
+const response =
+await fetch(
+
+`${BASE_URL}/search/movie?api_key=${API_KEY}&query=${query}`
+
+);
+
+
+const data =
+await response.json();
+
+
+return data.results || [];
+
+
+}
+
+catch(error){
+
+
+return [];
+
+}
+
+
+}
+
+
+
+
+
+
+
+
+searchInput?.addEventListener(
+"input",
+async()=>{
+
+
+const value =
+searchInput.value.trim();
+
+
+
+if(!value){
+
+
+searchResults.innerHTML="";
+
+
+return;
+
+
+}
+
+
+
+searchResults.innerHTML =
+
+`
+<div class="loading">
+Searching...
+</div>
+`;
+
+
+
+const movies =
+await searchMovies(value);
+
+
+
+searchResults.innerHTML="";
+
+
+
+movies.forEach(movie=>{
+
+
+searchResults.innerHTML +=
+
+createMovieCard(movie);
+
+
+});
+
+
+}
+
+);
+
+
+
+
+
+
+
+
+
+/* =========================
+        KEYBOARD CONTROL
+========================= */
+
+
+document.addEventListener(
+"keydown",
+(e)=>{
+
+
+if(e.key==="Escape"){
+
+
+closeMenu();
+
+closeSearch();
+
+
+}
+
+
+});
+
+
+
+
+
+});
+
+
+
+
+
+
+
+
+/* =========================
+        OPEN MOVIE PAGE
+========================= */
+
+
+function openMovie(id){
+
+
+window.location.href =
+`movie.html?id=${id}`;
+
+
+}
+/* ==================================
+   TRAP MOVIES
    MOVIE DETAILS ENGINE
    PREMIUM VERSION
 ================================== */
