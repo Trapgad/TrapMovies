@@ -5,9 +5,11 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-<title>TRAP MOVIES | Reels</title>
+<title>
+TRAP MOVIES | Reels
+</title>
 
 
 <link rel="stylesheet" href="style.css">
@@ -21,20 +23,33 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 </head>
 
 
-<body>
+<body class="reels-page">
 
 
-<header class="header">
 
 
-<div class="menu-btn">
-<i class="fa-solid fa-bars"></i>
+
+<!-- HEADER -->
+
+<header class="header reels-header">
+
+
+<div class="back-btn"
+onclick="history.back()">
+
+<i class="fa-solid fa-arrow-left"></i>
+
 </div>
+
+
 
 
 <div class="logo">
+
 TRAP <span>MOVIES</span>
+
 </div>
+
 
 
 </header>
@@ -43,17 +58,58 @@ TRAP <span>MOVIES</span>
 
 
 
-<main id="reelsContainer" class="reels-container">
+
+
+
+
+<!-- REELS FEED -->
+
+
+<main 
+id="reelsContainer"
+class="reels-container">
+
 
 
 <div class="loading">
 
+
+<div class="loader"></div>
+
+
+<p>
+
 Loading Reels...
+
+</p>
+
 
 </div>
 
 
+
 </main>
+
+
+
+
+
+
+
+
+
+<!-- BOTTOM BRAND -->
+
+
+<div class="reels-brand">
+
+
+TRAP MOVIES 🎬
+
+
+</div>
+
+
 
 
 
