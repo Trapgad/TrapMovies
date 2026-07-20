@@ -1,64 +1,1010 @@
-// ===============================
-// TRAP MOVIES MENU SYSTEM
-// ===============================
+/* =========================
+   TRAP MOVIES GLOBAL STYLE
+========================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
 
 
-const menuBtn = document.querySelector(".menu-btn");
-
-const closeBtn = document.querySelector(".close-btn");
-
-const sideMenu = document.querySelector(".side-menu");
-
-const overlay = document.querySelector(".overlay-bg");
+html{
+    scroll-behavior:smooth;
+}
 
 
+body{
 
-// OPEN MENU
+    background:#050505;
+    color:white;
+    overflow-x:hidden;
 
-menuBtn.addEventListener("click",()=>{
-
-    sideMenu.classList.add("active");
-
-    overlay.classList.add("active");
-
-});
-
-
-
-// CLOSE MENU
-
-closeBtn.addEventListener("click",()=>{
-
-    sideMenu.classList.remove("active");
-
-    overlay.classList.remove("active");
-
-});
+}
 
 
 
-// CLOSE WHEN CLICKING OUTSIDE
+img{
 
-overlay.addEventListener("click",()=>{
+    max-width:100%;
+    display:block;
 
-    sideMenu.classList.remove("active");
-
-    overlay.classList.remove("active");
-
-});
+}
 
 
 
-// CLOSE WITH ESC KEY
+button{
 
-document.addEventListener("keydown",(e)=>{
+    font-family:inherit;
 
-    if(e.key === "Escape"){
+}
 
-        sideMenu.classList.remove("active");
 
-        overlay.classList.remove("active");
 
-    }
+::-webkit-scrollbar{
 
-});
+    width:8px;
+
+}
+
+
+::-webkit-scrollbar-track{
+
+    background:#050505;
+
+}
+
+
+::-webkit-scrollbar-thumb{
+
+    background:linear-gradient(
+    #e50914,
+    #8a2be2
+    );
+
+    border-radius:20px;
+
+}
+
+
+
+/* =========================
+        HEADER
+========================= */
+
+
+.header{
+
+    position:fixed;
+
+    top:20px;
+    left:20px;
+    right:20px;
+
+    height:70px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+
+    padding:0 25px;
+
+
+    background:rgba(255,255,255,.08);
+
+    backdrop-filter:blur(18px);
+
+
+    border:1px solid rgba(255,255,255,.15);
+
+
+    border-radius:25px;
+
+
+    z-index:1000;
+
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,.5);
+
+}
+
+
+
+.logo{
+
+    font-size:25px;
+
+    font-weight:800;
+
+    letter-spacing:1px;
+
+}
+
+
+
+.logo span{
+
+    background:
+
+    linear-gradient(
+    45deg,
+    #e50914,
+    #8a2be2
+    );
+
+
+    -webkit-background-clip:text;
+
+    color:transparent;
+
+}
+
+
+
+
+
+.menu-btn,
+.search-btn{
+
+
+    width:45px;
+
+    height:45px;
+
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+
+    border-radius:50%;
+
+
+    background:rgba(255,255,255,.12);
+
+
+    cursor:pointer;
+
+
+    transition:.3s;
+
+
+}
+
+
+
+.menu-btn:hover,
+.search-btn:hover{
+
+
+    background:#e50914;
+
+    transform:scale(1.1);
+
+}
+
+
+
+
+
+/* =========================
+        SIDE MENU
+========================= */
+
+
+.side-menu{
+
+
+    position:fixed;
+
+
+    top:0;
+
+    left:-330px;
+
+
+    width:300px;
+
+    height:100vh;
+
+
+    padding:25px;
+
+
+    background:
+
+    linear-gradient(
+    180deg,
+    #160025,
+    #050505
+    );
+
+
+    z-index:2000;
+
+
+    transition:.4s ease;
+
+
+    box-shadow:
+    15px 0 40px rgba(0,0,0,.8);
+
+}
+
+
+
+.side-menu.active{
+
+    left:0;
+
+}
+
+
+
+
+.menu-header{
+
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+
+    margin-bottom:35px;
+
+}
+
+
+
+.menu-header h2{
+
+    font-size:22px;
+
+    font-weight:700;
+
+}
+
+
+
+.close-btn{
+
+
+    width:40px;
+
+    height:40px;
+
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+
+    background:#e50914;
+
+
+    border-radius:50%;
+
+
+    cursor:pointer;
+
+}
+
+
+
+
+
+.side-menu ul{
+
+    list-style:none;
+
+}
+
+
+
+
+.side-menu li{
+
+
+    display:flex;
+
+    align-items:center;
+
+
+    gap:18px;
+
+
+    padding:15px;
+
+
+    margin:8px 0;
+
+
+    border-radius:15px;
+
+
+    color:#ddd;
+
+
+    cursor:pointer;
+
+
+    transition:.3s;
+
+}
+
+
+
+.side-menu li i{
+
+    width:20px;
+
+    color:#e50914;
+
+}
+
+
+
+.side-menu li:hover{
+
+    background:rgba(138,43,226,.25);
+
+    transform:translateX(8px);
+
+    color:white;
+
+}
+
+
+
+.side-menu hr{
+
+    border:none;
+
+    height:1px;
+
+    background:rgba(255,255,255,.15);
+
+    margin:20px 0;
+
+}
+
+
+
+.logout{
+
+    margin-top:30px;
+
+}
+
+
+
+
+
+
+/* =========================
+        OVERLAY
+========================= */
+
+
+.overlay-bg{
+
+    position:fixed;
+
+    inset:0;
+
+
+    background:rgba(0,0,0,.75);
+
+
+    z-index:1500;
+
+
+    opacity:0;
+
+    visibility:hidden;
+
+
+    transition:.3s;
+
+}
+
+
+
+.overlay-bg.active{
+
+    opacity:1;
+
+    visibility:visible;
+
+}
+
+
+
+
+
+
+/* =========================
+        HERO SLIDER
+========================= */
+
+
+.hero{
+
+
+    position:relative;
+
+
+    height:520px;
+
+
+    margin:110px 20px 30px;
+
+
+    border-radius:30px;
+
+
+    overflow:hidden;
+
+
+    box-shadow:
+
+    0 0 40px rgba(138,43,226,.3);
+
+}
+
+
+
+.slides-container{
+
+
+    width:100%;
+
+    height:100%;
+
+    position:relative;
+
+}
+
+
+
+.slide{
+
+
+    position:absolute;
+
+
+    inset:0;
+
+
+    opacity:0;
+
+
+    visibility:hidden;
+
+
+    transition:1s ease;
+
+}
+
+
+
+.slide.active{
+
+
+    opacity:1;
+
+    visibility:visible;
+
+}
+
+
+
+.slide img{
+
+
+    width:100%;
+
+    height:100%;
+
+
+    object-fit:cover;
+
+
+    animation:zoom 12s infinite alternate;
+
+}
+
+
+
+
+@keyframes zoom{
+
+
+from{
+
+transform:scale(1);
+
+}
+
+
+to{
+
+transform:scale(1.1);
+
+}
+
+}
+
+
+
+
+
+.hero-overlay{
+
+
+    position:absolute;
+
+
+    inset:0;
+
+
+    display:flex;
+
+
+    align-items:flex-end;
+
+
+    padding:45px;
+
+
+    background:
+
+    linear-gradient(
+    90deg,
+    rgba(0,0,0,.95),
+    rgba(0,0,0,.5),
+    transparent
+    );
+
+}
+
+
+
+
+
+.movie-info{
+
+
+    max-width:600px;
+
+
+    animation:fadeUp .8s ease;
+
+}
+
+
+
+
+@keyframes fadeUp{
+
+
+from{
+
+opacity:0;
+
+transform:translateY(40px);
+
+}
+
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+
+
+.tag{
+
+
+    display:inline-block;
+
+
+    padding:7px 18px;
+
+
+    border-radius:30px;
+
+
+    font-size:14px;
+
+
+    font-weight:600;
+
+
+    background:
+
+    linear-gradient(
+    45deg,
+    #e50914,
+    #8a2be2
+    );
+
+}
+
+
+
+
+.movie-info h1{
+
+
+    font-size:48px;
+
+    font-weight:800;
+
+
+    margin:15px 0;
+
+
+}
+
+
+
+
+.movie-info p{
+
+
+    color:#ddd;
+
+
+    line-height:1.6;
+
+
+    max-width:550px;
+
+}
+
+
+
+
+
+.movie-details{
+
+
+    display:flex;
+
+
+    gap:12px;
+
+
+    margin:20px 0;
+
+
+    flex-wrap:wrap;
+
+}
+
+
+
+
+.movie-details span{
+
+
+    background:rgba(255,255,255,.12);
+
+
+    backdrop-filter:blur(10px);
+
+
+    padding:7px 15px;
+
+
+    border-radius:20px;
+
+
+}
+
+
+
+
+
+.hero-buttons{
+
+
+    display:flex;
+
+
+    gap:15px;
+
+
+}
+
+
+
+
+.watch,
+.info{
+
+
+    padding:14px 30px;
+
+
+    border:none;
+
+
+    border-radius:40px;
+
+
+    cursor:pointer;
+
+
+    font-weight:700;
+
+
+    transition:.3s;
+
+}
+
+
+
+.watch{
+
+
+    color:white;
+
+
+    background:
+
+    linear-gradient(
+    45deg,
+    #e50914,
+    #8a2be2
+    );
+
+}
+
+
+
+.watch:hover,
+.info:hover{
+
+
+    transform:translateY(-4px);
+
+}
+
+
+
+
+
+.info{
+
+
+    color:white;
+
+
+    background:rgba(255,255,255,.15);
+
+
+    backdrop-filter:blur(10px);
+
+}
+
+
+
+
+
+
+
+/* =========================
+        MOVIE SECTIONS
+========================= */
+
+
+.movie-row{
+
+
+    margin:45px 20px;
+
+}
+
+
+
+.movie-row h2{
+
+
+    font-size:25px;
+
+    margin-bottom:20px;
+
+
+}
+
+
+
+.movie-container{
+
+
+    display:flex;
+
+
+    gap:20px;
+
+
+    overflow-x:auto;
+
+
+    scroll-behavior:smooth;
+
+}
+
+
+
+.movie-container::-webkit-scrollbar{
+
+    display:none;
+
+}
+
+
+
+
+
+
+/* =========================
+        FOOTER
+========================= */
+
+
+footer{
+
+
+    text-align:center;
+
+
+    padding:45px 20px;
+
+
+    background:#090909;
+
+
+    margin-top:60px;
+
+
+}
+
+
+
+footer h2{
+
+
+    color:#e50914;
+
+
+}
+
+
+
+
+
+
+
+/* =========================
+        RESPONSIVE
+========================= */
+
+
+@media(max-width:768px){
+
+
+.hero{
+
+    height:500px;
+
+}
+
+
+
+.movie-info h1{
+
+    font-size:36px;
+
+}
+
+
+}
+
+
+
+@media(max-width:600px){
+
+
+.header{
+
+    top:12px;
+
+    left:12px;
+
+    right:12px;
+
+    height:65px;
+
+}
+
+
+
+.logo{
+
+    font-size:20px;
+
+}
+
+
+
+.hero{
+
+    margin:95px 12px 25px;
+
+    height:480px;
+
+}
+
+
+
+.hero-overlay{
+
+    padding:25px;
+
+}
+
+
+
+.movie-info h1{
+
+    font-size:30px;
+
+}
+
+
+
+.hero-buttons{
+
+    flex-direction:column;
+
+}
+
+
+
+.watch,
+.info{
+
+    width:100%;
+
+}
+
+
+
+.side-menu{
+
+    width:280px;
+
+}
+
+
+}
