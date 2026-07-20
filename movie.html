@@ -7,19 +7,18 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>TRAP MOVIES | Movie Details</title>
+
+<title>TRAP MOVIES | Details</title>
 
 
 <link rel="stylesheet" href="style.css">
 
 
-<!-- Font Awesome -->
 <link 
 rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 
-<!-- Google Font -->
 <link 
 href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
 rel="stylesheet">
@@ -30,7 +29,6 @@ rel="stylesheet">
 
 
 <body>
-
 
 
 <!-- HEADER -->
@@ -67,6 +65,9 @@ TRAP <span>MOVIES</span>
 
 
 
+
+
+
 <!-- SIDE MENU -->
 
 <nav class="side-menu">
@@ -88,6 +89,7 @@ TRAP <span>MOVIES</span>
 
 
 
+
 <ul>
 
 
@@ -99,13 +101,13 @@ Home
 
 <li>
 <i class="fa-solid fa-heart"></i>
-Favorites
+My List
 </li>
 
 
 <li>
 <i class="fa-solid fa-clock"></i>
-Watch History
+History
 </li>
 
 
@@ -144,6 +146,7 @@ Top Rated
 
 
 
+
 <div class="overlay-bg"></div>
 
 
@@ -152,17 +155,18 @@ Top Rated
 
 
 
-<!-- MOVIE DETAILS -->
+
 
 <main>
 
 
 
-<section class="movie-details-page">
+<!-- =========================
+ PREMIUM HERO
+========================= -->
 
 
-
-<div class="movie-hero">
+<section class="premium-movie-hero">
 
 
 
@@ -170,11 +174,16 @@ Top Rated
 
 
 
-<div class="movie-content">
+
+
+<div class="hero-content">
 
 
 
-<div class="movie-poster">
+
+
+<div class="poster-container">
+
 
 <img
 
@@ -184,6 +193,7 @@ src="assets/images/no-image.jpg"
 
 alt="Movie Poster">
 
+
 </div>
 
 
@@ -192,7 +202,18 @@ alt="Movie Poster">
 
 
 
-<div class="movie-info-box">
+
+<div class="movie-details-content">
+
+
+
+<div class="movie-badge">
+
+🔥 Featured
+
+</div>
+
+
 
 
 <h1 id="movieTitle">
@@ -205,12 +226,14 @@ Loading...
 
 
 
-<div class="movie-meta">
+
+
+<div class="movie-stats">
 
 
 <span id="movieRating">
 
-⭐ N/A
+⭐ 0.0
 
 </span>
 
@@ -218,7 +241,7 @@ Loading...
 
 <span id="movieYear">
 
-Year
+2026
 
 </span>
 
@@ -226,7 +249,7 @@ Year
 
 <span id="movieRuntime">
 
-Runtime
+120 min
 
 </span>
 
@@ -247,7 +270,12 @@ Popularity
 
 
 
-<div class="genres" id="movieGenres"></div>
+<div 
+class="genre-container"
+id="movieGenres">
+
+
+</div>
 
 
 
@@ -255,13 +283,16 @@ Popularity
 
 
 
-<p 
-id="movieDescription"
-class="movie-description">
+<p
+
+id="movieDescription">
+
 
 Loading movie description...
 
+
 </p>
+
 
 
 
@@ -274,6 +305,7 @@ Loading movie description...
 
 <button class="watch">
 
+
 <i class="fa-solid fa-play"></i>
 
 Watch Trailer
@@ -282,23 +314,23 @@ Watch Trailer
 
 
 
-<button 
+
+
+<button
+
 class="info"
+
 id="watchlistBtn">
 
-+ Add To My List
+
+<i class="fa-solid fa-plus"></i>
+
+My List
+
 
 </button>
 
 
-</div>
-
-
-</div>
-
-
-</div>
-
 
 </div>
 
@@ -306,96 +338,282 @@ id="watchlistBtn">
 
 
 
+</div>
 
 
 
 
-<!-- INFORMATION -->
+</div>
 
 
-<section class="movie-extra-info">
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- =========================
+ MOVIE DETAILS
+========================= -->
+
+
+<section class="details-section">
+
 
 
 <h2>
 
-Movie Information
+Movie Details
 
 </h2>
 
 
 
-<div class="info-grid">
 
 
 
-<div class="info-box glass">
+<div class="details-grid">
 
-<h3>Director</h3>
 
-<p id="movieDirector">N/A</p>
+
+
+
+<div class="detail-card">
+
+
+<i class="fa-solid fa-video"></i>
+
+
+<h3>
+
+Director
+
+</h3>
+
+
+<p id="movieDirector">
+
+N/A
+
+</p>
+
 
 </div>
 
 
 
-<div class="info-box glass">
 
-<h3>Writer</h3>
 
-<p id="movieWriter">N/A</p>
+
+<div class="detail-card">
+
+
+<i class="fa-solid fa-pen"></i>
+
+
+<h3>
+
+Writer
+
+</h3>
+
+
+<p id="movieWriter">
+
+N/A
+
+</p>
+
 
 </div>
 
 
 
-<div class="info-box glass">
 
-<h3>Production</h3>
 
-<p id="movieCompanies">N/A</p>
+
+
+<div class="detail-card">
+
+
+<i class="fa-solid fa-building"></i>
+
+
+<h3>
+
+Studio
+
+</h3>
+
+
+<p id="movieCompanies">
+
+N/A
+
+</p>
+
 
 </div>
 
 
 
-<div class="info-box glass">
 
-<h3>Country</h3>
 
-<p id="movieCountry">N/A</p>
+
+
+<div class="detail-card">
+
+
+<i class="fa-solid fa-earth-americas"></i>
+
+
+<h3>
+
+Country
+
+</h3>
+
+
+<p id="movieCountry">
+
+N/A
+
+</p>
+
 
 </div>
 
 
 
-<div class="info-box glass">
 
-<h3>Languages</h3>
 
-<p id="movieLanguages">N/A</p>
+
+
+<div class="detail-card">
+
+
+<i class="fa-solid fa-language"></i>
+
+
+<h3>
+
+Languages
+
+</h3>
+
+
+<p id="movieLanguages">
+
+N/A
+
+</p>
+
+
+</div>
+
+
+
+
+
+
+
+<div class="detail-card">
+
+
+<i class="fa-solid fa-money-bill"></i>
+
+
+<h3>
+
+Budget
+
+</h3>
+
+
+<p id="movieBudget">
+
+N/A
+
+</p>
+
 
 </div>
 
 
 
-<div class="info-box glass">
 
-<h3>Budget</h3>
 
-<p id="movieBudget">N/A</p>
+
+
+<div class="detail-card">
+
+
+<i class="fa-solid fa-chart-line"></i>
+
+
+<h3>
+
+Revenue
+
+</h3>
+
+
+<p id="movieRevenue">
+
+N/A
+
+</p>
+
 
 </div>
 
 
 
-<div class="info-box glass">
 
-<h3>Revenue</h3>
-
-<p id="movieRevenue">N/A</p>
 
 </div>
 
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- =========================
+ STORY
+========================= -->
+
+
+<section class="story-section">
+
+
+<h2>
+
+Storyline
+
+</h2>
+
+
+
+<div class="story-card">
+
+
+<p id="storyText">
+
+Loading story...
+
+</p>
 
 
 </div>
@@ -411,7 +629,9 @@ Movie Information
 
 
 
-<!-- TRAILER -->
+<!-- =========================
+ TRAILER
+========================= -->
 
 
 <section class="trailer-section">
@@ -425,8 +645,11 @@ Official Trailer
 
 
 
+
 <div 
+
 id="trailerBox"
+
 class="trailer-box">
 
 
@@ -450,7 +673,9 @@ Loading trailer...
 
 
 
-<!-- CAST -->
+<!-- =========================
+ CAST
+========================= -->
 
 
 <section class="cast-section">
@@ -458,15 +683,20 @@ Loading trailer...
 
 <h2>
 
-Cast
+Top Cast
 
 </h2>
 
 
 
-<div 
+
+<div
+
 id="castContainer"
+
 class="cast-container">
+
+
 
 </div>
 
@@ -481,7 +711,9 @@ class="cast-container">
 
 
 
-<!-- SIMILAR -->
+<!-- =========================
+ SIMILAR
+========================= -->
 
 
 <section class="similar-section">
@@ -495,9 +727,12 @@ More Like This
 
 
 
-<div 
+<div
+
 id="similarMovies"
+
 class="movie-container">
+
 
 </div>
 
@@ -508,10 +743,8 @@ class="movie-container">
 
 
 
-</section>
-
-
 </main>
+
 
 
 
@@ -537,6 +770,7 @@ Discover • Watch • Enjoy 🎬
 </p>
 
 
+
 <p>
 
 © 2026 TRAP MOVIES
@@ -552,11 +786,15 @@ Discover • Watch • Enjoy 🎬
 
 
 
+
 <script src="script.js"></script>
+
 
 <script src="movie.js"></script>
 
 
+
 </body>
+
 
 </html>
