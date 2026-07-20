@@ -1,120 +1,37 @@
 /* =========================
-   TRAP MOVIES GLOBAL STYLE
+   TRAP MOVIES JAVASCRIPT
 ========================= */
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Poppins',sans-serif;
-}
 
-
-html{
-    scroll-behavior:smooth;
-}
-
-
-body{
-
-    background:#050505;
-    color:white;
-    overflow-x:hidden;
-
-}
-
-
-
-img{
-
-    width:100%;
-    display:block;
-
-}
-
-
-
-button{
-
-    font-family:inherit;
-
-}
-
-
-
-::-webkit-scrollbar{
-
-    width:8px;
-
-}
-
-
-::-webkit-scrollbar-track{
-
-    background:#050505;
-
-}
-
-
-::-webkit-scrollbar-thumb{
-
-    background:linear-gradient(
-    #e50914,
-    #8a2be2
-    );
-
-    border-radius:20px;
-
-}
-
-
+document.addEventListener("DOMContentLoaded", () => {
 
 
 
 /* =========================
-        HEADER
+      SIDE MENU SYSTEM
 ========================= */
 
 
-.header{
+const menuBtn = document.querySelector(".menu-btn");
 
-    position:fixed;
+const closeBtn = document.querySelector(".close-btn");
 
-    top:20px;
-    left:20px;
-    right:20px;
+const sideMenu = document.querySelector(".side-menu");
 
-
-    height:70px;
+const overlayBg = document.querySelector(".overlay-bg");
 
 
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
 
 
-    padding:0 25px;
+function openMenu(){
 
+    if(sideMenu && overlayBg){
 
-    background:rgba(255,255,255,.08);
+        sideMenu.classList.add("active");
 
-    backdrop-filter:blur(18px);
+        overlayBg.classList.add("active");
 
-
-    border:1px solid rgba(255,255,255,.15);
-
-
-    border-radius:25px;
-
-
-    z-index:1000;
-
-
-    box-shadow:
-
-    0 10px 30px rgba(0,0,0,.5);
+    }
 
 }
 
@@ -122,32 +39,15 @@ button{
 
 
 
-.logo{
+function closeMenu(){
 
-    font-size:25px;
+    if(sideMenu && overlayBg){
 
-    font-weight:800;
+        sideMenu.classList.remove("active");
 
-}
+        overlayBg.classList.remove("active");
 
-
-
-
-
-.logo span{
-
-    background:
-
-    linear-gradient(
-    45deg,
-    #e50914,
-    #8a2be2
-    );
-
-
-    -webkit-background-clip:text;
-
-    color:transparent;
+    }
 
 }
 
@@ -155,46 +55,28 @@ button{
 
 
 
-.menu-btn,
-.search-btn{
+if(menuBtn){
 
-
-    width:45px;
-
-    height:45px;
-
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-
-    border-radius:50%;
-
-
-    background:rgba(255,255,255,.12);
-
-
-    cursor:pointer;
-
-
-    transition:.3s;
+    menuBtn.onclick = openMenu;
 
 }
 
 
 
-.menu-btn:hover,
-.search-btn:hover{
+if(closeBtn){
 
-
-    background:#e50914;
-
-    transform:scale(1.1);
+    closeBtn.onclick = closeMenu;
 
 }
+
+
+
+if(overlayBg){
+
+    overlayBg.onclick = closeMenu;
+
+}
+
 
 
 
@@ -202,375 +84,109 @@ button{
 
 
 /* =========================
-        SIDE MENU
+      HERO SLIDER SYSTEM
 ========================= */
 
 
-.side-menu{
+const slides = document.querySelectorAll(".slide");
+
+const dots = document.querySelectorAll(".slider-dots span");
 
 
-    position:fixed;
+let currentSlide = 0;
+
+let sliderTimer;
 
 
-    top:0;
-
-    left:-330px;
 
 
-    width:300px;
 
-    height:100vh;
-
-
-    overflow-y:auto;
+function showSlide(index){
 
 
-    padding:25px;
+    slides.forEach((slide)=>{
+
+        slide.classList.remove("active");
+
+    });
 
 
-    background:
 
-    linear-gradient(
-    180deg,
-    #160025,
-    #050505
+    dots.forEach((dot)=>{
+
+        dot.classList.remove("active");
+
+    });
+
+
+
+
+    if(slides[index]){
+
+        slides[index].classList.add("active");
+
+    }
+
+
+
+    if(dots[index]){
+
+        dots[index].classList.add("active");
+
+    }
+
+
+
+}
+
+
+
+
+
+function nextSlide(){
+
+
+    currentSlide++;
+
+
+
+    if(currentSlide >= slides.length){
+
+        currentSlide = 0;
+
+    }
+
+
+
+    showSlide(currentSlide);
+
+
+}
+
+
+
+
+
+function startSlider(){
+
+
+    sliderTimer = setInterval(
+        nextSlide,
+        5000
     );
 
 
-    z-index:2000;
-
-
-    transition:.4s;
-
-
 }
 
 
 
 
-.side-menu.active{
+function restartSlider(){
 
-    left:0;
 
-}
+    clearInterval(sliderTimer);
 
-
-
-
-
-.menu-header{
-
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:space-between;
-
-
-    margin-bottom:35px;
-
-}
-
-
-
-.menu-header h2{
-
-    font-size:22px;
-
-}
-
-
-
-
-
-.close-btn{
-
-
-    width:40px;
-
-    height:40px;
-
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-
-    background:#e50914;
-
-
-    border-radius:50%;
-
-
-    cursor:pointer;
-
-}
-
-
-
-
-
-.side-menu ul{
-
-    list-style:none;
-
-}
-
-
-
-
-.side-menu li{
-
-
-    display:flex;
-
-    align-items:center;
-
-
-    gap:18px;
-
-
-    padding:15px;
-
-
-    margin:8px 0;
-
-
-    border-radius:15px;
-
-
-    color:#ddd;
-
-
-    cursor:pointer;
-
-
-    transition:.3s;
-
-}
-
-
-
-.side-menu li i{
-
-    width:20px;
-
-    color:#e50914;
-
-}
-
-
-
-.side-menu li:hover{
-
-
-    background:rgba(138,43,226,.25);
-
-
-    transform:translateX(8px);
-
-
-    color:white;
-
-}
-
-
-
-
-
-.side-menu hr{
-
-    border:none;
-
-    height:1px;
-
-
-    background:rgba(255,255,255,.15);
-
-
-    margin:20px 0;
-
-}
-
-
-
-
-
-.logout{
-
-    margin-top:30px;
-
-}
-
-
-
-
-
-
-/* =========================
-        OVERLAY
-========================= */
-
-
-.overlay-bg{
-
-
-    position:fixed;
-
-
-    inset:0;
-
-
-    background:rgba(0,0,0,.75);
-
-
-    z-index:1500;
-
-
-    opacity:0;
-
-
-    visibility:hidden;
-
-
-    transition:.3s;
-
-}
-
-
-
-
-.overlay-bg.active{
-
-
-    opacity:1;
-
-
-    visibility:visible;
-
-}
-
-
-
-
-
-
-
-/* =========================
-        HERO SLIDER
-========================= */
-
-
-.hero{
-
-
-    position:relative;
-
-
-    height:520px;
-
-
-    margin:110px 20px 30px;
-
-
-    border-radius:30px;
-
-
-    overflow:hidden;
-
-
-    box-shadow:
-
-    0 0 40px rgba(138,43,226,.3);
-
-}
-
-
-
-
-.slides-container{
-
-
-    height:100%;
-
-    position:relative;
-
-}
-
-
-
-
-
-.slide{
-
-
-    position:absolute;
-
-
-    inset:0;
-
-
-    opacity:0;
-
-
-    visibility:hidden;
-
-
-    transition:1s ease;
-
-}
-
-
-
-.slide.active{
-
-
-    opacity:1;
-
-
-    visibility:visible;
-
-}
-
-
-
-
-
-.slide img{
-
-
-    height:100%;
-
-
-    object-fit:cover;
-
-
-    animation:zoom 12s infinite alternate;
-
-}
-
-
-
-
-
-@keyframes zoom{
-
-
-from{
-
-transform:scale(1);
-
-}
-
-
-to{
-
-transform:scale(1.1);
-
-}
+    startSlider();
 
 
 }
@@ -580,328 +196,46 @@ transform:scale(1.1);
 
 
 
+// Dot Click Navigation
 
-.hero-overlay{
-
-
-    position:absolute;
+dots.forEach((dot,index)=>{
 
 
-    inset:0;
+    dot.addEventListener(
+        "click",
+        ()=>{
 
 
-    display:flex;
+            currentSlide = index;
 
 
-    align-items:flex-end;
+            showSlide(currentSlide);
 
 
-    padding:45px;
+            restartSlider();
 
 
-    z-index:2;
-
-
-    background:
-
-    linear-gradient(
-    90deg,
-    rgba(0,0,0,.95),
-    rgba(0,0,0,.5),
-    transparent
+        }
     );
 
-}
+
+});
 
 
 
 
 
-.movie-info{
+
+if(slides.length > 0){
 
 
-    max-width:600px;
+    showSlide(0);
 
 
-    animation:fadeUp .8s ease;
-
-}
-
-
-
-@keyframes fadeUp{
-
-
-from{
-
-opacity:0;
-
-transform:translateY(40px);
-
-}
-
-
-to{
-
-opacity:1;
-
-transform:translateY(0);
-
-}
+    startSlider();
 
 
 }
-
-
-
-
-
-.tag{
-
-
-    display:inline-block;
-
-
-    padding:7px 18px;
-
-
-    border-radius:30px;
-
-
-    font-weight:600;
-
-
-    background:
-
-    linear-gradient(
-    45deg,
-    #e50914,
-    #8a2be2
-    );
-
-}
-
-
-
-
-
-.movie-info h1{
-
-
-    font-size:48px;
-
-    margin:15px 0;
-
-}
-
-
-
-
-.movie-info p{
-
-
-    color:#ddd;
-
-    line-height:1.6;
-
-}
-
-
-
-
-.movie-details{
-
-
-    display:flex;
-
-
-    gap:12px;
-
-
-    margin:20px 0;
-
-
-    flex-wrap:wrap;
-
-}
-
-
-
-
-
-.movie-details span{
-
-
-    padding:7px 15px;
-
-
-    border-radius:20px;
-
-
-    background:rgba(255,255,255,.12);
-
-
-    backdrop-filter:blur(10px);
-
-}
-
-
-
-
-
-
-.hero-buttons{
-
-
-    display:flex;
-
-    gap:15px;
-
-}
-
-
-
-
-
-.watch,
-.info{
-
-
-    padding:14px 30px;
-
-
-    border:none;
-
-
-    border-radius:40px;
-
-
-    cursor:pointer;
-
-
-    font-weight:700;
-
-
-    display:flex;
-
-
-    align-items:center;
-
-
-    justify-content:center;
-
-
-    gap:10px;
-
-
-    transition:.3s;
-
-}
-
-
-
-.watch{
-
-
-    color:white;
-
-
-    background:
-
-    linear-gradient(
-    45deg,
-    #e50914,
-    #8a2be2
-    );
-
-}
-
-
-
-.info{
-
-
-    color:white;
-
-
-    background:rgba(255,255,255,.15);
-
-
-    backdrop-filter:blur(10px);
-
-}
-
-
-
-.watch:hover,
-.info:hover{
-
-
-    transform:translateY(-5px);
-
-}
-
-
-
-
-
-/* SLIDER DOTS */
-
-
-.slider-dots{
-
-
-    position:absolute;
-
-
-    bottom:20px;
-
-
-    left:50%;
-
-
-    transform:translateX(-50%);
-
-
-    display:flex;
-
-
-    gap:12px;
-
-
-    z-index:5;
-
-}
-
-
-
-.slider-dots span{
-
-
-    width:12px;
-
-
-    height:12px;
-
-
-    background:#777;
-
-
-    border-radius:50%;
-
-
-}
-
-
-
-.slider-dots .active{
-
-
-    background:#e50914;
-
-
-}
-
 
 
 
@@ -909,157 +243,29 @@ transform:translateY(0);
 
 
 /* =========================
- MOVIE SECTIONS
+      KEYBOARD CONTROL
 ========================= */
 
 
-.movie-row{
+document.addEventListener(
+"keydown",
+(e)=>{
 
-    margin:45px 20px;
 
-}
+    if(e.key === "Escape"){
 
 
+        closeMenu();
 
-.movie-row h2{
 
-    margin-bottom:20px;
+    }
 
-}
 
 
+});
 
 
 
-.movie-container{
 
-    display:flex;
 
-
-    gap:20px;
-
-
-    overflow-x:auto;
-
-}
-
-
-
-
-
-/* =========================
- FOOTER
-========================= */
-
-
-footer{
-
-
-    text-align:center;
-
-
-    padding:45px 20px;
-
-
-    background:#090909;
-
-}
-
-
-
-
-
-footer h2{
-
-    color:#e50914;
-
-}
-
-
-
-
-
-
-
-/* =========================
- RESPONSIVE
-========================= */
-
-
-@media(max-width:600px){
-
-
-.header{
-
-    top:12px;
-
-    left:12px;
-
-    right:12px;
-
-    height:65px;
-
-}
-
-
-
-.logo{
-
-    font-size:20px;
-
-}
-
-
-
-.hero{
-
-
-    margin:95px 12px 25px;
-
-    height:480px;
-
-}
-
-
-
-.hero-overlay{
-
-    padding:25px;
-
-}
-
-
-
-.movie-info h1{
-
-    font-size:30px;
-
-}
-
-
-
-.hero-buttons{
-
-    flex-direction:column;
-
-}
-
-
-
-.watch,
-.info{
-
-    width:100%;
-
-}
-
-
-
-.side-menu{
-
-    width:280px;
-
-}
-
-
-}
+});
