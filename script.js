@@ -1,63 +1,49 @@
 /* =========================
-   TRAP MOVIES JAVASCRIPT
+   TRAP MOVIES SCRIPT
 ========================= */
 
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded",()=>{
 
 
 
 /* =========================
-      SIDE MENU SYSTEM
+      SIDE MENU
 ========================= */
 
 
 const menuBtn = document.querySelector(".menu-btn");
-
 const closeBtn = document.querySelector(".close-btn");
-
 const sideMenu = document.querySelector(".side-menu");
-
 const overlayBg = document.querySelector(".overlay-bg");
-
 
 
 
 function openMenu(){
 
-    if(sideMenu && overlayBg){
-
-        sideMenu.classList.add("active");
-
-        overlayBg.classList.add("active");
-
-    }
+    sideMenu.classList.add("active");
+    overlayBg.classList.add("active");
 
 }
-
-
 
 
 
 function closeMenu(){
 
-    if(sideMenu && overlayBg){
-
-        sideMenu.classList.remove("active");
-
-        overlayBg.classList.remove("active");
-
-    }
+    sideMenu.classList.remove("active");
+    overlayBg.classList.remove("active");
 
 }
-
 
 
 
 
 if(menuBtn){
 
-    menuBtn.onclick = openMenu;
+menuBtn.addEventListener(
+"click",
+openMenu
+);
 
 }
 
@@ -65,7 +51,10 @@ if(menuBtn){
 
 if(closeBtn){
 
-    closeBtn.onclick = closeMenu;
+closeBtn.addEventListener(
+"click",
+closeMenu
+);
 
 }
 
@@ -73,9 +62,39 @@ if(closeBtn){
 
 if(overlayBg){
 
-    overlayBg.onclick = closeMenu;
+overlayBg.addEventListener(
+"click",
+closeMenu
+);
 
 }
+
+
+
+
+
+/* =========================
+      ESCAPE KEY
+========================= */
+
+
+document.addEventListener(
+"keydown",
+(e)=>{
+
+
+if(e.key==="Escape"){
+
+closeMenu();
+
+closeSearch();
+
+}
+
+
+});
+
+
 
 
 
@@ -84,7 +103,7 @@ if(overlayBg){
 
 
 /* =========================
-      HERO SLIDER SYSTEM
+      HERO SLIDER
 ========================= */
 
 
@@ -104,36 +123,37 @@ let sliderTimer;
 function showSlide(index){
 
 
-    slides.forEach((slide)=>{
-
-        slide.classList.remove("active");
-
-    });
+if(!slides.length)
+return;
 
 
 
-    dots.forEach((dot)=>{
+slides.forEach(slide=>{
 
-        dot.classList.remove("active");
+slide.classList.remove("active");
 
-    });
-
-
-
-
-    if(slides[index]){
-
-        slides[index].classList.add("active");
-
-    }
+});
 
 
 
-    if(dots[index]){
+dots.forEach(dot=>{
 
-        dots[index].classList.add("active");
+dot.classList.remove("active");
 
-    }
+});
+
+
+
+
+slides[index].classList.add("active");
+
+
+
+if(dots[index]){
+
+dots[index].classList.add("active");
+
+}
 
 
 
@@ -143,22 +163,22 @@ function showSlide(index){
 
 
 
+
 function nextSlide(){
 
 
-    currentSlide++;
+currentSlide++;
+
+
+if(currentSlide >= slides.length){
+
+currentSlide = 0;
+
+}
 
 
 
-    if(currentSlide >= slides.length){
-
-        currentSlide = 0;
-
-    }
-
-
-
-    showSlide(currentSlide);
+showSlide(currentSlide);
 
 
 }
@@ -170,10 +190,13 @@ function nextSlide(){
 function startSlider(){
 
 
-    sliderTimer = setInterval(
-        nextSlide,
-        5000
-    );
+sliderTimer = setInterval(
+
+nextSlide,
+
+5000
+
+);
 
 
 }
@@ -181,12 +204,12 @@ function startSlider(){
 
 
 
-function restartSlider(){
+function resetSlider(){
 
 
-    clearInterval(sliderTimer);
+clearInterval(sliderTimer);
 
-    startSlider();
+startSlider();
 
 
 }
@@ -195,28 +218,27 @@ function restartSlider(){
 
 
 
-
-// Dot Click Navigation
 
 dots.forEach((dot,index)=>{
 
 
-    dot.addEventListener(
-        "click",
-        ()=>{
+dot.addEventListener(
+"click",
+()=>{
 
 
-            currentSlide = index;
+currentSlide=index;
 
 
-            showSlide(currentSlide);
+showSlide(currentSlide);
 
 
-            restartSlider();
+resetSlider();
 
 
-        }
-    );
+}
+
+);
 
 
 });
@@ -225,17 +247,17 @@ dots.forEach((dot,index)=>{
 
 
 
-
-if(slides.length > 0){
-
-
-    showSlide(0);
+if(slides.length){
 
 
-    startSlider();
+showSlide(0);
+
+startSlider();
 
 
 }
+
+
 
 
 
@@ -243,26 +265,202 @@ if(slides.length > 0){
 
 
 /* =========================
-      KEYBOARD CONTROL
+       SEARCH OVERLAY
 ========================= */
 
 
-document.addEventListener(
-"keydown",
-(e)=>{
+const searchBtn = document.querySelector(".search-btn");
+
+const searchPage = document.querySelector(".search-page");
+
+const backSearch = document.querySelector(".back-search");
+
+const searchInput = document.querySelector("#searchInput");
 
 
-    if(e.key === "Escape"){
 
 
-        closeMenu();
+
+function openSearch(){
 
 
-    }
+searchPage.classList.add("active");
 
+
+document.body.style.overflow="hidden";
+
+
+setTimeout(()=>{
+
+
+if(searchInput){
+
+searchInput.focus();
+
+}
+
+
+},300);
+
+
+
+}
+
+
+
+
+
+function closeSearch(){
+
+
+if(!searchPage)
+return;
+
+
+searchPage.classList.remove("active");
+
+
+document.body.style.overflow="";
+
+
+}
+
+
+
+
+if(searchBtn){
+
+searchBtn.addEventListener(
+
+"click",
+
+openSearch
+
+);
+
+}
+
+
+
+
+if(backSearch){
+
+backSearch.addEventListener(
+
+"click",
+
+closeSearch
+
+);
+
+}
+
+
+
+
+
+
+
+/* =========================
+      SEARCH FILTER BUTTONS
+========================= */
+
+
+const filters = document.querySelectorAll(".filter");
+
+
+
+filters.forEach(button=>{
+
+
+button.addEventListener(
+"click",
+()=>{
+
+
+filters.forEach(btn=>{
+
+btn.classList.remove("active");
+
+});
+
+
+
+button.classList.add("active");
+
+
+}
+
+);
 
 
 });
+
+
+
+
+
+
+
+/* =========================
+      SEARCH INPUT DEMO
+========================= */
+
+
+if(searchInput){
+
+
+searchInput.addEventListener(
+
+"input",
+
+()=>{
+
+
+let value = searchInput.value.toLowerCase();
+
+
+
+const results = document.querySelector("#searchResults");
+
+
+
+if(value===""){
+
+results.innerHTML="";
+
+return;
+
+}
+
+
+
+
+
+results.innerHTML = `
+
+<div class="search-card">
+
+<h3>${value}</h3>
+
+<p>
+Search results coming soon...
+</p>
+
+</div>
+
+`;
+
+
+
+}
+
+);
+
+
+
+}
+
 
 
 
