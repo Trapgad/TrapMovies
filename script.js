@@ -8,21 +8,68 @@ document.addEventListener("DOMContentLoaded",()=>{
 
 
 /* =========================
+      TMDB API SETUP
+========================= */
+
+
+const TMDB_API_KEY = "17a1834e273320eef8a2a36b38a11964";
+
+
+const TMDB_BASE_URL =
+"https://api.themoviedb.org/3";
+
+
+const IMAGE_URL =
+"https://image.tmdb.org/t/p/w500";
+
+
+
+
+
+
+
+/* =========================
       ELEMENTS
 ========================= */
 
 
-const menuBtn = document.querySelector(".menu-btn");
-const closeBtn = document.querySelector(".close-btn");
-const sideMenu = document.querySelector(".side-menu");
-const overlayBg = document.querySelector(".overlay-bg");
+const menuBtn =
+document.querySelector(".menu-btn");
 
 
-const searchBtn = document.querySelector(".search-btn");
-const searchPage = document.querySelector(".search-page");
-const backSearch = document.querySelector(".back-search");
-const searchInput = document.querySelector("#searchInput");
-const searchResults = document.querySelector("#searchResults");
+const closeBtn =
+document.querySelector(".close-btn");
+
+
+const sideMenu =
+document.querySelector(".side-menu");
+
+
+const overlayBg =
+document.querySelector(".overlay-bg");
+
+
+
+const searchBtn =
+document.querySelector(".search-btn");
+
+
+const searchPage =
+document.querySelector(".search-page");
+
+
+const backSearch =
+document.querySelector(".back-search");
+
+
+const searchInput =
+document.querySelector("#searchInput");
+
+
+const searchResults =
+document.querySelector("#searchResults");
+
+
 
 
 
@@ -35,25 +82,45 @@ const searchResults = document.querySelector("#searchResults");
 
 function openMenu(){
 
-    if(sideMenu)
-    sideMenu.classList.add("active");
 
+if(sideMenu){
 
-    if(overlayBg)
-    overlayBg.classList.add("active");
+sideMenu.classList.add("active");
 
 }
 
 
 
+if(overlayBg){
+
+overlayBg.classList.add("active");
+
+}
+
+
+}
+
+
+
+
+
 function closeMenu(){
 
-    if(sideMenu)
-    sideMenu.classList.remove("active");
+
+if(sideMenu){
+
+sideMenu.classList.remove("active");
+
+}
 
 
-    if(overlayBg)
-    overlayBg.classList.remove("active");
+
+if(overlayBg){
+
+overlayBg.classList.remove("active");
+
+}
+
 
 }
 
@@ -97,24 +164,33 @@ overlayBg.onclick = closeMenu;
 
 function openSearch(){
 
-    if(searchPage){
 
-        searchPage.classList.add("active");
-
-        document.body.style.overflow="hidden";
+if(searchPage){
 
 
-        setTimeout(()=>{
+searchPage.classList.add("active");
 
-            if(searchInput){
 
-                searchInput.focus();
+document.body.style.overflow="hidden";
 
-            }
 
-        },300);
 
-    }
+setTimeout(()=>{
+
+
+if(searchInput){
+
+searchInput.focus();
+
+}
+
+
+},300);
+
+
+
+}
+
 
 }
 
@@ -122,15 +198,23 @@ function openSearch(){
 
 
 
+
+
 function closeSearch(){
 
-    if(searchPage){
 
-        searchPage.classList.remove("active");
+if(searchPage){
 
-        document.body.style.overflow="";
 
-    }
+searchPage.classList.remove("active");
+
+
+document.body.style.overflow="";
+
+
+}
+
+
 
 }
 
@@ -158,8 +242,10 @@ backSearch.onclick=closeSearch;
 
 
 
+
+
 /* =========================
-      ESCAPE KEY
+      ESC KEY
 ========================= */
 
 
@@ -170,15 +256,18 @@ document.addEventListener(
 
 if(e.key==="Escape"){
 
-    closeMenu();
 
-    closeSearch();
+closeMenu();
+
+
+closeSearch();
+
 
 }
 
 
-});
 
+});
 
 
 
@@ -193,14 +282,22 @@ if(e.key==="Escape"){
 ========================= */
 
 
-const slides=document.querySelectorAll(".slide");
+const slides =
+document.querySelectorAll(".slide");
 
-const dots=document.querySelectorAll(".slider-dots span");
+
+const dots =
+document.querySelectorAll(".slider-dots span");
 
 
-let currentSlide=0;
+
+let currentSlide = 0;
+
 
 let sliderTimer;
+
+
+
 
 
 
@@ -215,17 +312,24 @@ return;
 
 slides.forEach(slide=>{
 
+
 slide.classList.remove("active");
 
+
 });
+
 
 
 
 dots.forEach(dot=>{
 
+
 dot.classList.remove("active");
 
+
 });
+
+
 
 
 
@@ -234,14 +338,21 @@ slides[index].classList.add("active");
 
 
 
+
 if(dots[index]){
+
 
 dots[index].classList.add("active");
 
+
 }
 
 
+
 }
+
+
+
 
 
 
@@ -253,17 +364,25 @@ function nextSlide(){
 currentSlide++;
 
 
+
 if(currentSlide >= slides.length){
 
-currentSlide=0;
+
+currentSlide = 0;
+
 
 }
+
+
 
 
 showSlide(currentSlide);
 
 
+
 }
+
+
 
 
 
@@ -272,16 +391,16 @@ showSlide(currentSlide);
 function startSlider(){
 
 
-sliderTimer=setInterval(
-
+sliderTimer =
+setInterval(
 nextSlide,
-
 5000
-
 );
 
 
 }
+
+
 
 
 
@@ -292,10 +411,12 @@ function resetSlider(){
 
 clearInterval(sliderTimer);
 
+
 startSlider();
 
 
 }
+
 
 
 
@@ -316,10 +437,13 @@ showSlide(currentSlide);
 resetSlider();
 
 
+
 };
 
 
 });
+
+
 
 
 
@@ -330,7 +454,170 @@ if(slides.length){
 
 showSlide(0);
 
+
 startSlider();
+
+
+}
+/* =========================
+      TMDB MOVIE LOADER
+========================= */
+
+
+async function getMovies(type, container){
+
+
+try{
+
+
+const response = await fetch(
+
+`${TMDB_BASE_URL}/movie/${type}?api_key=${TMDB_API_KEY}&language=en-US&page=1`
+
+);
+
+
+
+const data = await response.json();
+
+
+
+container.innerHTML="";
+
+
+
+data.results.forEach(movie=>{
+
+
+const card = document.createElement("div");
+
+
+card.classList.add("movie-card");
+
+
+
+card.innerHTML = `
+
+
+<img 
+src="${
+movie.poster_path 
+? IMAGE_URL + movie.poster_path
+: "assets/images/no-image.jpg"
+}"
+
+alt="${movie.title}">
+
+
+
+<h3>
+
+${movie.title}
+
+</h3>
+
+
+
+<p>
+
+⭐ ${movie.vote_average.toFixed(1)}
+
+</p>
+
+
+`;
+
+
+
+container.appendChild(card);
+
+
+
+});
+
+
+
+}
+
+catch(error){
+
+
+console.log(
+"TMDB Error:",
+error
+);
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+
+
+/* =========================
+      LOAD MOVIE SECTIONS
+========================= */
+
+
+const movieContainers =
+document.querySelectorAll(".movie-container");
+
+
+
+if(movieContainers.length){
+
+
+
+// 🔥 Trending
+
+getMovies(
+"popular",
+movieContainers[0]
+);
+
+
+
+// ⭐ Popular
+
+getMovies(
+"popular",
+movieContainers[1]
+);
+
+
+
+// 🎬 Latest Releases
+
+getMovies(
+"now_playing",
+movieContainers[2]
+);
+
+
+
+// ❤️ Top Rated
+
+getMovies(
+"top_rated",
+movieContainers[3]
+);
+
+
+
+// 🎭 Genres
+
+getMovies(
+"popular",
+movieContainers[4]
+);
+
 
 
 }
@@ -344,67 +631,27 @@ startSlider();
 
 
 /* =========================
-      SEARCH FILTERS
-========================= */
-
-
-const filters=document.querySelectorAll(".filter");
-
-
-
-filters.forEach(filter=>{
-
-
-filter.onclick=()=>{
-
-
-filters.forEach(btn=>{
-
-btn.classList.remove("active");
-
-});
-
-
-
-filter.classList.add("active");
-
-
-};
-
-
-});
-
-
-
-
-
-
-
-
-
-/* =========================
-      SEARCH INPUT
+      TMDB SEARCH
 ========================= */
 
 
 if(searchInput){
 
 
+
 searchInput.addEventListener(
 "input",
-()=>{
-
-
-let value=searchInput.value.trim();
+async()=>{
 
 
 
-if(!searchResults)
-return;
+let query =
+searchInput.value.trim();
 
 
 
-if(value===""){
+
+if(query===""){
 
 
 searchResults.innerHTML="";
@@ -419,31 +666,165 @@ return;
 
 
 
-searchResults.innerHTML=`
+try{
 
-<div class="search-card">
+
+
+const response =
+await fetch(
+
+`${TMDB_BASE_URL}/search/movie?api_key=${TMDB_API_KEY}&query=${query}`
+
+);
+
+
+
+const data =
+await response.json();
+
+
+
+
+searchResults.innerHTML="";
+
+
+
+
+
+data.results.slice(0,10)
+.forEach(movie=>{
+
+
+
+const card =
+document.createElement("div");
+
+
+
+card.classList.add(
+"search-card"
+);
+
+
+
+
+
+card.innerHTML=`
+
+
+<img
+
+src="${
+movie.poster_path
+?
+IMAGE_URL + movie.poster_path
+:
+"assets/images/no-image.jpg"
+}"
+
+>
+
+
+
 
 <h3>
-${value}
+
+${movie.title}
+
 </h3>
 
+
+
 <p>
-Searching TRAP MOVIES database...
+
+⭐ ${movie.vote_average}
+
 </p>
 
 
-</div>
 
 `;
 
 
 
+searchResults.appendChild(card);
+
+
+
+});
+
+
+
+
+
 }
 
+
+catch(error){
+
+
+console.log(
+"Search Error:",
+error
 );
 
 
 }
+
+
+
+
+});
+
+
+
+}
+
+
+
+
+
+
+
+/* =========================
+      SEARCH FILTERS
+========================= */
+
+
+const filters =
+document.querySelectorAll(".filter");
+
+
+
+filters.forEach(filter=>{
+
+
+
+filter.onclick=()=>{
+
+
+
+filters.forEach(btn=>{
+
+
+btn.classList.remove("active");
+
+
+});
+
+
+
+filter.classList.add("active");
+
+
+
+};
+
+
+
+});
+
+
 
 
 
