@@ -1,7 +1,7 @@
 /* ==================================
    TRAP MOVIES
    MOVIE DETAILS ENGINE
-   PHASE 3 FINAL FIX
+   PREMIUM VERSION
 ================================== */
 
 
@@ -25,21 +25,16 @@ const POSTER_URL =
 
 
 
-
-const params =
+const movieID =
 new URLSearchParams(
 window.location.search
-);
-
-
-const movieID =
-params.get("id");
+).get("id");
 
 
 
 if(!movieID){
 
-console.log("No movie ID");
+console.log("Movie ID missing");
 
 return;
 
@@ -70,7 +65,10 @@ return await response.json();
 
 catch(error){
 
-console.log(error);
+console.log(
+"TMDB ERROR",
+error
+);
 
 return null;
 
@@ -85,9 +83,33 @@ return null;
 
 
 
+function setText(id,value){
+
+
+const element =
+document.querySelector(id);
+
+
+if(element){
+
+element.textContent =
+value || "N/A";
+
+}
+
+
+}
+
+
+
+
+
+
+
+
 
 /* ===============================
-        MOVIE DETAILS
+        MAIN MOVIE DATA
 ================================ */
 
 
@@ -107,8 +129,11 @@ return;
 
 
 
+
 const backdrop =
-document.querySelector(".movie-backdrop");
+document.querySelector(
+".movie-backdrop"
+);
 
 
 
@@ -121,7 +146,7 @@ backdrop.style.backgroundImage =
 linear-gradient(
 90deg,
 #050505,
-rgba(0,0,0,.3)
+rgba(0,0,0,.35)
 ),
 url(${IMAGE_URL}${movie.backdrop_path})
 `;
@@ -134,12 +159,16 @@ url(${IMAGE_URL}${movie.backdrop_path})
 
 
 const poster =
-document.querySelector("#moviePoster");
+document.querySelector(
+"#moviePoster"
+);
+
 
 
 if(poster){
 
-poster.src = movie.poster_path
+poster.src =
+movie.poster_path
 
 ?
 POSTER_URL + movie.poster_path
@@ -153,67 +182,70 @@ POSTER_URL + movie.poster_path
 
 
 
-
-
-document.querySelector("#movieTitle")
-.textContent =
-movie.title;
-
-
+setText(
+"#movieTitle",
+movie.title
+);
 
 
 
-
-document.querySelector("#movieRating")
-.innerHTML =
-`
-⭐ ${movie.vote_average.toFixed(1)}
-`;
-
-
-
-
-
-
-document.querySelector("#movieYear")
-.textContent =
+setText(
+"#movieYear",
 movie.release_date
 ?
 movie.release_date.substring(0,4)
 :
-"N/A";
+"N/A"
+);
 
 
 
+setText(
+"#movieRuntime",
+`${movie.runtime || 0} min`
+);
 
 
 
-document.querySelector("#movieRuntime")
-.textContent =
-`${movie.runtime || 0} min`;
-
-
-
-
-
-
-document.querySelector("#movieDescription")
-.textContent =
+setText(
+"#movieDescription",
 movie.overview ||
-"No description available";
+"No description available"
+);
 
+
+
+
+
+const rating =
+document.querySelector(
+"#movieRating"
+);
+
+
+if(rating){
+
+rating.innerHTML =
+`
+⭐ ${movie.vote_average.toFixed(1)}
+`;
+
+}
 
 
 
 
 
 const genres =
-document.querySelector("#movieGenres");
+document.querySelector(
+"#movieGenres"
+);
 
 
+
+if(genres){
 
 genres.innerHTML="";
-
 
 
 movie.genres.forEach(g=>{
@@ -222,9 +254,10 @@ movie.genres.forEach(g=>{
 genres.innerHTML +=
 
 `
-<span>${g.name}</span>
+<span>
+${g.name}
+</span>
 `;
-
 
 });
 
@@ -236,10 +269,49 @@ genres.innerHTML +=
 
 
 
+/* EXTRA INFORMATION */
+
+
+setText(
+"#movieLanguage",
+movie.original_language?.toUpperCase()
+);
 
 
 
+setText(
+"#moviePopularity",
+movie.popularity?.toFixed(0)
+);
 
+
+
+setText(
+"#movieBudget",
+movie.budget
+?
+"$"+movie.budget.toLocaleString()
+:
+"N/A"
+);
+
+
+
+setText(
+"#movieRevenue",
+movie.revenue
+?
+"$"+movie.revenue.toLocaleString()
+:
+"N/A"
+);
+
+
+
+loadWatchlist(movie);
+
+
+}
 /* ===============================
         TRAILER
 ================================ */
@@ -250,19 +322,19 @@ async function loadTrailer(){
 
 const data =
 await fetchMovie(
-
 `/movie/${movieID}/videos`
-
 );
 
 
 
 const box =
-document.querySelector("#trailerBox");
+document.querySelector(
+"#trailerBox"
+);
 
 
 
-if(!box)
+if(!box || !data)
 return;
 
 
@@ -270,13 +342,10 @@ return;
 const trailer =
 data.results.find(video=>
 
-video.type==="Trailer"
-&&
-video.site==="YouTube"
+video.type === "Trailer" &&
+video.site === "YouTube"
 
 );
-
-
 
 
 
@@ -288,10 +357,6 @@ box.innerHTML =
 `
 
 <iframe
-
-width="100%"
-
-height="400"
 
 src="https://www.youtube.com/embed/${trailer.key}"
 
@@ -308,7 +373,7 @@ allowfullscreen>
 else{
 
 
-box.innerHTML=
+box.innerHTML =
 
 `
 <p>
@@ -319,9 +384,164 @@ Trailer not available
 }
 
 
+}
+
+
+
+
+
+
+
+
+
+/* ===============================
+        DIRECTOR + WRITERS
+================================ */
+
+
+async function loadCrew(){
+
+
+const data =
+await fetchMovie(
+
+`/movie/${movieID}/credits`
+
+);
+
+
+
+if(!data)
+return;
+
+
+
+const director =
+data.crew.find(
+person =>
+person.job === "Director"
+);
+
+
+
+const writers =
+data.crew
+.filter(
+person =>
+person.job === "Writer" ||
+person.job === "Screenplay"
+)
+.slice(0,3)
+.map(
+person=>person.name
+)
+.join(", ");
+
+
+
+
+
+setText(
+"#movieDirector",
+director?.name
+);
+
+
+
+setText(
+"#movieWriter",
+writers
+);
+
+
 
 }
 
+
+
+
+
+
+
+
+
+/* ===============================
+        PRODUCTION INFO
+================================ */
+
+
+async function loadProduction(){
+
+
+const movie =
+await fetchMovie(
+`/movie/${movieID}`
+);
+
+
+
+if(!movie)
+return;
+
+
+
+
+const companies =
+movie.production_companies
+?.slice(0,3)
+.map(
+company=>company.name
+)
+.join(", ");
+
+
+
+
+
+const countries =
+movie.production_countries
+?.map(
+country=>country.name
+)
+.join(", ");
+
+
+
+
+
+const languages =
+movie.spoken_languages
+?.map(
+lang=>lang.english_name
+)
+.join(", ");
+
+
+
+
+
+setText(
+"#movieCompanies",
+companies
+);
+
+
+
+setText(
+"#movieCountry",
+countries
+);
+
+
+
+setText(
+"#movieLanguages",
+languages
+);
+
+
+
+}
 
 
 
@@ -349,10 +569,13 @@ await fetchMovie(
 
 
 const box =
-document.querySelector("#castContainer");
+document.querySelector(
+"#castContainer"
+);
 
 
-if(!box)
+
+if(!box || !data)
 return;
 
 
@@ -361,23 +584,28 @@ box.innerHTML="";
 
 
 
-data.cast.slice(0,10)
+data.cast
+.slice(0,10)
 .forEach(actor=>{
 
 
 const image =
+
 actor.profile_path
 
 ?
+
 POSTER_URL + actor.profile_path
 
 :
+
 "assets/images/no-user.jpg";
 
 
 
-box.innerHTML +=
 
+
+box.innerHTML +=
 
 `
 
@@ -434,11 +662,13 @@ await fetchMovie(
 
 
 const box =
-document.querySelector("#similarMovies");
+document.querySelector(
+"#similarMovies"
+);
 
 
 
-if(!box)
+if(!box || !data)
 return;
 
 
@@ -447,18 +677,18 @@ box.innerHTML="";
 
 
 
-data.results.slice(0,10)
+data.results
+.slice(0,10)
 .forEach(movie=>{
 
 
 box.innerHTML +=
 
-
 `
 
 <div class="movie-card"
 
-onclick="location.href='movie.html?id=${movie.id}'">
+onclick="openMovie(${movie.id})">
 
 
 <img src="${
@@ -466,29 +696,23 @@ movie.poster_path
 ?
 POSTER_URL + movie.poster_path
 :
-'assets/images/no-image.jpg'
+"assets/images/no-image.jpg"
 }">
 
 
 <h3>
-
 ${movie.title}
-
 </h3>
 
 
 <p>
-
 ⭐ ${movie.vote_average.toFixed(1)}
-
 </p>
 
 
 </div>
 
 `;
-
-
 
 });
 
@@ -504,11 +728,138 @@ ${movie.title}
 
 
 /* ===============================
-        TRAILER BUTTON
+        WATCHLIST
 ================================ */
 
 
-document.querySelector(".watch")
+function loadWatchlist(movie){
+
+
+const button =
+document.querySelector(
+"#watchlistBtn"
+);
+
+
+
+if(!button)
+return;
+
+
+
+let list =
+JSON.parse(
+localStorage.getItem("watchlist")
+)
+|| [];
+
+
+
+const exists =
+list.some(
+item=>item.id === movie.id
+);
+
+
+
+
+if(exists){
+
+button.innerHTML =
+"✓ Added To My List";
+
+}
+
+
+
+
+
+
+button.onclick = ()=>{
+
+
+let movies =
+JSON.parse(
+localStorage.getItem("watchlist")
+)
+|| [];
+
+
+
+const found =
+movies.find(
+item=>item.id === movie.id
+);
+
+
+
+if(found){
+
+
+movies =
+movies.filter(
+item=>item.id !== movie.id
+);
+
+
+button.innerHTML =
+"+ Add To My List";
+
+
+}
+
+else{
+
+
+movies.push({
+
+id:movie.id,
+
+title:movie.title,
+
+poster:movie.poster_path
+
+});
+
+
+
+button.innerHTML =
+"✓ Added To My List";
+
+
+}
+
+
+
+localStorage.setItem(
+
+"watchlist",
+
+JSON.stringify(movies)
+
+);
+
+
+};
+
+
+}
+
+
+
+
+
+
+
+
+
+/* ===============================
+        BUTTON SCROLL
+================================ */
+
+
+document
+.querySelector(".watch")
 ?.addEventListener(
 "click",
 ()=>{
@@ -516,7 +867,7 @@ document.querySelector(".watch")
 
 document
 .querySelector("#trailerBox")
-.scrollIntoView({
+?.scrollIntoView({
 
 behavior:"smooth"
 
@@ -531,11 +882,41 @@ behavior:"smooth"
 
 
 
-/* START */
+
+
+/* ===============================
+        OPEN MOVIE
+================================ */
+
+
+window.openMovie =
+function(id){
+
+window.location.href =
+`movie.html?id=${id}`;
+
+};
+
+
+
+
+
+
+
+
+
+/* ===============================
+        START ENGINE
+================================ */
+
 
 loadMovie();
 
 loadTrailer();
+
+loadCrew();
+
+loadProduction();
 
 loadCast();
 
