@@ -8,14 +8,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
-<title>TRAP MOVIES</title>
+<title>TRAP MOVIES | Premium Streaming</title>
 
 
 <link rel="stylesheet" href="style.css">
 
 
 
-<!-- Font Awesome -->
+<!-- Font Awesome Icons -->
 
 <link 
 rel="stylesheet" 
@@ -26,7 +26,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
 <!-- Google Font -->
 
 <link 
-href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" 
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap"
 rel="stylesheet">
 
 
@@ -38,6 +38,7 @@ rel="stylesheet">
 
 
 
+
 <!-- =========================
         HEADER
 ========================= -->
@@ -46,31 +47,37 @@ rel="stylesheet">
 <header class="header">
 
 
-    <div class="menu-btn">
+<button class="menu-btn">
 
-        <i class="fa-solid fa-bars"></i>
+<i class="fa-solid fa-bars"></i>
 
-    </div>
-
-
-
-    <div class="logo">
-
-        TRAP 
-        <span>MOVIES</span>
-
-    </div>
+</button>
 
 
 
-    <div class="search-btn">
 
-        <i class="fa-solid fa-magnifying-glass"></i>
+<div class="logo">
 
-    </div>
+TRAP 
+<span>MOVIES</span>
+
+</div>
+
+
+
+
+
+<button class="search-btn">
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+</button>
+
 
 
 </header>
+
+
 
 
 
@@ -86,30 +93,41 @@ rel="stylesheet">
 <nav class="main-nav">
 
 
-    <a href="#" class="active">
+<a href="#movies" class="active">
 
-        Movies
+Movies
 
-    </a>
-
-
-
-    <a href="#">
-
-        Reels
-
-    </a>
+</a>
 
 
 
-    <a href="#">
+<a href="#reels">
 
-        About Us
+Reels
 
-    </a>
+</a>
+
+
+
+<a href="#about">
+
+About
+
+</a>
+
+
+
+<a href="#contact">
+
+Contact
+
+</a>
+
 
 
 </nav>
+
+
 
 
 
@@ -122,28 +140,33 @@ rel="stylesheet">
 ========================= -->
 
 
-<nav class="side-menu">
+<aside class="side-menu">
+
 
 
 <div class="menu-header">
 
 
-    <h2>
+<h2>
 
-        TRAP MOVIES
+TRAP MOVIES
 
-    </h2>
+</h2>
 
 
 
-    <div class="close-btn">
 
-        <i class="fa-solid fa-xmark"></i>
+<button class="close-btn">
 
-    </div>
+<i class="fa-solid fa-xmark"></i>
+
+</button>
 
 
 </div>
+
+
+
 
 
 
@@ -162,6 +185,8 @@ My Account
 
 
 
+
+
 <li>
 
 <i class="fa-solid fa-heart"></i>
@@ -169,6 +194,7 @@ My Account
 Favorites
 
 </li>
+
 
 
 
@@ -184,7 +210,10 @@ Watch History
 
 
 
+
 <hr>
+
+
 
 
 
@@ -200,6 +229,8 @@ Movies
 
 
 
+
+
 <li>
 
 <i class="fa-solid fa-tv"></i>
@@ -207,6 +238,8 @@ Movies
 Series
 
 </li>
+
+
 
 
 
@@ -222,6 +255,8 @@ Reels
 
 
 
+
+
 <li>
 
 <i class="fa-solid fa-fire"></i>
@@ -229,6 +264,8 @@ Reels
 Trending
 
 </li>
+
+
 
 
 
@@ -245,7 +282,12 @@ Top Rated
 
 
 
+
+
 <hr>
+
+
+
 
 
 
@@ -257,6 +299,8 @@ Top Rated
 Contact
 
 </li>
+
+
 
 
 
@@ -273,6 +317,7 @@ Settings
 
 
 
+
 <li class="logout">
 
 <i class="fa-solid fa-right-from-bracket"></i>
@@ -283,11 +328,15 @@ Logout
 
 
 
+
+
 </ul>
 
 
 
-</nav>
+
+
+</aside>
 
 
 
@@ -313,11 +362,13 @@ Logout
 
 
 <!-- =========================
-        SEARCH OVERLAY
+        SEARCH PAGE
 ========================= -->
 
 
 <section class="search-page">
+
+
 
 
 
@@ -329,6 +380,7 @@ Logout
 <i class="fa-solid fa-arrow-left"></i>
 
 </button>
+
 
 
 
@@ -348,6 +400,8 @@ Search TRAP MOVIES
 
 
 
+
+
 <div class="search-box">
 
 
@@ -355,16 +409,17 @@ Search TRAP MOVIES
 
 
 
-<input 
+<input
 
 type="text"
 
 id="searchInput"
 
-placeholder="Search movies, series, actors...">
+placeholder="Search movies, actors, genres...">
 
 
 </div>
+
 
 
 
@@ -383,6 +438,7 @@ All
 
 
 
+
 <button class="filter">
 
 Movies
@@ -391,11 +447,15 @@ Movies
 
 
 
+
+
 <button class="filter">
 
 Series
 
 </button>
+
+
 
 
 
@@ -415,135 +475,58 @@ Actors
 
 
 
+
+
 <div class="search-results" id="searchResults">
 
-
-<!-- Search results will appear here -->
-
+<!-- TMDB SEARCH RESULTS -->
 
 </div>
 
 
 
 
+
+
+
 </section>
-
-
-
-
-
-
-
-
-
 <!-- =========================
-        MAIN CONTENT
+        ABOUT SECTION
 ========================= -->
 
-
-<!-- =========================
-        HERO SLIDER
-========================= -->
+<section id="about" class="movie-extra-info">
 
 
-<section class="hero">
+<h2>
 
+About TRAP MOVIES
 
-<div class="slides-container">
+</h2>
 
 
 
 
-
-<!-- SLIDE 1 -->
-
-
-<div class="slide active">
-
-
-<img 
-src="assets/images/banner1.jpg"
-alt="Mission Impossible">
+<div class="info-grid">
 
 
 
+<div class="info-box">
 
 
-<div class="hero-overlay">
+<h3>
 
+Premium Streaming
 
-
-<div class="movie-info">
-
-
-
-<span class="tag">
-
-🔥 Trending
-
-</span>
-
-
-
-
-<h1>
-
-Mission: Impossible
-
-</h1>
-
-
+</h3>
 
 
 <p>
 
-Every mission has led to this.
-Experience the biggest action movie of the year.
+TRAP MOVIES brings you the latest movies, trending releases, trailers and entertainment content in a premium cinematic experience.
 
 </p>
 
 
-
-
-
-
-<div class="movie-details">
-
-
-<span>
-
-⭐ 8.5
-
-</span>
-
-
-
-<span>
-
-2026
-
-</span>
-
-
-
-
-<span>
-
-Action
-
-</span>
-
-
-
-
-<span>
-
-2h 43min
-
-</span>
-
-
-
 </div>
 
 
@@ -551,150 +534,23 @@ Action
 
 
 
-<div class="hero-buttons">
+<div class="info-box">
 
 
+<h3>
 
-<button class="watch">
+Our Mission
 
-
-<i class="fa-solid fa-play"></i>
-
-Watch Now
-
-
-</button>
-
-
-
-
-
-<button class="info">
-
-
-<i class="fa-solid fa-circle-info"></i>
-
-More Info
-
-
-</button>
-
-
-
-</div>
-
-
-
-
-
-</div>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<!-- SLIDE 2 -->
-
-
-<div class="slide">
-
-
-
-<img 
-src="assets/images/banner2.jpg"
-alt="Avengers Endgame">
-
-
-
-
-
-
-<div class="hero-overlay">
-
-
-
-<div class="movie-info">
-
-
-
-<span class="tag">
-
-⭐ Top Rated
-
-</span>
-
-
-
-
-
-<h1>
-
-Avengers Endgame
-
-</h1>
-
-
-
+</h3>
 
 
 <p>
 
-The ultimate battle begins.
-Heroes unite for one final mission.
+To create a modern movie platform where users can discover, explore and enjoy movies from around the world.
 
 </p>
 
 
-
-
-
-
-
-<div class="movie-details">
-
-
-<span>
-
-⭐ 8.4
-
-</span>
-
-
-
-<span>
-
-2019
-
-</span>
-
-
-
-<span>
-
-Action
-
-</span>
-
-
-
-<span>
-
-3h 2min
-
-</span>
-
-
-
 </div>
 
 
@@ -702,33 +558,21 @@ Action
 
 
 
-<div class="hero-buttons">
+<div class="info-box">
 
 
-<button class="watch">
+<h3>
+
+Entertainment First
+
+</h3>
 
 
-<i class="fa-solid fa-play"></i>
+<p>
 
-Watch Now
+From action and comedy to horror and classics, TRAP MOVIES delivers entertainment for every movie lover.
 
-
-</button>
-
-
-
-
-
-<button class="info">
-
-
-<i class="fa-solid fa-circle-info"></i>
-
-More Info
-
-
-</button>
-
+</p>
 
 
 </div>
@@ -736,43 +580,7 @@ More Info
 
 
 
-
-
 </div>
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-
-<!-- SLIDER DOTS -->
-
-
-<div class="slider-dots">
-
-
-<span class="active"></span>
-
-<span></span>
-
-
-</div>
-
-
 
 
 </section>
@@ -786,156 +594,106 @@ More Info
 
 
 <!-- =========================
-        MOVIE SECTIONS
+        CONTACT SECTION
 ========================= -->
 
 
-
-
-<section class="movie-sections">
-
-
-
-
-
-
-<section class="movie-row">
+<section id="contact" class="movie-extra-info">
 
 
 <h2>
 
-🔥 Trending
+Contact Us
 
 </h2>
 
 
 
-<div class="movie-container">
+
+
+<div class="info-grid">
+
+
+
+
+
+<div class="info-box">
+
+
+<h3>
+
+Email
+
+</h3>
+
+
+<p>
+
+support@trapmovies.com
+
+</p>
 
 
 </div>
 
 
-</section>
 
 
 
 
 
+<div class="info-box">
 
 
-<section class="movie-row">
+<h3>
+
+Social Media
+
+</h3>
 
 
-<h2>
+<p>
 
-⭐ Popular Movies
+Follow TRAP MOVIES for updates, trailers and new releases.
 
-</h2>
-
-
-
-<div class="movie-container">
-
-
-</div>
-
-
-</section>
-
-
-
-
-
-
-
-
-<section class="movie-row">
-
-
-<h2>
-
-🎬 Latest Releases
-
-</h2>
-
-
-
-<div class="movie-container">
+</p>
 
 
 </div>
 
 
-</section>
 
 
 
 
+<div class="info-box">
 
 
+<h3>
+
+Support
+
+</h3>
 
 
-<section class="movie-row">
+<p>
 
+Need help? Our team is always ready to assist.
 
-<h2>
-
-❤️ Top Rated
-
-</h2>
-
-
-
-<div class="movie-container">
-
-
-</div>
-
-
-</section>
-
-
-
-
-
-
-
-
-<section class="movie-row">
-
-
-<h2>
-
-🎭 Genres
-
-</h2>
-
-
-
-<div class="movie-container">
+</p>
 
 
 </div>
 
 
+
+
+
+</div>
+
+
+
 </section>
-
-
-
-
-
-</section>
-
-
-
-
-
-
-
-
-
-</main>
 
 
 
@@ -954,11 +712,13 @@ More Info
 
 
 
+
 <h2>
 
 TRAP MOVIES
 
 </h2>
+
 
 
 
@@ -973,9 +733,56 @@ Discover • Watch • Enjoy 🎬
 
 
 
+
+<div class="socials">
+
+
+<a href="#">
+
+<i class="fa-brands fa-facebook"></i>
+
+</a>
+
+
+
+<a href="#">
+
+<i class="fa-brands fa-instagram"></i>
+
+</a>
+
+
+
+
+<a href="#">
+
+<i class="fa-brands fa-tiktok"></i>
+
+</a>
+
+
+
+
+<a href="#">
+
+<i class="fa-brands fa-youtube"></i>
+
+</a>
+
+
+
+</div>
+
+
+
+
+
+
+
+
 <p>
 
-© 2026 TRAP MOVIES
+© 2026 TRAP MOVIES. All Rights Reserved.
 
 </p>
 
@@ -990,13 +797,13 @@ Discover • Watch • Enjoy 🎬
 
 
 
+
 <!-- =========================
         JAVASCRIPT
 ========================= -->
 
 
 <script src="script.js"></script>
-
 
 
 
