@@ -1,10 +1,3 @@
-/* ==================================
-        TRAP MOVIES
-        REELS V2 ENGINE
-        TIKTOK MOVIE FEED
-================================== */
-
-
 document.addEventListener("DOMContentLoaded",()=>{
 
 
@@ -17,8 +10,7 @@ const BASE_URL =
 
 
 const IMAGE_URL =
-"https://image.tmdb.org/t/p/original/";
-
+"https://image.tmdb.org/t/p/original";
 
 
 const container =
@@ -26,79 +18,72 @@ document.querySelector("#reelsContainer");
 
 
 
-
-
-async function fetchData(url){
-
-const response =
-await fetch(url);
-
-return await response.json();
-
-}
-
-
-
-
-
 async function getTrending(){
 
-const data =
-await fetchData(
+
+try{
+
+
+const response = await fetch(
 
 `${BASE_URL}/trending/all/week?api_key=${API_KEY}`
 
 );
 
 
+const data = await response.json();
+
+
+console.log(data);
+
+
 return data.results || [];
 
+
 }
 
+catch(error){
 
-
-
-
-async function getTrailer(id,type){
-
-
-const data =
-await fetchData(
-
-`${BASE_URL}/${type}/${id}/videos?api_key=${API_KEY}`
-
+console.log(
+"TMDB ERROR:",
+error
 );
 
+return [];
 
+}
 
-return data.results?.find(video=>
-
-video.site==="YouTube"
-
-&&
-
-video.type==="Trailer"
-
-);
 
 }
 
 
 
-
-
-
-
-// =========================
-// LOAD REELS
-// =========================
 
 
 async function loadReels(){
 
 
-const items =
+const movies =
 await getTrending();
+
+
+
+if(!movies.length){
+
+
+container.innerHTML=`
+
+<h2>
+No movies found
+</h2>
+
+`;
+
+
+return;
+
+
+}
 
 
 
@@ -106,41 +91,20 @@ container.innerHTML="";
 
 
 
-for(const item of items.slice(0,20)){
+movies.slice(0,20).forEach(movie=>{
 
 
+const image =
 
-const type =
-item.media_type==="tv"
-?
-"tv"
-:
-"movie";
-
-
-
-const trailer =
-await getTrailer(
-item.id,
-type
-);
-
-
-
-
-const backdrop =
-
-item.backdrop_path
+movie.backdrop_path
 
 ?
 
-`${IMAGE_URL}${item.backdrop_path}`
+IMAGE_URL + movie.backdrop_path
 
 :
 
 "assets/images/no-image.jpg";
-
-
 
 
 
@@ -150,39 +114,10 @@ container.innerHTML += `
 <section class="reel">
 
 
-
-${
-trailer
-
-?
-
-`
-
-<iframe
-
-class="reel-video"
-
-src="https://www.youtube.com/embed/${trailer.key}?autoplay=1&mute=1&controls=0"
-
-allowfullscreen>
-
-</iframe>
-
-`
-
-:
-
-`
-
-<img
-
+<img 
 class="reel-image"
-
-src="${backdrop}">
-
-`
-
-}
+src="${image}"
+>
 
 
 
@@ -197,28 +132,29 @@ src="${backdrop}">
 
 <h1>
 
-${item.title || item.name}
+${movie.title || movie.name}
 
 </h1>
 
 
+
 <p>
 
-⭐ ${item.vote_average?.toFixed(1) || "N/A"}
+⭐ ${movie.vote_average?.toFixed(1) || "N/A"}
 
 </p>
 
 
 
-<button onclick="openContent('${type}',${item.id})">
+<button onclick="openContent('${movie.media_type}',${movie.id})">
 
 ▶ Watch Now
 
 </button>
 
 
-</div>
 
+</div>
 
 
 
@@ -229,15 +165,11 @@ ${item.title || item.name}
 
 
 
-}
+});
 
 
 
 }
-
-
-
-loadReels();
 
 
 
@@ -250,7 +182,7 @@ window.openContent=function(type,id){
 if(type==="movie"){
 
 
-window.location.href =
+location.href =
 `movie.html?id=${id}`;
 
 
@@ -259,15 +191,20 @@ window.location.href =
 else{
 
 
-window.location.href =
+location.href =
 `series-details.html?id=${id}`;
 
 
 }
 
 
-
 }
+
+
+
+
+
+loadReels();
 
 
 
