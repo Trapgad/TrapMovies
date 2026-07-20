@@ -1,19 +1,15 @@
 /* ==================================
    TRAP MOVIES
    MOVIE DETAILS ENGINE
-   PHASE 3 - movie.js
+   PHASE 3 FINAL FIX
 ================================== */
 
 
 document.addEventListener("DOMContentLoaded",()=>{
 
 
-/* ===============================
-        TMDB CONFIG
-================================ */
-
-
-const API_KEY = "17a1834e273320eef8a2a36b38a11964";
+const API_KEY =
+"17a1834e273320eef8a2a36b38a11964";
 
 
 const BASE_URL =
@@ -30,17 +26,10 @@ const POSTER_URL =
 
 
 
-
-/* ===============================
-        GET MOVIE ID
-================================ */
-
-
 const params =
 new URLSearchParams(
 window.location.search
 );
-
 
 
 const movieID =
@@ -48,12 +37,9 @@ params.get("id");
 
 
 
-
 if(!movieID){
 
-console.log(
-"No movie ID found"
-);
+console.log("No movie ID");
 
 return;
 
@@ -63,56 +49,35 @@ return;
 
 
 
-
-
-/* ===============================
-        TMDB FETCH
-================================ */
-
-
 async function fetchMovie(endpoint){
 
 
 try{
 
 
-const response = await fetch(
+const response =
+await fetch(
 
 `${BASE_URL}${endpoint}?api_key=${API_KEY}&language=en-US`
 
 );
 
 
-
-const data =
-await response.json();
-
-
-
-return data;
-
+return await response.json();
 
 
 }
 
 catch(error){
 
-
-console.log(
-"TMDB ERROR:",
-error
-);
-
+console.log(error);
 
 return null;
 
-
 }
 
 
-
 }
-
 
 
 
@@ -122,7 +87,7 @@ return null;
 
 
 /* ===============================
-        LOAD MOVIE DETAILS
+        MOVIE DETAILS
 ================================ */
 
 
@@ -142,36 +107,23 @@ return;
 
 
 
-
-
-
-// BACKDROP
-
-
 const backdrop =
-document.querySelector(
-".movie-backdrop"
-);
+document.querySelector(".movie-backdrop");
 
 
 
-if(backdrop){
+if(backdrop && movie.backdrop_path){
 
 
 backdrop.style.backgroundImage =
 
 `
-
 linear-gradient(
 90deg,
 #050505,
-rgba(0,0,0,.4)
+rgba(0,0,0,.3)
 ),
-
-url(
-${IMAGE_URL}${movie.backdrop_path}
-)
-
+url(${IMAGE_URL}${movie.backdrop_path})
 `;
 
 }
@@ -181,19 +133,11 @@ ${IMAGE_URL}${movie.backdrop_path}
 
 
 
-
-// POSTER
-
-
 const poster =
-document.querySelector(
-"#moviePoster"
-);
-
+document.querySelector("#moviePoster");
 
 
 if(poster){
-
 
 poster.src = movie.poster_path
 
@@ -203,7 +147,6 @@ POSTER_URL + movie.poster_path
 :
 "assets/images/no-image.jpg";
 
-
 }
 
 
@@ -212,169 +155,74 @@ POSTER_URL + movie.poster_path
 
 
 
-
-
-// TITLE
-
-
-const title =
-document.querySelector(
-"#movieTitle"
-);
-
-
-
-if(title){
-
-title.textContent =
+document.querySelector("#movieTitle")
+.textContent =
 movie.title;
 
-}
 
 
 
 
 
-
-
-
-// RATING
-
-
-const rating =
-document.querySelector(
-"#movieRating"
-);
-
-
-
-if(rating){
-
-rating.innerHTML =
-
+document.querySelector("#movieRating")
+.innerHTML =
 `
 ⭐ ${movie.vote_average.toFixed(1)}
 `;
 
-}
 
 
 
 
 
-
-
-
-// YEAR
-
-
-const year =
-document.querySelector(
-"#movieYear"
-);
-
-
-
-if(year){
-
-year.textContent =
-
+document.querySelector("#movieYear")
+.textContent =
 movie.release_date
 ?
 movie.release_date.substring(0,4)
 :
 "N/A";
 
-}
 
 
 
 
 
-
-
-
-// RUNTIME
-
-
-const runtime =
-document.querySelector(
-"#movieRuntime"
-);
-
-
-
-if(runtime){
-
-runtime.textContent =
-
+document.querySelector("#movieRuntime")
+.textContent =
 `${movie.runtime || 0} min`;
 
-}
 
 
 
 
 
-
-
-
-// DESCRIPTION
-
-
-const description =
-document.querySelector(
-"#movieDescription"
-);
-
-
-
-if(description){
-
-description.textContent =
-
+document.querySelector("#movieDescription")
+.textContent =
 movie.overview ||
 "No description available";
 
-}
 
 
 
-
-
-
-
-
-// GENRES
 
 
 const genres =
-document.querySelector(
-"#movieGenres"
-);
+document.querySelector("#movieGenres");
 
-
-
-if(genres){
 
 
 genres.innerHTML="";
 
 
 
-movie.genres.forEach(genre=>{
+movie.genres.forEach(g=>{
 
 
 genres.innerHTML +=
 
 `
-
-<span>
-
-${genre.name}
-
-</span>
-
+<span>${g.name}</span>
 `;
 
 
@@ -385,6 +233,93 @@ ${genre.name}
 
 
 
+
+
+
+
+
+
+
+/* ===============================
+        TRAILER
+================================ */
+
+
+async function loadTrailer(){
+
+
+const data =
+await fetchMovie(
+
+`/movie/${movieID}/videos`
+
+);
+
+
+
+const box =
+document.querySelector("#trailerBox");
+
+
+
+if(!box)
+return;
+
+
+
+const trailer =
+data.results.find(video=>
+
+video.type==="Trailer"
+&&
+video.site==="YouTube"
+
+);
+
+
+
+
+
+if(trailer){
+
+
+box.innerHTML =
+
+`
+
+<iframe
+
+width="100%"
+
+height="400"
+
+src="https://www.youtube.com/embed/${trailer.key}"
+
+allowfullscreen>
+
+</iframe>
+
+`;
+
+
+
+}
+
+else{
+
+
+box.innerHTML=
+
+`
+<p>
+Trailer not available
+</p>
+`;
+
+}
+
+
+
 }
 
 
@@ -395,30 +330,6 @@ ${genre.name}
 
 
 
-const watchBtn =
-document.querySelector(".watch-trailer");
-
-
-if(watchBtn){
-
-watchBtn.addEventListener(
-"click",
-()=>{
-
-
-document
-.querySelector("#trailerBox")
-.scrollIntoView({
-
-behavior:"smooth"
-
-});
-
-
-});
-
-
-}
 
 /* ===============================
         CAST
@@ -437,46 +348,36 @@ await fetchMovie(
 
 
 
-const container =
-document.querySelector(
-"#castContainer"
-);
+const box =
+document.querySelector("#castContainer");
 
 
-
-if(!container || !data)
+if(!box)
 return;
 
 
 
-container.innerHTML="";
+box.innerHTML="";
 
 
 
-
-
-data.cast
-.slice(0,10)
+data.cast.slice(0,10)
 .forEach(actor=>{
 
 
-
-const image = actor.profile_path
+const image =
+actor.profile_path
 
 ?
-
 POSTER_URL + actor.profile_path
 
 :
-
 "assets/images/no-user.jpg";
 
 
 
+box.innerHTML +=
 
-
-
-container.innerHTML +=
 
 `
 
@@ -487,16 +388,12 @@ container.innerHTML +=
 
 
 <h3>
-
 ${actor.name}
-
 </h3>
 
 
 <p>
-
 ${actor.character}
-
 </p>
 
 
@@ -507,7 +404,6 @@ ${actor.character}
 
 
 });
-
 
 
 }
@@ -528,7 +424,6 @@ ${actor.character}
 async function loadSimilar(){
 
 
-
 const data =
 await fetchMovie(
 
@@ -538,56 +433,41 @@ await fetchMovie(
 
 
 
-const container =
-document.querySelector(
-"#similarMovies"
-);
+const box =
+document.querySelector("#similarMovies");
 
 
 
-if(!container || !data)
+if(!box)
 return;
 
 
 
-container.innerHTML="";
+box.innerHTML="";
 
 
 
-
-
-
-data.results
-.slice(0,10)
+data.results.slice(0,10)
 .forEach(movie=>{
 
 
+box.innerHTML +=
 
-const poster =
-movie.poster_path
-
-?
-
-POSTER_URL + movie.poster_path
-
-:
-
-"assets/images/no-image.jpg";
-
-
-
-
-
-
-container.innerHTML +=
 
 `
 
 <div class="movie-card"
-onclick="window.location.href='movie.html?id=${movie.id}'">
+
+onclick="location.href='movie.html?id=${movie.id}'">
 
 
-<img src="${poster}">
+<img src="${
+movie.poster_path
+?
+POSTER_URL + movie.poster_path
+:
+'assets/images/no-image.jpg'
+}">
 
 
 <h3>
@@ -613,7 +493,6 @@ ${movie.title}
 });
 
 
-
 }
 
 
@@ -625,18 +504,12 @@ ${movie.title}
 
 
 /* ===============================
-        WATCH TRAILER BUTTON
+        TRAILER BUTTON
 ================================ */
 
 
-const watchBtn =
-document.querySelector(
-".watch"
-);
-
-
-
-watchBtn?.addEventListener(
+document.querySelector(".watch")
+?.addEventListener(
 "click",
 ()=>{
 
@@ -658,12 +531,7 @@ behavior:"smooth"
 
 
 
-
-
-/* ===============================
-        START ENGINE
-================================ */
-
+/* START */
 
 loadMovie();
 
@@ -672,7 +540,6 @@ loadTrailer();
 loadCast();
 
 loadSimilar();
-
 
 
 
