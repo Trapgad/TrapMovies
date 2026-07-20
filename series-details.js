@@ -564,7 +564,7 @@ ${actor.character}
 
 
 /* =========================
-        EPISODES
+        PREMIUM EPISODES
 ========================= */
 
 
@@ -578,6 +578,13 @@ await fetchData(
 
 
 
+const select =
+document.querySelector(
+"#seasonSelect"
+);
+
+
+
 const container =
 document.querySelector(
 "#episodeContainer"
@@ -585,8 +592,85 @@ document.querySelector(
 
 
 
-if(!container)
+if(!series || !select || !container)
 return;
+
+
+
+
+select.innerHTML="";
+
+
+
+series.seasons
+.filter(
+season=>season.season_number !==0
+)
+.forEach(season=>{
+
+
+select.innerHTML +=
+
+`
+
+<option value="${season.season_number}">
+
+Season ${season.season_number}
+
+</option>
+
+`;
+
+
+
+});
+
+
+
+
+
+
+
+async function getSeasonEpisodes(seasonNumber){
+
+
+const data =
+await fetchData(
+
+`/tv/${seriesID}/season/${seasonNumber}`
+
+);
+
+
+return data.episodes || [];
+
+
+}
+
+
+
+
+
+
+
+async function showEpisodes(season){
+
+
+container.innerHTML =
+
+`
+
+<p>
+Loading Episodes...
+</p>
+
+`;
+
+
+
+const episodes =
+
+await getSeasonEpisodes(season);
 
 
 
@@ -594,16 +678,22 @@ container.innerHTML="";
 
 
 
-const seasons =
-series.seasons
-.filter(
-season=>season.season_number !==0
-)
-.slice(0,1);
+episodes.forEach(ep=>{
 
 
+const image =
 
-seasons.forEach(season=>{
+ep.still_path
+
+?
+
+IMAGE_URL + ep.still_path
+
+:
+
+"assets/images/no-image.jpg";
+
+
 
 
 container.innerHTML +=
@@ -613,18 +703,42 @@ container.innerHTML +=
 <div class="episode-card">
 
 
+
+<img src="${image}">
+
+
+
+<div class="episode-info">
+
+
 <h3>
 
-Season ${season.season_number}
+${ep.episode_number}. ${ep.name}
 
 </h3>
 
 
+
 <p>
 
-${season.episode_count} Episodes
+📅 ${
+ep.air_date || "Unknown"
+
+}
 
 </p>
+
+
+
+<p>
+
+${ep.overview || "No description available"}
+
+</p>
+
+
+
+</div>
 
 
 </div>
@@ -643,7 +757,28 @@ ${season.episode_count} Episodes
 
 
 
+select.addEventListener(
+"change",
+()=>{
 
+
+showEpisodes(
+select.value
+);
+
+
+});
+
+
+
+
+
+
+showEpisodes(1);
+
+
+
+}
 
 
 
