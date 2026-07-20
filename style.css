@@ -24,7 +24,6 @@ body{
 }
 
 
-
 img{
 
     width:100%;
@@ -33,13 +32,11 @@ img{
 }
 
 
-
 button{
 
     font-family:inherit;
 
 }
-
 
 
 /* SCROLL BAR */
@@ -62,8 +59,8 @@ button{
 ::-webkit-scrollbar-thumb{
 
     background:linear-gradient(
-    #e50914,
-    #8a2be2
+        #e50914,
+        #8a2be2
     );
 
     border-radius:20px;
@@ -84,9 +81,7 @@ button{
     position:fixed;
 
     top:20px;
-
     left:20px;
-
     right:20px;
 
 
@@ -103,17 +98,12 @@ button{
     padding:0 25px;
 
 
-    background:
-
-    rgba(255,255,255,.08);
-
+    background:rgba(255,255,255,.08);
 
     backdrop-filter:blur(18px);
 
 
-    border:
-
-    1px solid rgba(255,255,255,.15);
+    border:1px solid rgba(255,255,255,.15);
 
 
     border-radius:25px;
@@ -131,6 +121,9 @@ button{
 
 
 
+/* LOGO */
+
+
 .logo{
 
     font-size:25px;
@@ -143,15 +136,14 @@ button{
 
 
 
-
 .logo span{
 
     background:
 
     linear-gradient(
-    45deg,
-    #e50914,
-    #8a2be2
+        45deg,
+        #e50914,
+        #8a2be2
     );
 
 
@@ -160,7 +152,6 @@ button{
     color:transparent;
 
 }
-
 
 
 
@@ -198,18 +189,25 @@ button{
 
     transition:.3s;
 
+
 }
+
 
 
 
 .menu-btn:hover,
 .search-btn:hover{
 
+
     background:#e50914;
+
 
     transform:scale(1.1);
 
+
 }
+
+
 
 
 
@@ -217,11 +215,12 @@ button{
 
 
 /* =========================
-       MAIN NAVIGATION
+        MAIN NAVIGATION
 ========================= */
 
 
 .main-nav{
+
 
     position:fixed;
 
@@ -260,10 +259,10 @@ button{
     position:relative;
 
 
-    color:#ddd;
-
-
     text-decoration:none;
+
+
+    color:#bbb;
 
 
     font-size:16px;
@@ -279,13 +278,11 @@ button{
 
 
 
-
 .main-nav a:hover,
 .main-nav a.active{
 
 
     color:white;
-
 
 }
 
@@ -301,10 +298,10 @@ button{
     position:absolute;
 
 
-    bottom:-8px;
-
-
     left:50%;
+
+
+    bottom:-10px;
 
 
     width:0;
@@ -313,10 +310,16 @@ button{
     height:3px;
 
 
-    background:#e50914;
+    background:
+
+    linear-gradient(
+        90deg,
+        #e50914,
+        #8a2be2
+    );
 
 
-    border-radius:10px;
+    border-radius:20px;
 
 
     transform:translateX(-50%);
@@ -326,6 +329,7 @@ button{
 
 
 }
+
 
 
 
@@ -344,6 +348,8 @@ button{
 
 
 
+
+
 /* =========================
         SIDE MENU
 ========================= */
@@ -376,9 +382,9 @@ button{
     background:
 
     linear-gradient(
-    180deg,
-    #160025,
-    #050505
+        180deg,
+        #160025,
+        #050505
     );
 
 
@@ -392,15 +398,23 @@ button{
 
     15px 0 40px rgba(0,0,0,.8);
 
+
 }
+
+
 
 
 
 .side-menu.active{
 
+
     left:0;
 
+
 }
+
+
+
 
 
 
@@ -426,120 +440,6 @@ button{
 
 .menu-header h2{
 
-    font-size:22px;
-
-}
-
-
-
-
-.close-btn{
-
-
-    width:40px;
-
-
-    height:40px;
-
-
-    display:flex;
-
-
-    justify-content:center;
-
-
-    align-items:center;
-
-
-    border-radius:50%;
-
-
-    background:#e50914;
-
-
-    cursor:pointer;
-
-
-}
-/* =========================
-        SIDE MENU
-========================= */
-
-
-.side-menu{
-
-    position:fixed;
-
-    top:0;
-
-    left:-330px;
-
-
-    width:300px;
-
-
-    height:100vh;
-
-
-    padding:25px;
-
-
-    background:
-
-    linear-gradient(
-    180deg,
-    #160025,
-    #050505
-    );
-
-
-    z-index:2000;
-
-
-    transition:.4s ease;
-
-
-    box-shadow:
-
-    15px 0 40px rgba(0,0,0,.8);
-
-
-    overflow-y:auto;
-
-}
-
-
-
-.side-menu.active{
-
-    left:0;
-
-}
-
-
-
-
-
-.menu-header{
-
-
-    display:flex;
-
-
-    align-items:center;
-
-
-    justify-content:space-between;
-
-
-    margin-bottom:35px;
-
-
-}
-
-
-
-.menu-header h2{
 
     font-size:22px;
 
@@ -563,10 +463,10 @@ button{
     display:flex;
 
 
-    justify-content:center;
-
-
     align-items:center;
+
+
+    justify-content:center;
 
 
     border-radius:50%;
@@ -585,12 +485,14 @@ button{
 
 
 
+
 .side-menu ul{
+
 
     list-style:none;
 
-}
 
+}
 
 
 
@@ -664,6 +566,7 @@ button{
 
 
 
+
 .side-menu hr{
 
 
@@ -686,12 +589,15 @@ button{
 
 
 
+
 .logout{
 
 
     margin-top:30px;
 
+
 }
+
 
 
 
@@ -742,6 +648,987 @@ button{
 
 
     visibility:visible;
+
+
+}
+/* =========================
+        HERO SLIDER
+========================= */
+
+
+.hero{
+
+
+    position:relative;
+
+
+    height:520px;
+
+
+    margin:160px 20px 40px;
+
+
+    border-radius:30px;
+
+
+    overflow:hidden;
+
+
+    box-shadow:
+
+    0 0 40px rgba(138,43,226,.3);
+
+
+}
+
+
+
+.slides-container{
+
+
+    width:100%;
+
+
+    height:100%;
+
+
+    position:relative;
+
+
+}
+
+
+
+.slide{
+
+
+    position:absolute;
+
+
+    inset:0;
+
+
+    opacity:0;
+
+
+    visibility:hidden;
+
+
+    transition:1s ease;
+
+
+}
+
+
+
+
+.slide.active{
+
+
+    opacity:1;
+
+
+    visibility:visible;
+
+
+}
+
+
+
+
+
+.slide img{
+
+
+    width:100%;
+
+
+    height:100%;
+
+
+    object-fit:cover;
+
+
+    animation:zoom 12s infinite alternate;
+
+
+}
+
+
+
+
+@keyframes zoom{
+
+
+from{
+
+    transform:scale(1);
+
+}
+
+
+to{
+
+    transform:scale(1.1);
+
+}
+
+
+}
+
+
+
+
+
+.hero-overlay{
+
+
+    position:absolute;
+
+
+    inset:0;
+
+
+    display:flex;
+
+
+    align-items:flex-end;
+
+
+    padding:45px;
+
+
+    background:
+
+    linear-gradient(
+
+        90deg,
+
+        rgba(0,0,0,.95),
+
+        rgba(0,0,0,.55),
+
+        transparent
+
+    );
+
+
+}
+
+
+
+
+
+.movie-info{
+
+
+    max-width:600px;
+
+
+    animation:fadeUp .8s ease;
+
+
+}
+
+
+
+
+@keyframes fadeUp{
+
+
+from{
+
+    opacity:0;
+
+    transform:translateY(40px);
+
+}
+
+
+to{
+
+    opacity:1;
+
+    transform:translateY(0);
+
+}
+
+
+}
+
+
+
+
+
+.tag{
+
+
+    display:inline-block;
+
+
+    padding:8px 18px;
+
+
+    border-radius:30px;
+
+
+    font-size:14px;
+
+
+    font-weight:600;
+
+
+    background:
+
+    linear-gradient(
+
+        45deg,
+
+        #e50914,
+
+        #8a2be2
+
+    );
+
+
+}
+
+
+
+
+
+.movie-info h1{
+
+
+    font-size:48px;
+
+
+    font-weight:800;
+
+
+    margin:15px 0;
+
+
+}
+
+
+
+
+
+.movie-info p{
+
+
+    max-width:550px;
+
+
+    color:#ddd;
+
+
+    line-height:1.6;
+
+
+}
+
+
+
+
+
+.movie-details{
+
+
+    display:flex;
+
+
+    gap:12px;
+
+
+    flex-wrap:wrap;
+
+
+    margin:20px 0;
+
+
+}
+
+
+
+
+
+.movie-details span{
+
+
+    padding:7px 15px;
+
+
+    border-radius:20px;
+
+
+    background:
+
+    rgba(255,255,255,.12);
+
+
+    backdrop-filter:blur(10px);
+
+
+}
+
+
+
+
+
+
+.hero-buttons{
+
+
+    display:flex;
+
+
+    gap:15px;
+
+
+}
+
+
+
+
+
+.watch,
+.info{
+
+
+    padding:14px 30px;
+
+
+    border:none;
+
+
+    border-radius:40px;
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    justify-content:center;
+
+
+    gap:10px;
+
+
+    cursor:pointer;
+
+
+    font-weight:700;
+
+
+    transition:.3s;
+
+
+}
+
+
+
+
+
+.watch{
+
+
+    color:white;
+
+
+    background:
+
+    linear-gradient(
+
+        45deg,
+
+        #e50914,
+
+        #8a2be2
+
+    );
+
+
+}
+
+
+
+
+.info{
+
+
+    color:white;
+
+
+    background:
+
+    rgba(255,255,255,.15);
+
+
+    backdrop-filter:blur(15px);
+
+
+}
+
+
+
+
+
+.watch:hover,
+.info:hover{
+
+
+    transform:translateY(-5px);
+
+
+}
+
+
+
+
+
+
+
+/* =========================
+        SLIDER DOTS
+========================= */
+
+
+.slider-dots{
+
+
+    position:absolute;
+
+
+    bottom:20px;
+
+
+    left:50%;
+
+
+    transform:translateX(-50%);
+
+
+    display:flex;
+
+
+    gap:12px;
+
+
+    z-index:10;
+
+
+}
+
+
+
+
+.slider-dots span{
+
+
+    width:12px;
+
+
+    height:12px;
+
+
+    background:#777;
+
+
+    border-radius:50%;
+
+
+    cursor:pointer;
+
+
+}
+
+
+
+
+.slider-dots span.active{
+
+
+    background:#e50914;
+
+
+}
+
+
+
+
+
+
+
+
+/* =========================
+        MOVIE SECTIONS
+========================= */
+
+
+.movie-row{
+
+
+    margin:50px 20px;
+
+
+}
+
+
+
+
+
+.movie-row h2{
+
+
+    font-size:26px;
+
+
+    margin-bottom:20px;
+
+
+}
+
+
+
+
+
+.movie-container{
+
+
+    display:flex;
+
+
+    gap:20px;
+
+
+    overflow-x:auto;
+
+
+    scroll-behavior:smooth;
+
+
+}
+
+
+
+
+.movie-container::-webkit-scrollbar{
+
+
+    display:none;
+
+
+}
+
+
+
+
+
+
+
+
+/* MOVIE CARD READY */
+
+
+.movie-card{
+
+
+    min-width:180px;
+
+
+    background:#111;
+
+
+    border-radius:20px;
+
+
+    overflow:hidden;
+
+
+    transition:.3s;
+
+
+}
+
+
+
+
+.movie-card:hover{
+
+
+    transform:translateY(-10px);
+
+
+}
+
+
+
+
+.movie-card img{
+
+
+    height:260px;
+
+
+    object-fit:cover;
+
+
+}
+
+
+
+
+.movie-card h3{
+
+
+    padding:12px;
+
+
+    font-size:16px;
+
+
+}
+
+
+
+
+
+.movie-card p{
+
+
+    padding:0 12px 15px;
+
+
+    color:#aaa;
+
+
+}
+
+
+
+
+
+
+
+
+/* =========================
+        FOOTER
+========================= */
+
+
+footer{
+
+
+    margin-top:70px;
+
+
+    padding:45px 20px;
+
+
+    text-align:center;
+
+
+    background:#090909;
+
+
+}
+
+
+
+
+
+footer h2{
+
+
+    font-size:28px;
+
+
+    color:#e50914;
+
+
+}
+
+
+
+
+
+footer p{
+
+
+    margin-top:10px;
+
+
+    color:#aaa;
+
+
+}
+
+
+
+
+
+
+
+
+
+/* =========================
+        MOBILE RESPONSIVE
+========================= */
+
+
+@media(max-width:768px){
+
+
+
+.header{
+
+
+    top:12px;
+
+
+    left:12px;
+
+
+    right:12px;
+
+
+    height:65px;
+
+
+}
+
+
+
+
+.logo{
+
+
+    font-size:20px;
+
+
+}
+
+
+
+
+
+.main-nav{
+
+
+    top:90px;
+
+
+    gap:25px;
+
+
+}
+
+
+
+
+.main-nav a{
+
+
+    font-size:14px;
+
+
+}
+
+
+
+
+.hero{
+
+
+    margin:140px 12px 30px;
+
+
+    height:500px;
+
+
+}
+
+
+
+
+
+.hero-overlay{
+
+
+    padding:25px;
+
+
+}
+
+
+
+
+.movie-info h1{
+
+
+    font-size:32px;
+
+
+}
+
+
+
+
+
+.movie-info p{
+
+
+    font-size:14px;
+
+
+}
+
+
+
+
+
+.hero-buttons{
+
+
+    flex-direction:column;
+
+
+}
+
+
+
+
+
+.watch,
+.info{
+
+
+    width:100%;
+
+
+}
+
+
+
+
+
+
+.movie-row{
+
+
+    margin:35px 12px;
+
+
+}
+
+
+
+
+
+.movie-row h2{
+
+
+    font-size:22px;
+
+
+}
+
+
+
+
+
+.movie-card{
+
+
+    min-width:150px;
+
+
+}
+
+
+
+
+
+.movie-card img{
+
+
+    height:220px;
+
+
+}
+
+
+
+}
+
+
+
+
+
+
+@media(max-width:450px){
+
+
+
+.main-nav{
+
+
+    gap:18px;
+
+
+}
+
+
+
+
+
+.main-nav a{
+
+
+    font-size:12px;
+
+
+}
+
+
+
+
+.hero{
+
+
+    height:460px;
+
+
+}
+
+
+
+
+
+.movie-info h1{
+
+
+    font-size:28px;
+
+
+}
+
+
+
+
+.tag{
+
+
+    font-size:12px;
+
+
+}
+
+
 
 
 }
