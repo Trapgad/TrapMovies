@@ -1,439 +1,281 @@
 /* ==================================
-        TRAP MOVIES REELS UI
+        TRAP MOVIES
+        REELS V2 ENGINE
+        TIKTOK STYLE SYSTEM
 ================================== */
 
+document.addEventListener("DOMContentLoaded",()=>{
 
-body{
-    background:#000;
-    overflow:hidden;
-}
+const API_KEY =
+"17a1834e273320eef8a2a36b38a11964";
 
+const BASE_URL =
+"https://api.themoviedb.org/3";
 
+const container =
+document.querySelector("#reelsContainer");
 
-/* REELS CONTAINER */
+async function fetchData(url){
 
-#reelsContainer{
+const response =
+await fetch(url);
 
-    height:100vh;
-
-    width:100%;
-
-    overflow-y:scroll;
-
-    scroll-snap-type:y mandatory;
-
-    scroll-behavior:smooth;
+return await response.json();
 
 }
 
+async function getTrending(){
 
+const data =
+await fetchData(
 
-/* HIDE SCROLL BAR */
+`${BASE_URL}/trending/all/week?api_key=${API_KEY}`
 
-#reelsContainer::-webkit-scrollbar{
+);
 
-    display:none;
-
-}
-
-
-
-
-
-/* SINGLE REEL */
-
-.reel{
-
-
-    position:relative;
-
-
-    height:100vh;
-
-
-    width:100%;
-
-
-    scroll-snap-align:start;
-
-
-    background:#000;
-
-
-    overflow:hidden;
-
+return data.results || [];
 
 }
 
+async function getTrailer(id,type){
 
+const data =
+await fetchData(
 
+`${BASE_URL}/${type}/${id}/videos?api_key=${API_KEY}`
 
+);
 
-/* VIDEO */
+return data.results.find(video=>
 
+video.site==="YouTube"
 
-.reel-video,
-.video-box,
-.reel-video iframe{
+&&
 
+video.type==="Trailer"
 
-    position:absolute;
-
-
-    width:100%;
-
-
-    height:100%;
-
-
-    top:0;
-
-
-    left:0;
-
+);
 
 }
 
+async function loadReels(){
 
+const items =
+await getTrending();
 
+container.innerHTML="";
 
-.reel-video iframe{
+for(const item of items.slice(0,15)){
 
+const type =
+item.media_type==="tv"
+?
+"tv"
+:
+"movie";
 
-    object-fit:cover;
+const trailer =
+await getTrailer(
+item.id,
+type
+);
 
+if(!trailer)
+continue;
 
-    transform:scale(1.35);
+container.innerHTML +=
 
+`
+
+<section class="reel">
+
+<iframe
+
+class="reel-video"
+
+src="https://www.youtube.com/embed/${trailer.key}?enablejsapi=1&controls=0&mute=1"
+
+allow="autoplay"
+
+allowfullscreen>
+
+</iframe>
+
+<div class="reel-gradient"></div>
+
+<div class="reel-info">
+
+<h1>
+
+${item.title || item.name}
+
+</h1>
+
+<p>
+
+⭐ ${item.vote_average.toFixed(1)}
+
+</p>
+
+<button onclick="openContent('${type}',${item.id})">
+
+▶ Watch Now
+
+</button>
+
+</div>
+
+<div class="reel-actions">
+
+<button onclick="likeReel(this)">
+
+❤️
+
+</button>
+
+<button>
+
+🔖
+
+</button>
+
+<button onclick="shareReel()">
+
+📤
+
+</button>
+
+<button onclick="toggleMute(this)">
+
+🔇
+
+</button>
+
+</div>
+
+</section>
+
+`;
 
 }
 
-
-
-
-
-
-
-/* DARK CINEMA GRADIENT */
-
-
-.reel-gradient{
-
-
-    position:absolute;
-
-
-    inset:0;
-
-
-    background:
-
-    linear-gradient(
-
-    transparent 40%,
-
-    rgba(0,0,0,.85)
-
-    );
-
+initObserver();
 
 }
 
+/* =========================
+        AUTO PLAY SYSTEM
+========================= */
 
+function initObserver(){
 
+const reels =
+document.querySelectorAll(".reel");
 
+const observer =
+new IntersectionObserver(
+entries=>{
 
+entries.forEach(entry=>{
 
+const video =
+entry.target.querySelector(
+"iframe"
+);
 
+if(entry.isIntersecting){
 
-/* MOVIE DETAILS */
+video.contentWindow.postMessage(
 
-.reel-info{
+'{"event":"command","func":"playVideo","args":""}',
 
+"*"
 
-    position:absolute;
-
-
-    bottom:80px;
-
-
-    left:20px;
-
-
-    width:70%;
-
-
-    z-index:5;
-
-
-}
-
-
-
-.reel-info h1{
-
-
-    font-size:30px;
-
-
-    font-weight:900;
-
-
-    margin-bottom:15px;
-
+);
 
 }
 
+else{
 
+video.contentWindow.postMessage(
 
-.reel-info p{
+'{"event":"command","func":"pauseVideo","args":""}',
 
+"*"
 
-    font-size:18px;
-
-
-    margin-bottom:20px;
-
-
-}
-
-
-
-.reel-info button{
-
-
-    padding:13px 30px;
-
-
-    border:none;
-
-
-    border-radius:30px;
-
-
-    color:white;
-
-
-    font-weight:700;
-
-
-    background:
-
-    linear-gradient(
-
-    135deg,
-
-    #e50914,
-
-    #8a2be2
-
-    );
-
+);
 
 }
 
+});
 
+},
 
+{
+threshold:.7
+}
 
+);
 
+reels.forEach(reel=>{
 
+observer.observe(reel);
 
-
-/* RIGHT ACTION BAR */
-
-
-.reel-actions{
-
-
-    position:absolute;
-
-
-    right:20px;
-
-
-    bottom:120px;
-
-
-    display:flex;
-
-
-    flex-direction:column;
-
-
-    gap:22px;
-
-
-    z-index:10;
-
+});
 
 }
 
+function likeReel(button){
 
+button.classList.toggle(
+"liked"
+);
 
-
-
-.reel-actions button{
-
-
-    width:55px;
-
-
-    height:55px;
-
-
-    border-radius:50%;
-
-
-    border:none;
-
-
-    font-size:25px;
-
-
-    background:
-
-    rgba(255,255,255,.15);
-
-
-    backdrop-filter:blur(15px);
-
-
-    color:white;
-
+button.innerHTML="❤️";
 
 }
 
+function shareReel(){
 
+navigator.share?.({
 
+title:"TRAP MOVIES",
 
+text:"Watch this trailer on TRAP MOVIES"
 
-.reel-actions button:hover{
-
-
-    transform:scale(1.15);
-
-
-}
-
-
-
-
-
-
-/* HEADER */
-
-
-.reels-header{
-
-
-    position:fixed;
-
-
-    top:20px;
-
-
-    left:20px;
-
-
-    right:20px;
-
-
-    z-index:50;
-
+});
 
 }
 
+function toggleMute(btn){
 
-
-
-
-.reels-header .logo{
-
-
-    font-size:25px;
-
-
-    font-weight:900;
-
+btn.innerHTML =
+btn.innerHTML==="🔇"
+?
+"🔊"
+:
+"🔇";
 
 }
 
+window.openContent=function(type,id){
 
+if(type==="movie"){
 
-
-
-.logo span{
-
-
-    background:
-
-    linear-gradient(
-
-    45deg,
-
-    #e50914,
-
-    #8a2be2
-
-    );
-
-
-    -webkit-background-clip:text;
-
-
-    color:transparent;
-
+window.location.href=
+`movie.html?id=${id}`;
 
 }
 
+else{
 
-
-
-
-
-
-
-/* MOBILE OPTIMIZATION */
-
-
-@media(max-width:600px){
-
-
-
-.reel-info h1{
-
-
-font-size:24px;
-
+window.location.href=
+`series-details.html?id=${id}`;
 
 }
 
-
-
-.reel-actions{
-
-
-right:12px;
-
-
 }
 
+loadReels();
 
-
-.reel-actions button{
-
-
-width:48px;
-
-
-height:48px;
-
-
-font-size:20px;
-
-
-}
-
-
-
-}
+});
