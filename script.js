@@ -1,12 +1,11 @@
 /* =========================
    TRAP MOVIES SCRIPT
-   PHASE 2 COMPLETE
+   PHASE 2 FINAL FIX
    TMDB + MENU + SLIDER + SEARCH
 ========================= */
 
 
 document.addEventListener("DOMContentLoaded",()=>{
-
 
 
 /* =========================
@@ -16,12 +15,11 @@ document.addEventListener("DOMContentLoaded",()=>{
 
 const API_KEY = "17a1834e273320eef8a2a36b38a11964";
 
-const BASE_URL = "https://api.themoviedb.org/3";
+const BASE_URL =
+"https://api.themoviedb.org/3";
 
-const IMAGE_URL = "https://image.tmdb.org/t/p/w500/";
-
-
-
+const IMAGE_URL =
+"https://image.tmdb.org/t/p/w500/";
 
 
 
@@ -35,8 +33,6 @@ document.querySelectorAll(".movie-container");
 
 
 
-
-
 async function getMovies(endpoint){
 
 
@@ -45,7 +41,7 @@ try{
 
 const response = await fetch(
 
-`${BASE_URL}${endpoint}?api_key=${API_KEY}`
+`${BASE_URL}${endpoint}?api_key=${API_KEY}&language=en-US`
 
 );
 
@@ -62,7 +58,7 @@ catch(error){
 
 
 console.log(
-"TMDB Error:",
+"TMDB ERROR:",
 error
 );
 
@@ -84,7 +80,6 @@ return [];
 function createMovieCard(movie){
 
 
-
 const poster = movie.poster_path
 
 ?
@@ -102,8 +97,10 @@ movie.title || "Unknown";
 
 const rating =
 movie.vote_average
+
 ?
 movie.vote_average.toFixed(1)
+
 :
 "N/A";
 
@@ -114,26 +111,23 @@ movie.vote_average.toFixed(1)
 return `
 
 
-<div class="movie-card">
+<div class="movie-card"
+onclick="openMovie(${movie.id})">
 
 
-<img 
+<img
 src="${poster}"
 alt="${title}"
 >
 
 
 <h3>
-
 ${title}
-
 </h3>
 
 
 <p>
-
 ⭐ ${rating}
-
 </p>
 
 
@@ -145,6 +139,8 @@ ${title}
 
 
 }
+
+
 
 
 
@@ -175,7 +171,6 @@ const sections=[
 
 
 
-
 for(let i=0;i<movieContainers.length;i++){
 
 
@@ -185,10 +180,7 @@ await getMovies(sections[i]);
 
 
 
-
 movieContainers[i].innerHTML="";
-
-
 
 
 
@@ -220,8 +212,6 @@ loadMovies();
 
 
 
-
-
 /* =========================
         SIDE MENU
 ========================= */
@@ -246,7 +236,6 @@ document.querySelector(".overlay-bg");
 
 
 
-
 function openMenu(){
 
 
@@ -256,7 +245,12 @@ sideMenu?.classList.add("active");
 overlayBg?.classList.add("active");
 
 
+document.body.style.overflow="hidden";
+
+
 }
+
+
 
 
 
@@ -267,6 +261,9 @@ sideMenu?.classList.remove("active");
 
 
 overlayBg?.classList.remove("active");
+
+
+document.body.style.overflow="";
 
 
 }
@@ -281,17 +278,18 @@ openMenu
 );
 
 
+
 closeBtn?.addEventListener(
 "click",
 closeMenu
 );
 
 
+
 overlayBg?.addEventListener(
 "click",
 closeMenu
 );
-
 
 
 
@@ -313,12 +311,10 @@ const dots =
 document.querySelectorAll(".slider-dots span");
 
 
-
-let currentSlide = 0;
-
-let sliderTimer;
+let currentSlide=0;
 
 
+let timer;
 
 
 
@@ -343,7 +339,6 @@ dot.classList.remove("active");
 
 
 
-
 slides[index]?.classList.add("active");
 
 
@@ -351,7 +346,6 @@ dots[index]?.classList.add("active");
 
 
 }
-
 
 
 
@@ -366,10 +360,9 @@ currentSlide++;
 
 if(currentSlide >= slides.length){
 
-currentSlide = 0;
+currentSlide=0;
 
 }
-
 
 
 showSlide(currentSlide);
@@ -382,11 +375,10 @@ showSlide(currentSlide);
 
 
 
-
 function startSlider(){
 
 
-sliderTimer=setInterval(
+timer=setInterval(
 
 nextSlide,
 
@@ -400,12 +392,11 @@ nextSlide,
 
 
 
+
 dots.forEach((dot,index)=>{
 
 
-dot.addEventListener(
-"click",
-()=>{
+dot.onclick=()=>{
 
 
 currentSlide=index;
@@ -414,18 +405,17 @@ currentSlide=index;
 showSlide(index);
 
 
-clearInterval(sliderTimer);
+clearInterval(timer);
 
 
 startSlider();
 
 
-}
-
-);
+};
 
 
 });
+
 
 
 
@@ -451,7 +441,7 @@ startSlider();
 
 
 /* =========================
-        SEARCH SYSTEM
+        SEARCH
 ========================= */
 
 
@@ -497,6 +487,9 @@ searchInput?.focus();
 
 
 
+
+
+
 function closeSearch(){
 
 
@@ -511,10 +504,13 @@ document.body.style.overflow="";
 
 
 
+
+
 searchBtn?.addEventListener(
 "click",
 openSearch
 );
+
 
 
 backSearch?.addEventListener(
@@ -528,29 +524,25 @@ closeSearch
 
 
 
+
 async function searchMovies(query){
 
 
-
-const response =
-await fetch(
+const response = await fetch(
 
 `${BASE_URL}/search/movie?api_key=${API_KEY}&query=${query}`
 
 );
 
 
-
 const data =
 await response.json();
-
 
 
 return data.results || [];
 
 
 }
-
 
 
 
@@ -566,28 +558,6 @@ searchResults.innerHTML="";
 
 
 
-if(!movies.length){
-
-
-searchResults.innerHTML=`
-
-<div class="loading">
-
-No movies found
-
-</div>
-
-`;
-
-
-return;
-
-}
-
-
-
-
-
 movies.forEach(movie=>{
 
 
@@ -599,8 +569,8 @@ createMovieCard(movie);
 });
 
 
-
 }
+
 
 
 
@@ -632,16 +602,13 @@ return;
 
 
 
-searchResults.innerHTML=`
+searchResults.innerHTML=
 
+`
 <div class="loading">
-
 Searching...
-
 </div>
-
 `;
-
 
 
 
@@ -663,14 +630,6 @@ showSearchResults(movies);
 
 
 
-
-
-
-/* =========================
-        ESC KEY
-========================= */
-
-
 document.addEventListener(
 "keydown",
 (e)=>{
@@ -680,7 +639,6 @@ if(e.key==="Escape"){
 
 
 closeMenu();
-
 
 closeSearch();
 
@@ -693,80 +651,23 @@ closeSearch();
 
 
 });
+
+
+
+
+
+
+
 /* =========================
-        CREATE MOVIE CARD
+        OPEN MOVIE PAGE
 ========================= */
 
-function createMovieCard(movie){
+
+function openMovie(id){
 
 
-    const card = document.createElement("div");
-
-
-    card.classList.add(
-        "movie-card"
-    );
-
-
-    const poster = movie.poster_path
-
-    ? IMAGE_URL + movie.poster_path
-
-    : "assets/images/no-image.jpg";
-
-
-
-    const title = movie.title || "Unknown";
-
-
-
-    const rating = movie.vote_average
-
-    ? movie.vote_average.toFixed(1)
-
-    : "N/A";
-
-
-
-
-    card.innerHTML = `
-
-        <img 
-        src="${poster}"
-        alt="${title}"
-        >
-
-
-        <h3>
-        ${title}
-        </h3>
-
-
-        <p>
-        ⭐ ${rating}
-        </p>
-
-    `;
-
-
-
-    // OPEN MOVIE DETAILS PAGE
-
-    card.addEventListener(
-        "click",
-        ()=>{
-
-
-            window.location.href =
-            `movie.html?id=${movie.id}`;
-
-
-        }
-    );
-
-
-
-    return card;
+window.location.href =
+`movie.html?id=${id}`;
 
 
 }
