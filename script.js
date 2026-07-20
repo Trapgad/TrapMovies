@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded",()=>{
 
 
 /* =========================
-      SIDE MENU
+      ELEMENTS
 ========================= */
 
 
@@ -18,10 +18,28 @@ const sideMenu = document.querySelector(".side-menu");
 const overlayBg = document.querySelector(".overlay-bg");
 
 
+const searchBtn = document.querySelector(".search-btn");
+const searchPage = document.querySelector(".search-page");
+const backSearch = document.querySelector(".back-search");
+const searchInput = document.querySelector("#searchInput");
+const searchResults = document.querySelector("#searchResults");
+
+
+
+
+
+/* =========================
+      SIDE MENU
+========================= */
+
 
 function openMenu(){
 
+    if(sideMenu)
     sideMenu.classList.add("active");
+
+
+    if(overlayBg)
     overlayBg.classList.add("active");
 
 }
@@ -30,7 +48,11 @@ function openMenu(){
 
 function closeMenu(){
 
+    if(sideMenu)
     sideMenu.classList.remove("active");
+
+
+    if(overlayBg)
     overlayBg.classList.remove("active");
 
 }
@@ -38,12 +60,10 @@ function closeMenu(){
 
 
 
+
 if(menuBtn){
 
-menuBtn.addEventListener(
-"click",
-openMenu
-);
+menuBtn.onclick = openMenu;
 
 }
 
@@ -51,10 +71,7 @@ openMenu
 
 if(closeBtn){
 
-closeBtn.addEventListener(
-"click",
-closeMenu
-);
+closeBtn.onclick = closeMenu;
 
 }
 
@@ -62,12 +79,80 @@ closeMenu
 
 if(overlayBg){
 
-overlayBg.addEventListener(
-"click",
-closeMenu
-);
+overlayBg.onclick = closeMenu;
 
 }
+
+
+
+
+
+
+
+
+/* =========================
+      SEARCH OVERLAY
+========================= */
+
+
+function openSearch(){
+
+    if(searchPage){
+
+        searchPage.classList.add("active");
+
+        document.body.style.overflow="hidden";
+
+
+        setTimeout(()=>{
+
+            if(searchInput){
+
+                searchInput.focus();
+
+            }
+
+        },300);
+
+    }
+
+}
+
+
+
+
+
+function closeSearch(){
+
+    if(searchPage){
+
+        searchPage.classList.remove("active");
+
+        document.body.style.overflow="";
+
+    }
+
+}
+
+
+
+
+
+if(searchBtn){
+
+searchBtn.onclick=openSearch;
+
+}
+
+
+
+if(backSearch){
+
+backSearch.onclick=closeSearch;
+
+}
+
+
 
 
 
@@ -85,9 +170,9 @@ document.addEventListener(
 
 if(e.key==="Escape"){
 
-closeMenu();
+    closeMenu();
 
-closeSearch();
+    closeSearch();
 
 }
 
@@ -102,20 +187,20 @@ closeSearch();
 
 
 
+
 /* =========================
       HERO SLIDER
 ========================= */
 
 
-const slides = document.querySelectorAll(".slide");
+const slides=document.querySelectorAll(".slide");
 
-const dots = document.querySelectorAll(".slider-dots span");
+const dots=document.querySelectorAll(".slider-dots span");
 
 
-let currentSlide = 0;
+let currentSlide=0;
 
 let sliderTimer;
-
 
 
 
@@ -156,9 +241,7 @@ dots[index].classList.add("active");
 }
 
 
-
 }
-
 
 
 
@@ -172,10 +255,9 @@ currentSlide++;
 
 if(currentSlide >= slides.length){
 
-currentSlide = 0;
+currentSlide=0;
 
 }
-
 
 
 showSlide(currentSlide);
@@ -190,7 +272,7 @@ showSlide(currentSlide);
 function startSlider(){
 
 
-sliderTimer = setInterval(
+sliderTimer=setInterval(
 
 nextSlide,
 
@@ -200,6 +282,7 @@ nextSlide,
 
 
 }
+
 
 
 
@@ -218,13 +301,10 @@ startSlider();
 
 
 
-
 dots.forEach((dot,index)=>{
 
 
-dot.addEventListener(
-"click",
-()=>{
+dot.onclick=()=>{
 
 
 currentSlide=index;
@@ -236,9 +316,7 @@ showSlide(currentSlide);
 resetSlider();
 
 
-}
-
-);
+};
 
 
 });
@@ -264,118 +342,20 @@ startSlider();
 
 
 
+
 /* =========================
-       SEARCH OVERLAY
+      SEARCH FILTERS
 ========================= */
 
 
-const searchBtn = document.querySelector(".search-btn");
+const filters=document.querySelectorAll(".filter");
 
-const searchPage = document.querySelector(".search-page");
 
-const backSearch = document.querySelector(".back-search");
 
-const searchInput = document.querySelector("#searchInput");
+filters.forEach(filter=>{
 
 
-
-
-
-function openSearch(){
-
-
-searchPage.classList.add("active");
-
-
-document.body.style.overflow="hidden";
-
-
-setTimeout(()=>{
-
-
-if(searchInput){
-
-searchInput.focus();
-
-}
-
-
-},300);
-
-
-
-}
-
-
-
-
-
-function closeSearch(){
-
-
-if(!searchPage)
-return;
-
-
-searchPage.classList.remove("active");
-
-
-document.body.style.overflow="";
-
-
-}
-
-
-
-
-if(searchBtn){
-
-searchBtn.addEventListener(
-
-"click",
-
-openSearch
-
-);
-
-}
-
-
-
-
-if(backSearch){
-
-backSearch.addEventListener(
-
-"click",
-
-closeSearch
-
-);
-
-}
-
-
-
-
-
-
-
-/* =========================
-      SEARCH FILTER BUTTONS
-========================= */
-
-
-const filters = document.querySelectorAll(".filter");
-
-
-
-filters.forEach(button=>{
-
-
-button.addEventListener(
-"click",
-()=>{
+filter.onclick=()=>{
 
 
 filters.forEach(btn=>{
@@ -386,12 +366,10 @@ btn.classList.remove("active");
 
 
 
-button.classList.add("active");
+filter.classList.add("active");
 
 
-}
-
-);
+};
 
 
 });
@@ -402,8 +380,10 @@ button.classList.add("active");
 
 
 
+
+
 /* =========================
-      SEARCH INPUT DEMO
+      SEARCH INPUT
 ========================= */
 
 
@@ -411,25 +391,27 @@ if(searchInput){
 
 
 searchInput.addEventListener(
-
 "input",
-
 ()=>{
 
 
-let value = searchInput.value.toLowerCase();
+let value=searchInput.value.trim();
 
 
 
-const results = document.querySelector("#searchResults");
+if(!searchResults)
+return;
 
 
 
 if(value===""){
 
-results.innerHTML="";
+
+searchResults.innerHTML="";
+
 
 return;
+
 
 }
 
@@ -437,15 +419,18 @@ return;
 
 
 
-results.innerHTML = `
+searchResults.innerHTML=`
 
 <div class="search-card">
 
-<h3>${value}</h3>
+<h3>
+${value}
+</h3>
 
 <p>
-Search results coming soon...
+Searching TRAP MOVIES database...
 </p>
+
 
 </div>
 
@@ -458,9 +443,7 @@ Search results coming soon...
 );
 
 
-
 }
-
 
 
 
