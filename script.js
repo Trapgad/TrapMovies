@@ -27,7 +27,7 @@ body{
 
 img{
 
-    max-width:100%;
+    width:100%;
     display:block;
 
 }
@@ -69,6 +69,8 @@ button{
 
 
 
+
+
 /* =========================
         HEADER
 ========================= */
@@ -82,7 +84,9 @@ button{
     left:20px;
     right:20px;
 
+
     height:70px;
+
 
     display:flex;
 
@@ -109,9 +113,12 @@ button{
 
 
     box-shadow:
+
     0 10px 30px rgba(0,0,0,.5);
 
 }
+
+
 
 
 
@@ -121,9 +128,9 @@ button{
 
     font-weight:800;
 
-    letter-spacing:1px;
-
 }
+
+
 
 
 
@@ -175,7 +182,6 @@ button{
 
     transition:.3s;
 
-
 }
 
 
@@ -189,6 +195,7 @@ button{
     transform:scale(1.1);
 
 }
+
 
 
 
@@ -215,6 +222,9 @@ button{
     height:100vh;
 
 
+    overflow-y:auto;
+
+
     padding:25px;
 
 
@@ -230,13 +240,11 @@ button{
     z-index:2000;
 
 
-    transition:.4s ease;
+    transition:.4s;
 
-
-    box-shadow:
-    15px 0 40px rgba(0,0,0,.8);
 
 }
+
 
 
 
@@ -245,6 +253,7 @@ button{
     left:0;
 
 }
+
 
 
 
@@ -269,9 +278,9 @@ button{
 
     font-size:22px;
 
-    font-weight:700;
-
 }
+
+
 
 
 
@@ -357,13 +366,18 @@ button{
 
 .side-menu li:hover{
 
+
     background:rgba(138,43,226,.25);
 
+
     transform:translateX(8px);
+
 
     color:white;
 
 }
+
+
 
 
 
@@ -373,11 +387,15 @@ button{
 
     height:1px;
 
+
     background:rgba(255,255,255,.15);
+
 
     margin:20px 0;
 
 }
+
+
 
 
 
@@ -399,7 +417,9 @@ button{
 
 .overlay-bg{
 
+
     position:fixed;
+
 
     inset:0;
 
@@ -412,6 +432,7 @@ button{
 
     opacity:0;
 
+
     visibility:hidden;
 
 
@@ -421,13 +442,17 @@ button{
 
 
 
+
 .overlay-bg.active{
 
+
     opacity:1;
+
 
     visibility:visible;
 
 }
+
 
 
 
@@ -465,16 +490,17 @@ button{
 
 
 
+
 .slides-container{
 
-
-    width:100%;
 
     height:100%;
 
     position:relative;
 
 }
+
+
 
 
 
@@ -504,16 +530,17 @@ button{
 
     opacity:1;
 
+
     visibility:visible;
 
 }
 
 
 
+
+
 .slide img{
 
-
-    width:100%;
 
     height:100%;
 
@@ -524,6 +551,7 @@ button{
     animation:zoom 12s infinite alternate;
 
 }
+
 
 
 
@@ -544,7 +572,10 @@ transform:scale(1.1);
 
 }
 
+
 }
+
+
 
 
 
@@ -566,6 +597,9 @@ transform:scale(1.1);
 
 
     padding:45px;
+
+
+    z-index:2;
 
 
     background:
@@ -595,7 +629,6 @@ transform:scale(1.1);
 
 
 
-
 @keyframes fadeUp{
 
 
@@ -616,7 +649,10 @@ transform:translateY(0);
 
 }
 
+
 }
+
+
 
 
 
@@ -630,9 +666,6 @@ transform:translateY(0);
 
 
     border-radius:30px;
-
-
-    font-size:14px;
 
 
     font-weight:600;
@@ -651,16 +684,13 @@ transform:translateY(0);
 
 
 
+
 .movie-info h1{
 
 
     font-size:48px;
 
-    font-weight:800;
-
-
     margin:15px 0;
-
 
 }
 
@@ -672,14 +702,9 @@ transform:translateY(0);
 
     color:#ddd;
 
-
     line-height:1.6;
 
-
-    max-width:550px;
-
 }
-
 
 
 
@@ -703,13 +728,8 @@ transform:translateY(0);
 
 
 
+
 .movie-details span{
-
-
-    background:rgba(255,255,255,.12);
-
-
-    backdrop-filter:blur(10px);
 
 
     padding:7px 15px;
@@ -718,7 +738,13 @@ transform:translateY(0);
     border-radius:20px;
 
 
+    background:rgba(255,255,255,.12);
+
+
+    backdrop-filter:blur(10px);
+
 }
+
 
 
 
@@ -729,11 +755,10 @@ transform:translateY(0);
 
     display:flex;
 
-
     gap:15px;
 
-
 }
+
 
 
 
@@ -755,6 +780,18 @@ transform:translateY(0);
 
 
     font-weight:700;
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    justify-content:center;
+
+
+    gap:10px;
 
 
     transition:.3s;
@@ -781,18 +818,6 @@ transform:translateY(0);
 
 
 
-.watch:hover,
-.info:hover{
-
-
-    transform:translateY(-4px);
-
-}
-
-
-
-
-
 .info{
 
 
@@ -808,17 +833,87 @@ transform:translateY(0);
 
 
 
+.watch:hover,
+.info:hover{
+
+
+    transform:translateY(-5px);
+
+}
+
+
+
+
+
+/* SLIDER DOTS */
+
+
+.slider-dots{
+
+
+    position:absolute;
+
+
+    bottom:20px;
+
+
+    left:50%;
+
+
+    transform:translateX(-50%);
+
+
+    display:flex;
+
+
+    gap:12px;
+
+
+    z-index:5;
+
+}
+
+
+
+.slider-dots span{
+
+
+    width:12px;
+
+
+    height:12px;
+
+
+    background:#777;
+
+
+    border-radius:50%;
+
+
+}
+
+
+
+.slider-dots .active{
+
+
+    background:#e50914;
+
+
+}
+
+
+
 
 
 
 
 /* =========================
-        MOVIE SECTIONS
+ MOVIE SECTIONS
 ========================= */
 
 
 .movie-row{
-
 
     margin:45px 20px;
 
@@ -828,18 +923,15 @@ transform:translateY(0);
 
 .movie-row h2{
 
-
-    font-size:25px;
-
     margin-bottom:20px;
-
 
 }
 
 
 
-.movie-container{
 
+
+.movie-container{
 
     display:flex;
 
@@ -849,26 +941,14 @@ transform:translateY(0);
 
     overflow-x:auto;
 
-
-    scroll-behavior:smooth;
-
 }
-
-
-
-.movie-container::-webkit-scrollbar{
-
-    display:none;
-
-}
-
 
 
 
 
 
 /* =========================
-        FOOTER
+ FOOTER
 ========================= */
 
 
@@ -883,19 +963,15 @@ footer{
 
     background:#090909;
 
-
-    margin-top:60px;
-
-
 }
+
+
 
 
 
 footer h2{
 
-
     color:#e50914;
-
 
 }
 
@@ -906,30 +982,8 @@ footer h2{
 
 
 /* =========================
-        RESPONSIVE
+ RESPONSIVE
 ========================= */
-
-
-@media(max-width:768px){
-
-
-.hero{
-
-    height:500px;
-
-}
-
-
-
-.movie-info h1{
-
-    font-size:36px;
-
-}
-
-
-}
-
 
 
 @media(max-width:600px){
@@ -958,6 +1012,7 @@ footer h2{
 
 
 .hero{
+
 
     margin:95px 12px 25px;
 
