@@ -4,31 +4,19 @@
 <head>
 
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
-<title>TRAP MOVIES | Premium Streaming</title>
-
+<title>TRAP MOVIES</title>
 
 <link rel="stylesheet" href="style.css">
 
-
-
-<!-- Font Awesome -->
-
+<!-- Font Awesome Icons -->
 <link 
-rel="stylesheet"
+rel="stylesheet" 
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-
-
 <!-- Google Font -->
-
-<link 
-href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap"
-rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 </head>
 
@@ -36,1349 +24,162 @@ rel="stylesheet">
 <body>
 
 
-
-
-
-<!-- =========================
-        HEADER
-========================= -->
-
+<!-- HEADER -->
 
 <header class="header">
 
 
-<button class="menu-btn">
-
+<div class="menu-btn">
 <i class="fa-solid fa-bars"></i>
-
-</button>
-
-
-
-
-
-<div class="logo">
-
-TRAP
-
-<span>MOVIES</span>
-
 </div>
 
 
+<div class="logo">
+TRAP <span>MOVIES</span>
+</div>
 
 
-
-<button class="search-btn">
-
+<div class="search-btn">
 <i class="fa-solid fa-magnifying-glass"></i>
-
-</button>
-
+</div>
 
 
 </header>
 
 
 
+<!-- SLIDE MENU -->
 
-
-
-
-
-
-<!-- =========================
-        MAIN NAVIGATION
-========================= -->
-
-
-<nav class="main-nav">
-
-
-<a href="#movies" class="active">
-
-Movies
-
-</a>
-
-
-
-
-<a href="#reels">
-
-Reels
-
-</a>
-
-
-
-
-<a href="#about">
-
-About
-
-</a>
-
-
-
-
-<a href="#contact">
-
-Contact
-
-</a>
-
-
-
-</nav>
-
-
-
-
-
-
-
-
-
-<!-- =========================
-        SIDE MENU
-========================= -->
-
-
-<aside class="side-menu">
-
+<nav class="side-menu">
 
 
 <div class="menu-header">
 
-
-<h2>
-
-TRAP MOVIES
-
-</h2>
-
-
-
-
-<button class="close-btn">
-
+<div class="close-btn">
 <i class="fa-solid fa-xmark"></i>
-
-</button>
-
-
 </div>
 
 
+<h2>
+TRAP MOVIES
+</h2>
 
-
-
-
+</div>
 
 
 
 <ul>
 
 
-
 <li>
-
-<i class="fa-solid fa-house"></i>
-
-Home
-
-</li>
-
-
-
-
-
-
-<li>
-
 <i class="fa-solid fa-user"></i>
-
-Account
-
+My Account
 </li>
 
 
-
-
-
-
-
 <li>
-
 <i class="fa-solid fa-heart"></i>
-
-Watchlist
-
+Favorites
 </li>
 
 
-
-
-
-
-
 <li>
-
 <i class="fa-solid fa-clock"></i>
-
-History
-
+Watch History
 </li>
-
-
-
-
 
 
 
 <hr>
 
 
-
-
-
-
-
 <li>
-
 <i class="fa-solid fa-film"></i>
-
 Movies
-
 </li>
 
 
-
-
-
-
-
-
 <li>
-
 <i class="fa-solid fa-tv"></i>
-
 Series
-
 </li>
 
 
-
-
-
+<li>
+<i class="fa-solid fa-video"></i>
+Reels
+</li>
 
 
 <li>
-
 <i class="fa-solid fa-fire"></i>
-
 Trending
-
 </li>
-
-
-
-
-
-
 
 
 <li>
-
 <i class="fa-solid fa-star"></i>
-
 Top Rated
-
 </li>
-
-
-
-
 
 
 
 <hr>
 
 
-
-
-
+<li>
+<i class="fa-solid fa-phone"></i>
+Contact
+</li>
 
 
 <li>
-
 <i class="fa-solid fa-gear"></i>
-
 Settings
-
 </li>
 
 
-
-
-
-
-
-
-<li>
-
+<li class="logout">
 <i class="fa-solid fa-right-from-bracket"></i>
-
 Logout
-
 </li>
-
-
-
 
 
 </ul>
 
 
-
-</aside>
-
+</nav>
 
 
 
-
-
-
-
-
-<!-- =========================
-        OVERLAY
-========================= -->
-
+<!-- OVERLAY -->
 
 <div class="overlay-bg"></div>
 
 
 
-
-
-
-
-
-
-<!-- =========================
-        SEARCH OVERLAY
-========================= -->
-
-
-<section class="search-page">
-
-
-
-
-
-<div class="search-header">
-
-
-
-<button class="back-search">
-
-<i class="fa-solid fa-arrow-left"></i>
-
-</button>
-
-
-
-
-
-<h2>
-
-Search TRAP MOVIES
-
-</h2>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<div class="search-box">
-
-
-<i class="fa-solid fa-magnifying-glass"></i>
-
-
-
-
-<input
-
-type="text"
-
-id="searchInput"
-
-placeholder="Search movies, series, actors..."
-
->
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<div class="search-filter">
-
-
-
-<button class="filter active">
-
-All
-
-</button>
-
-
-
-
-
-<button class="filter">
-
-Movies
-
-</button>
-
-
-
-
-
-
-
-<button class="filter">
-
-Series
-
-</button>
-
-
-
-
-
-
-
-
-<button class="filter">
-
-Actors
-
-</button>
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<div class="search-results" id="searchResults">
-
-
-
-</div>
-
-
-
-
-
-
-
-</section>
-<!-- =========================
-        MAIN CONTENT
-========================= -->
+<!-- HOME CONTENT WILL COME HERE -->
 
 <main>
 
 
-
-
-
-<!-- =========================
-        HERO SLIDER
-========================= -->
-
-
 <section class="hero">
 
-
-
-<div class="slides-container">
-
-
-
-
-
-<!-- SLIDE 1 -->
-
-
-<div class="slide active">
-
-
-<img 
-src="assets/images/banner1.jpg"
-alt="Featured Movie">
-
-
-
-
-
-<div class="hero-overlay">
-
-
-
-<div class="movie-info">
-
-
-
-<span class="tag">
-
-🔥 Trending
-
-</span>
-
-
-
-
-
-<h1>
-
-Mission Impossible
-
-</h1>
-
-
-
-
-
-
-<p>
-
-Impossible missions. Extreme action.
-The next chapter of the world's greatest spy adventure.
-
-</p>
-
-
-
-
-
-
-
-
-<div class="movie-details">
-
-
-
-<span>
-
-⭐ 8.5
-
-</span>
-
-
-
-
-
-<span>
-
-2026
-
-</span>
-
-
-
-
-
-
-<span>
-
-Action
-
-</span>
-
-
-
-
-
-
-
-<span>
-
-2h 43min
-
-</span>
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<div class="hero-buttons">
-
-
-
-
-
-<button class="watch"
-onclick="openMovie(950387)">
-
-
-
-<i class="fa-solid fa-play"></i>
-
-
-Watch Now
-
-
-
-</button>
-
-
-
-
-
-
-
-<button class="info"
-onclick="openMovie(950387)">
-
-
-
-<i class="fa-solid fa-circle-info"></i>
-
-
-More Info
-
-
-
-</button>
-
-
-
-
-
-</div>
-
-
-
-
-
-
-</div>
-
-
-
-</div>
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<!-- SLIDE 2 -->
-
-
-<div class="slide">
-
-
-
-<img
-
-src="assets/images/banner2.jpg"
-
-alt="Featured Movie"
-
->
-
-
-
-
-
-
-
-<div class="hero-overlay">
-
-
-
-
-
-<div class="movie-info">
-
-
-
-
-
-<span class="tag">
-
-⭐ Top Rated
-
-</span>
-
-
-
-
-
-
-
-
-<h1>
-
-Avengers Endgame
-
-</h1>
-
-
-
-
-
-
-
-<p>
-
-The final battle begins.
-Heroes unite for one last mission to save the universe.
-
-</p>
-
-
-
-
-
-
-
-
-
-<div class="movie-details">
-
-
-
-<span>
-
-⭐ 8.4
-
-</span>
-
-
-
-
-
-<span>
-
-2019
-
-</span>
-
-
-
-
-
-
-<span>
-
-Action
-
-</span>
-
-
-
-
-
-
-
-<span>
-
-3h 2min
-
-</span>
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-
-
-<div class="hero-buttons">
-
-
-
-
-
-<button class="watch"
-onclick="openMovie(299534)">
-
-
-
-<i class="fa-solid fa-play"></i>
-
-
-Watch Now
-
-
-
-</button>
-
-
-
-
-
-
-
-
-<button class="info"
-onclick="openMovie(299534)">
-
-
-
-<i class="fa-solid fa-circle-info"></i>
-
-
-More Info
-
-
-
-</button>
-
-
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-
-</div>
-
-
-
-
-
-</div>
-
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-
-<!-- SLIDER DOTS -->
-
-
-<div class="slider-dots">
-
-
-<span class="active"></span>
-
-
-<span></span>
-
-
-</div>
-
-
-
-
-
-
-
 </section>
 
 
-
-
-
-
-
-
-
-
-
-
-<!-- =========================
-        MOVIE COLLECTIONS
-========================= -->
-
-
-<section id="movies" class="movie-sections">
-
-
-
-
-
-
-
-
-
-<!-- TRENDING -->
-
-
-<section class="movie-row">
-
-
-<h2>
-
-🔥 Trending Movies
-
-</h2>
-
-
-
-
-<div class="movie-container">
-
-
-</div>
-
-
+<section class="movies-section">
 
 </section>
-
-
-
-
-
-
-
-
-
-<!-- POPULAR -->
-
-
-<section class="movie-row">
-
-
-<h2>
-
-⭐ Popular Movies
-
-</h2>
-
-
-
-
-
-<div class="movie-container">
-
-
-</div>
-
-
-
-</section>
-
-
-
-
-
-
-
-
-
-<!-- LATEST -->
-
-
-<section class="movie-row">
-
-
-<h2>
-
-🎬 Latest Releases
-
-</h2>
-
-
-
-
-
-<div class="movie-container">
-
-
-</div>
-
-
-
-</section>
-
-
-
-
-
-
-
-
-
-<!-- TOP RATED -->
-
-
-<section class="movie-row">
-
-
-<h2>
-
-🏆 Top Rated Movies
-
-</h2>
-
-
-
-
-
-<div class="movie-container">
-
-
-</div>
-
-
-
-</section>
-
-
-
-
-
-
-
-
-
-<!-- UPCOMING -->
-
-
-<section class="movie-row">
-
-
-<h2>
-
-🚀 Upcoming Movies
-
-</h2>
-
-
-
-
-
-<div class="movie-container">
-
-
-</div>
-
-
-
-</section>
-
-
-
-
-
-
-
-</section>
-<!-- =========================
-        FOOTER
-========================= -->
-
-
-<footer>
-
-
-
-
-<h2>
-
-TRAP MOVIES
-
-</h2>
-
-
-
-
-
-<p>
-
-Discover • Watch • Enjoy 🎬
-
-</p>
-
-
-
-
-
-
-
-
-<div class="socials">
-
-
-
-
-
-<a href="#">
-
-<i class="fa-brands fa-facebook"></i>
-
-</a>
-
-
-
-
-
-
-
-<a href="#">
-
-<i class="fa-brands fa-instagram"></i>
-
-</a>
-
-
-
-
-
-
-
-<a href="#">
-
-<i class="fa-brands fa-tiktok"></i>
-
-</a>
-
-
-
-
-
-
-
-<a href="#">
-
-<i class="fa-brands fa-youtube"></i>
-
-</a>
-
-
-
-
-
-
-</div>
-
-
-
-
-
-
-
-<p>
-
-© 2026 TRAP MOVIES. All Rights Reserved.
-
-</p>
-
-
-
-
-
-
-</footer>
-
-
-
-
-
-
-
 
 
 </main>
 
 
 
-
-
-
-
-
-
-<!-- =========================
-        JAVASCRIPT
-========================= -->
-
-
-
 <script src="script.js"></script>
 
 
-
-
-
-
-<script>
-
-
-/* =========================
-        OPEN MOVIE PAGE
-========================= */
-
-
-function openMovie(movieID){
-
-
-window.location.href = 
-"movie.html?id=" + movieID;
-
-
-}
-
-
-
-
-
-
-/* =========================
-        HERO SLIDER
-========================= */
-
-
-const slides =
-document.querySelectorAll(".slide");
-
-
-
-const dots =
-document.querySelectorAll(".slider-dots span");
-
-
-
-let currentSlide = 0;
-
-
-
-
-function changeSlide(){
-
-
-slides[currentSlide].classList.remove("active");
-
-dots[currentSlide].classList.remove("active");
-
-
-
-currentSlide++;
-
-
-
-
-if(currentSlide >= slides.length){
-
-currentSlide = 0;
-
-}
-
-
-
-
-
-slides[currentSlide].classList.add("active");
-
-dots[currentSlide].classList.add("active");
-
-
-
-}
-
-
-
-
-
-setInterval(changeSlide,6000);
-
-
-
-
-
-
-
-</script>
-
-
-
-
-
-
 </body>
-
 
 </html>
