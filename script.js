@@ -693,3 +693,80 @@ closeSearch();
 
 
 });
+/* =========================
+        CREATE MOVIE CARD
+========================= */
+
+function createMovieCard(movie){
+
+
+    const card = document.createElement("div");
+
+
+    card.classList.add(
+        "movie-card"
+    );
+
+
+    const poster = movie.poster_path
+
+    ? IMAGE_URL + movie.poster_path
+
+    : "assets/images/no-image.jpg";
+
+
+
+    const title = movie.title || "Unknown";
+
+
+
+    const rating = movie.vote_average
+
+    ? movie.vote_average.toFixed(1)
+
+    : "N/A";
+
+
+
+
+    card.innerHTML = `
+
+        <img 
+        src="${poster}"
+        alt="${title}"
+        >
+
+
+        <h3>
+        ${title}
+        </h3>
+
+
+        <p>
+        ⭐ ${rating}
+        </p>
+
+    `;
+
+
+
+    // OPEN MOVIE DETAILS PAGE
+
+    card.addEventListener(
+        "click",
+        ()=>{
+
+
+            window.location.href =
+            `movie.html?id=${movie.id}`;
+
+
+        }
+    );
+
+
+
+    return card;
+
+
+}
