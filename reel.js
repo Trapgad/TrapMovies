@@ -1,36 +1,109 @@
 /* ==================================
-        TRAP MOVIES
-        REELS V2 ENGINE
-        TIKTOK STYLE SYSTEM
+        TRAP MOVIES REELS UI
 ================================== */
 
 
-document.addEventListener("DOMContentLoaded",()=>{
-
-
-const API_KEY =
-"17a1834e273320eef8a2a36b38a11964";
-
-
-const BASE_URL =
-"https://api.themoviedb.org/3";
+body{
+    background:#000;
+    overflow:hidden;
+}
 
 
 
-const container =
-document.querySelector("#reelsContainer");
+/* REELS CONTAINER */
+
+#reelsContainer{
+
+    height:100vh;
+
+    width:100%;
+
+    overflow-y:scroll;
+
+    scroll-snap-type:y mandatory;
+
+    scroll-behavior:smooth;
+
+}
+
+
+
+/* HIDE SCROLL BAR */
+
+#reelsContainer::-webkit-scrollbar{
+
+    display:none;
+
+}
 
 
 
 
-async function fetchData(url){
+
+/* SINGLE REEL */
+
+.reel{
 
 
-const response =
-await fetch(url);
+    position:relative;
 
 
-return await response.json();
+    height:100vh;
+
+
+    width:100%;
+
+
+    scroll-snap-align:start;
+
+
+    background:#000;
+
+
+    overflow:hidden;
+
+
+}
+
+
+
+
+
+/* VIDEO */
+
+
+.reel-video,
+.video-box,
+.reel-video iframe{
+
+
+    position:absolute;
+
+
+    width:100%;
+
+
+    height:100%;
+
+
+    top:0;
+
+
+    left:0;
+
+
+}
+
+
+
+
+.reel-video iframe{
+
+
+    object-fit:cover;
+
+
+    transform:scale(1.35);
 
 
 }
@@ -40,213 +113,28 @@ return await response.json();
 
 
 
-async function getTrending(){
 
+/* DARK CINEMA GRADIENT */
 
-const data =
-await fetchData(
 
-`${BASE_URL}/trending/all/week?api_key=${API_KEY}`
+.reel-gradient{
 
-);
 
+    position:absolute;
 
-return data.results || [];
 
+    inset:0;
 
-}
 
+    background:
 
+    linear-gradient(
 
+    transparent 40%,
 
+    rgba(0,0,0,.85)
 
-
-
-async function getTrailer(id,type){
-
-
-const data =
-await fetchData(
-
-`${BASE_URL}/${type}/${id}/videos?api_key=${API_KEY}`
-
-);
-
-
-
-return data.results.find(video=>
-
-video.site==="YouTube"
-
-&&
-
-video.type==="Trailer"
-
-);
-
-}
-
-
-
-
-
-
-
-
-
-async function loadReels(){
-
-
-const items =
-await getTrending();
-
-
-
-container.innerHTML="";
-
-
-
-for(const item of items.slice(0,15)){
-
-
-
-const type =
-item.media_type==="tv"
-?
-"tv"
-:
-"movie";
-
-
-
-const trailer =
-await getTrailer(
-item.id,
-type
-);
-
-
-
-if(!trailer)
-continue;
-
-
-
-
-container.innerHTML +=
-
-`
-
-<section class="reel">
-
-
-<iframe
-
-class="reel-video"
-
-src="https://www.youtube.com/embed/${trailer.key}?enablejsapi=1&controls=0&mute=1"
-
-allow="autoplay"
-
-allowfullscreen>
-
-</iframe>
-
-
-
-
-
-<div class="reel-gradient"></div>
-
-
-
-
-
-
-<div class="reel-info">
-
-
-<h1>
-
-${item.title || item.name}
-
-</h1>
-
-
-<p>
-
-⭐ ${item.vote_average.toFixed(1)}
-
-</p>
-
-
-
-<button onclick="openContent('${type}',${item.id})">
-
-▶ Watch Now
-
-</button>
-
-
-</div>
-
-
-
-
-
-
-
-
-<div class="reel-actions">
-
-
-<button onclick="likeReel(this)">
-
-❤️
-
-</button>
-
-
-
-<button>
-
-🔖
-
-</button>
-
-
-
-<button onclick="shareReel()">
-
-📤
-
-</button>
-
-
-
-<button onclick="toggleMute(this)">
-
-🔇
-
-</button>
-
-
-</div>
-
-
-
-
-</section>
-
-
-`;
-
-
-
-}
-
-
-initObserver();
+    );
 
 
 }
@@ -258,144 +146,88 @@ initObserver();
 
 
 
+/* MOVIE DETAILS */
 
-/* =========================
-        AUTO PLAY SYSTEM
-========================= */
-
-
-function initObserver(){
+.reel-info{
 
 
-const reels =
-document.querySelectorAll(".reel");
+    position:absolute;
 
 
-
-const observer =
-new IntersectionObserver(
-entries=>{
+    bottom:80px;
 
 
-entries.forEach(entry=>{
+    left:20px;
 
 
-const video =
-entry.target.querySelector(
-"iframe"
-);
+    width:70%;
 
 
-
-if(entry.isIntersecting){
-
-
-video.contentWindow.postMessage(
-
-'{"event":"command","func":"playVideo","args":""}',
-
-"*"
-
-);
-
-
-}
-
-else{
-
-
-video.contentWindow.postMessage(
-
-'{"event":"command","func":"pauseVideo","args":""}',
-
-"*"
-
-);
+    z-index:5;
 
 
 }
 
 
 
-});
+.reel-info h1{
 
 
-},
+    font-size:30px;
 
 
-{
-threshold:.7
-}
-
-);
+    font-weight:900;
 
 
-
-reels.forEach(reel=>{
-
-observer.observe(reel);
-
-});
+    margin-bottom:15px;
 
 
 }
 
 
 
+.reel-info p{
 
 
+    font-size:18px;
 
 
-
-
-function likeReel(button){
-
-
-button.classList.toggle(
-"liked"
-);
-
-
-button.innerHTML="❤️";
+    margin-bottom:20px;
 
 
 }
 
 
 
+.reel-info button{
 
 
+    padding:13px 30px;
 
 
-function shareReel(){
+    border:none;
 
 
-navigator.share?.({
-
-title:"TRAP MOVIES",
-
-text:"Watch this trailer on TRAP MOVIES"
-
-});
+    border-radius:30px;
 
 
-}
+    color:white;
 
 
+    font-weight:700;
 
 
+    background:
 
+    linear-gradient(
 
+    135deg,
 
-function toggleMute(btn){
+    #e50914,
 
+    #8a2be2
 
-btn.innerHTML =
-btn.innerHTML==="🔇"
-?
-"🔊"
-:
-"🔇";
+    );
 
 
 }
@@ -407,33 +239,201 @@ btn.innerHTML==="🔇"
 
 
 
+/* RIGHT ACTION BAR */
 
-window.openContent=function(type,id){
+
+.reel-actions{
 
 
-if(type==="movie"){
+    position:absolute;
 
-window.location.href=
-`movie.html?id=${id}`;
+
+    right:20px;
+
+
+    bottom:120px;
+
+
+    display:flex;
+
+
+    flex-direction:column;
+
+
+    gap:22px;
+
+
+    z-index:10;
+
 
 }
 
-else{
 
 
-window.location.href=
-`series-details.html?id=${id}`;
+
+
+.reel-actions button{
+
+
+    width:55px;
+
+
+    height:55px;
+
+
+    border-radius:50%;
+
+
+    border:none;
+
+
+    font-size:25px;
+
+
+    background:
+
+    rgba(255,255,255,.15);
+
+
+    backdrop-filter:blur(15px);
+
+
+    color:white;
+
 
 }
 
 
+
+
+
+.reel-actions button:hover{
+
+
+    transform:scale(1.15);
+
+
 }
 
 
 
 
 
-loadReels();
+
+/* HEADER */
 
 
-});
+.reels-header{
+
+
+    position:fixed;
+
+
+    top:20px;
+
+
+    left:20px;
+
+
+    right:20px;
+
+
+    z-index:50;
+
+
+}
+
+
+
+
+
+.reels-header .logo{
+
+
+    font-size:25px;
+
+
+    font-weight:900;
+
+
+}
+
+
+
+
+
+.logo span{
+
+
+    background:
+
+    linear-gradient(
+
+    45deg,
+
+    #e50914,
+
+    #8a2be2
+
+    );
+
+
+    -webkit-background-clip:text;
+
+
+    color:transparent;
+
+
+}
+
+
+
+
+
+
+
+
+/* MOBILE OPTIMIZATION */
+
+
+@media(max-width:600px){
+
+
+
+.reel-info h1{
+
+
+font-size:24px;
+
+
+}
+
+
+
+.reel-actions{
+
+
+right:12px;
+
+
+}
+
+
+
+.reel-actions button{
+
+
+width:48px;
+
+
+height:48px;
+
+
+font-size:20px;
+
+
+}
+
+
+
+}
