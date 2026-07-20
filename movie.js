@@ -1,7 +1,7 @@
 /* ==================================
-   TRAP MOVIES - MOVIE DETAILS JS
-   PHASE 3
-   TMDB MOVIE DETAILS ENGINE
+   TRAP MOVIES
+   MOVIE DETAILS ENGINE
+   PHASE 3 - movie.js
 ================================== */
 
 
@@ -15,13 +15,18 @@ document.addEventListener("DOMContentLoaded",()=>{
 
 const API_KEY = "17a1834e273320eef8a2a36b38a11964";
 
-const BASE_URL = "https://api.themoviedb.org/3";
 
-const IMAGE_URL = 
+const BASE_URL =
+"https://api.themoviedb.org/3";
+
+
+const IMAGE_URL =
 "https://image.tmdb.org/t/p/original/";
+
 
 const POSTER_URL =
 "https://image.tmdb.org/t/p/w500/";
+
 
 
 
@@ -31,18 +36,24 @@ const POSTER_URL =
 ================================ */
 
 
-const urlParams = new URLSearchParams(
+const params =
+new URLSearchParams(
 window.location.search
 );
 
 
-const movieID = urlParams.get("id");
+
+const movieID =
+params.get("id");
+
 
 
 
 if(!movieID){
 
-console.log("No movie selected");
+console.log(
+"No movie ID found"
+);
 
 return;
 
@@ -53,12 +64,13 @@ return;
 
 
 
+
 /* ===============================
-        FETCH FUNCTION
+        TMDB FETCH
 ================================ */
 
 
-async function fetchMovie(url){
+async function fetchMovie(endpoint){
 
 
 try{
@@ -66,13 +78,15 @@ try{
 
 const response = await fetch(
 
-`${BASE_URL}${url}?api_key=${API_KEY}`
+`${BASE_URL}${endpoint}?api_key=${API_KEY}&language=en-US`
 
 );
 
 
 
-const data = await response.json();
+const data =
+await response.json();
+
 
 
 return data;
@@ -83,12 +97,22 @@ return data;
 
 catch(error){
 
-console.log(error);
+
+console.log(
+"TMDB ERROR:",
+error
+);
+
+
+return null;
+
 
 }
 
 
+
 }
+
 
 
 
@@ -98,17 +122,16 @@ console.log(error);
 
 
 /* ===============================
-        MOVIE DETAILS
+        LOAD MOVIE DETAILS
 ================================ */
 
 
 async function loadMovie(){
 
 
-const movie = await fetchMovie(
-
+const movie =
+await fetchMovie(
 `/movie/${movieID}`
-
 );
 
 
@@ -120,10 +143,13 @@ return;
 
 
 
-/* BACKGROUND */
 
 
-const backdrop = document.querySelector(
+// BACKDROP
+
+
+const backdrop =
+document.querySelector(
 ".movie-backdrop"
 );
 
@@ -135,14 +161,17 @@ if(backdrop){
 backdrop.style.backgroundImage =
 
 `
+
 linear-gradient(
 90deg,
 #050505,
-transparent
+rgba(0,0,0,.4)
 ),
+
 url(
-${IMAGE_URL + movie.backdrop_path}
+${IMAGE_URL}${movie.backdrop_path}
 )
+
 `;
 
 }
@@ -153,20 +182,26 @@ ${IMAGE_URL + movie.backdrop_path}
 
 
 
-/* POSTER */
+// POSTER
 
 
-const poster = document.querySelector(
-".movie-poster"
+const poster =
+document.querySelector(
+"#moviePoster"
 );
 
 
 
 if(poster){
 
-poster.src =
 
-POSTER_URL + movie.poster_path;
+poster.src = movie.poster_path
+
+?
+POSTER_URL + movie.poster_path
+
+:
+"assets/images/no-image.jpg";
 
 
 }
@@ -175,11 +210,16 @@ POSTER_URL + movie.poster_path;
 
 
 
-/* TITLE */
 
 
-const title = document.querySelector(
-".movie-title"
+
+
+// TITLE
+
+
+const title =
+document.querySelector(
+"#movieTitle"
 );
 
 
@@ -189,7 +229,6 @@ if(title){
 title.textContent =
 movie.title;
 
-
 }
 
 
@@ -198,34 +237,13 @@ movie.title;
 
 
 
-/* OVERVIEW */
+
+// RATING
 
 
-const overview = document.querySelector(
-".movie-description"
-);
-
-
-
-if(overview){
-
-overview.textContent =
-movie.overview;
-
-
-}
-
-
-
-
-
-
-
-/* RATING */
-
-
-const rating = document.querySelector(
-".movie-rating"
+const rating =
+document.querySelector(
+"#movieRating"
 );
 
 
@@ -247,20 +265,25 @@ rating.innerHTML =
 
 
 
-/* RELEASE DATE */
+// YEAR
 
 
-const date = document.querySelector(
-".movie-date"
+const year =
+document.querySelector(
+"#movieYear"
 );
 
 
 
-if(date){
+if(year){
 
-date.textContent =
-movie.release_date;
+year.textContent =
 
+movie.release_date
+?
+movie.release_date.substring(0,4)
+:
+"N/A";
 
 }
 
@@ -271,12 +294,12 @@ movie.release_date;
 
 
 
+// RUNTIME
 
-/* RUNTIME */
 
-
-const runtime = document.querySelector(
-".movie-runtime"
+const runtime =
+document.querySelector(
+"#movieRuntime"
 );
 
 
@@ -285,7 +308,7 @@ if(runtime){
 
 runtime.textContent =
 
-`${movie.runtime} min`;
+`${movie.runtime || 0} min`;
 
 }
 
@@ -295,11 +318,39 @@ runtime.textContent =
 
 
 
-/* GENRES */
+
+// DESCRIPTION
 
 
-const genres = document.querySelector(
-".movie-genres"
+const description =
+document.querySelector(
+"#movieDescription"
+);
+
+
+
+if(description){
+
+description.textContent =
+
+movie.overview ||
+"No description available";
+
+}
+
+
+
+
+
+
+
+
+// GENRES
+
+
+const genres =
+document.querySelector(
+"#movieGenres"
 );
 
 
@@ -310,15 +361,20 @@ if(genres){
 genres.innerHTML="";
 
 
-movie.genres.forEach(g=>{
+
+movie.genres.forEach(genre=>{
 
 
 genres.innerHTML +=
 
 `
+
 <span>
-${g.name}
+
+${genre.name}
+
 </span>
+
 `;
 
 
@@ -326,9 +382,6 @@ ${g.name}
 
 
 }
-
-
-
 
 
 
@@ -350,14 +403,12 @@ ${g.name}
 async function loadTrailer(){
 
 
-
-const data = await fetchMovie(
+const data =
+await fetchMovie(
 
 `/movie/${movieID}/videos`
 
 );
-
-
 
 
 
@@ -367,9 +418,13 @@ return;
 
 
 
-const trailer = data.results.find(video=>
+const trailer =
+data.results.find(video=>
 
-video.type==="Trailer" &&
+video.type==="Trailer"
+
+&&
+
 video.site==="YouTube"
 
 );
@@ -379,40 +434,54 @@ video.site==="YouTube"
 
 
 
-const trailerBtn =
+const trailerBox =
 document.querySelector(
-".watch-trailer"
+"#trailerBox"
 );
 
 
 
 
-if(trailerBtn && trailer){
+
+if(trailerBox && trailer){
+
+
+trailerBox.innerHTML =
+
+`
+
+<iframe
+
+src="https://www.youtube.com/embed/${trailer.key}"
+
+frameborder="0"
+
+allowfullscreen>
+
+</iframe>
+
+`;
 
 
 
-trailerBtn.onclick=()=>{
+}
+
+else if(trailerBox){
 
 
-window.open(
+trailerBox.innerHTML =
 
-`https://youtube.com/watch?v=${trailer.key}`,
-
-"_blank"
-
-);
-
-
-};
-
+`
+<p>
+Trailer not available
+</p>
+`;
 
 }
 
 
 
-
 }
-
 
 
 
@@ -430,7 +499,8 @@ window.open(
 async function loadCast(){
 
 
-const data = await fetchMovie(
+const data =
+await fetchMovie(
 
 `/movie/${movieID}/credits`
 
@@ -438,43 +508,46 @@ const data = await fetchMovie(
 
 
 
-
-const castBox =
+const container =
 document.querySelector(
-".cast-container"
+"#castContainer"
 );
 
 
 
-
-if(!castBox)
+if(!container || !data)
 return;
 
 
 
-
-castBox.innerHTML="";
-
-
-
-data.cast.slice(0,10).forEach(person=>{
+container.innerHTML="";
 
 
 
-const image = person.profile_path
+
+
+data.cast
+.slice(0,10)
+.forEach(actor=>{
+
+
+
+const image = actor.profile_path
 
 ?
-POSTER_URL + person.profile_path
+
+POSTER_URL + actor.profile_path
 
 :
+
 "assets/images/no-user.jpg";
 
 
 
 
 
-castBox.innerHTML +=
 
+container.innerHTML +=
 
 `
 
@@ -485,12 +558,16 @@ castBox.innerHTML +=
 
 
 <h3>
-${person.name}
+
+${actor.name}
+
 </h3>
 
 
 <p>
-${person.character}
+
+${actor.character}
+
 </p>
 
 
@@ -523,7 +600,8 @@ async function loadSimilar(){
 
 
 
-const movies = await fetchMovie(
+const data =
+await fetchMovie(
 
 `/movie/${movieID}/similar`
 
@@ -531,19 +609,15 @@ const movies = await fetchMovie(
 
 
 
-
 const container =
 document.querySelector(
-".similar-container"
+"#similarMovies"
 );
 
 
 
-
-if(!container)
+if(!container || !data)
 return;
-
-
 
 
 
@@ -552,18 +626,25 @@ container.innerHTML="";
 
 
 
-movies.results.slice(0,10)
+
+
+data.results
+.slice(0,10)
 .forEach(movie=>{
 
 
 
-const poster = movie.poster_path
+const poster =
+movie.poster_path
 
 ?
+
 POSTER_URL + movie.poster_path
 
 :
+
 "assets/images/no-image.jpg";
+
 
 
 
@@ -571,30 +652,30 @@ POSTER_URL + movie.poster_path
 
 container.innerHTML +=
 
-
 `
 
 <div class="movie-card"
-onclick="
-location.href='movie.html?id=${movie.id}'
-">
+onclick="window.location.href='movie.html?id=${movie.id}'">
 
 
 <img src="${poster}">
 
 
 <h3>
+
 ${movie.title}
+
 </h3>
 
 
 <p>
+
 ⭐ ${movie.vote_average.toFixed(1)}
+
 </p>
 
 
 </div>
-
 
 `;
 
@@ -615,7 +696,43 @@ ${movie.title}
 
 
 /* ===============================
-        RUN ALL
+        WATCH TRAILER BUTTON
+================================ */
+
+
+const watchBtn =
+document.querySelector(
+".watch"
+);
+
+
+
+watchBtn?.addEventListener(
+"click",
+()=>{
+
+
+document
+.querySelector("#trailerBox")
+.scrollIntoView({
+
+behavior:"smooth"
+
+});
+
+
+});
+
+
+
+
+
+
+
+
+
+/* ===============================
+        START ENGINE
 ================================ */
 
 
@@ -626,7 +743,6 @@ loadTrailer();
 loadCast();
 
 loadSimilar();
-
 
 
 
