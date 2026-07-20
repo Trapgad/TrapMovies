@@ -1,3 +1,10 @@
+/* ==================================
+        TRAP MOVIES
+        SERIES ENGINE
+        TMDB TV SYSTEM
+================================== */
+
+
 document.addEventListener("DOMContentLoaded",()=>{
 
 
@@ -14,12 +21,18 @@ const IMAGE_URL =
 
 
 
+/* =========================
+        GET SERIES
+========================= */
+
+
 async function getSeries(endpoint){
+
 
 try{
 
 
-const res =
+const response =
 await fetch(
 
 `${BASE_URL}${endpoint}?api_key=${API_KEY}&language=en-US`
@@ -28,7 +41,7 @@ await fetch(
 
 
 const data =
-await res.json();
+await response.json();
 
 
 return data.results || [];
@@ -37,6 +50,7 @@ return data.results || [];
 }
 
 catch(error){
+
 
 console.log(error);
 
@@ -53,16 +67,21 @@ return [];
 
 
 
-function createSeriesCard(series){
+/* =========================
+        SERIES CARD
+========================= */
+
+
+function createSeriesCard(show){
 
 
 const image =
 
-series.poster_path
+show.poster_path
 
 ?
 
-IMAGE_URL + series.poster_path
+IMAGE_URL + show.poster_path
 
 :
 
@@ -74,7 +93,8 @@ return `
 
 
 <div class="movie-card"
-onclick="openSeries(${series.id})">
+
+onclick="openSeries(${show.id})">
 
 
 <img src="${image}">
@@ -82,14 +102,20 @@ onclick="openSeries(${series.id})">
 
 <h3>
 
-${series.name}
+${show.name || "Unknown"}
 
 </h3>
 
 
 <p>
 
-⭐ ${series.vote_average.toFixed(1)}
+⭐ ${
+show.vote_average
+?
+show.vote_average.toFixed(1)
+:
+"N/A"
+}
 
 </p>
 
@@ -108,34 +134,31 @@ ${series.name}
 
 
 
-async function loadSeries(){
+
+/* =========================
+        LOAD TV SECTIONS
+========================= */
 
 
-const sections = [
+const containers =
+document.querySelectorAll(
+".series-container"
+);
 
 
-{
-id:"trendingSeries",
-api:"/trending/tv/week"
-},
+
+const sections=[
 
 
-{
-id:"popularSeries",
-api:"/tv/popular"
-},
+"/trending/tv/week",
 
+"/tv/popular",
 
-{
-id:"airingSeries",
-api:"/tv/airing_today"
-},
+"/tv/on_the_air",
 
+"/tv/top_rated",
 
-{
-id:"topSeries",
-api:"/tv/top_rated"
-}
+"/tv/airing_today"
 
 
 ];
@@ -144,27 +167,34 @@ api:"/tv/top_rated"
 
 
 
-for(let section of sections){
 
 
-const container =
-document.getElementById(section.id);
-
-
-
-const series =
-await getSeries(section.api);
+async function loadSeries(){
 
 
 
-container.innerHTML="";
+for(
+let i=0;
+i<containers.length;
+i++
+){
+
+
+const shows =
+await getSeries(
+sections[i]
+);
 
 
 
-series.forEach(show=>{
+containers[i].innerHTML="";
 
 
-container.innerHTML +=
+
+shows.forEach(show=>{
+
+
+containers[i].innerHTML +=
 
 createSeriesCard(show);
 
@@ -176,78 +206,121 @@ createSeriesCard(show);
 
 
 
-loadHero();
-
-
 }
-
-
-
-
-
-
-
-
-
-async function loadHero(){
-
-
-const series =
-await getSeries(
-"/trending/tv/week"
-);
-
-
-
-const random =
-series[
-Math.floor(
-Math.random()*series.length
-)
-];
-
-
-
-if(!random)
-return;
-
-
-
-
-document.getElementById("seriesTitle").innerHTML =
-random.name;
-
-
-
-document.getElementById("seriesOverview").innerHTML =
-random.overview;
-
-
-
-document.querySelector(".series-backdrop").style.backgroundImage =
-
-`
-linear-gradient(
-90deg,
-rgba(0,0,0,.95),
-rgba(0,0,0,.3)
-),
-url(
-${"https://image.tmdb.org/t/p/original/"+random.backdrop_path}
-)
-`;
-
-
-
-}
-
-
-
-
 
 
 
 loadSeries();
+
+
+
+
+
+
+
+
+
+/* =========================
+        SERIES SEARCH
+========================= */
+
+
+const searchInput =
+document.querySelector(
+"#seriesSearch"
+);
+
+
+const searchResults =
+document.querySelector(
+"#seriesResults"
+);
+
+
+
+
+
+
+
+async function searchSeries(query){
+
+
+const response =
+await fetch(
+
+`${BASE_URL}/search/tv?api_key=${API_KEY}&query=${query}`
+
+);
+
+
+
+const data =
+await response.json();
+
+
+return data.results || [];
+
+
+}
+
+
+
+
+
+
+
+searchInput?.addEventListener(
+"input",
+async()=>{
+
+
+const value =
+searchInput.value.trim();
+
+
+
+if(!value){
+
+searchResults.innerHTML="";
+
+return;
+
+}
+
+
+
+searchResults.innerHTML=
+
+`
+<h3>
+Searching...
+</h3>
+`;
+
+
+
+const shows =
+await searchSeries(value);
+
+
+
+searchResults.innerHTML="";
+
+
+
+shows.forEach(show=>{
+
+
+searchResults.innerHTML +=
+
+createSeriesCard(show);
+
+
+});
+
+
+
+});
 
 
 
@@ -257,9 +330,20 @@ loadSeries();
 
 
 
+
+
+
+/* =========================
+        OPEN SERIES PAGE
+========================= */
+
+
 function openSeries(id){
 
+
 window.location.href =
+
 `series-details.html?id=${id}`;
+
 
 }
