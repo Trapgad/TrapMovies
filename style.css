@@ -3078,3 +3078,28 @@ footer p{
 
 
 }
+.header{
+    z-index:5000;
+}
+
+
+.menu-btn,
+.search-btn{
+    position:relative;
+    z-index:6000;
+}
+
+
+.search-page{
+    z-index:7000;
+}
+
+
+.side-menu{
+    z-index:8000;
+}
+
+
+.overlay-bg{
+    z-index:7500;
+}
