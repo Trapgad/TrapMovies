@@ -1,13 +1,166 @@
-<!-- =========================
-     MOVIE DETAILS PAGE
-========================= -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TRAP MOVIES | Movie Details</title>
+
+
+<link rel="stylesheet" href="style.css">
+
+
+<!-- Font Awesome -->
+<link 
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+<!-- Google Font -->
+<link 
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+
+</head>
+
+
+
+<body>
+
+
+
+<!-- HEADER -->
+
+<header class="header">
+
+
+<div class="menu-btn">
+
+<i class="fa-solid fa-bars"></i>
+
+</div>
+
+
+
+<div class="logo">
+
+TRAP <span>MOVIES</span>
+
+</div>
+
+
+
+<div class="search-btn">
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+</div>
+
+
+</header>
+
+
+
+
+
+<!-- SIDE MENU -->
+
+<nav class="side-menu">
+
+
+<div class="menu-header">
+
+<h2>TRAP MOVIES</h2>
+
+
+<div class="close-btn">
+
+<i class="fa-solid fa-xmark"></i>
+
+</div>
+
+
+</div>
+
+
+
+<ul>
+
+
+<li>
+<i class="fa-solid fa-house"></i>
+Home
+</li>
+
+
+<li>
+<i class="fa-solid fa-heart"></i>
+Favorites
+</li>
+
+
+<li>
+<i class="fa-solid fa-clock"></i>
+Watch History
+</li>
+
+
+<hr>
+
+
+<li>
+<i class="fa-solid fa-film"></i>
+Movies
+</li>
+
+
+<li>
+<i class="fa-solid fa-tv"></i>
+Series
+</li>
+
+
+<li>
+<i class="fa-solid fa-fire"></i>
+Trending
+</li>
+
+
+<li>
+<i class="fa-solid fa-star"></i>
+Top Rated
+</li>
+
+
+</ul>
+
+
+</nav>
+
+
+
+
+<div class="overlay-bg"></div>
+
+
+
+
+
+
+
+<!-- MOVIE DETAILS -->
+
+<main>
+
 
 
 <section class="movie-details-page">
 
 
-
-<!-- HERO -->
 
 <div class="movie-hero">
 
@@ -17,17 +170,11 @@
 
 
 
-
-
 <div class="movie-content">
 
 
 
-<!-- POSTER -->
-
-
 <div class="movie-poster">
-
 
 <img
 
@@ -37,7 +184,6 @@ src="assets/images/no-image.jpg"
 
 alt="Movie Poster">
 
-
 </div>
 
 
@@ -46,15 +192,13 @@ alt="Movie Poster">
 
 
 
-<!-- INFORMATION -->
-
-
 <div class="movie-info-box">
 
 
-
 <h1 id="movieTitle">
+
 Loading...
+
 </h1>
 
 
@@ -65,25 +209,33 @@ Loading...
 
 
 <span id="movieRating">
+
 ⭐ N/A
+
 </span>
 
 
 
 <span id="movieYear">
+
 Year
+
 </span>
 
 
 
 <span id="movieRuntime">
+
 Runtime
+
 </span>
 
 
 
 <span id="moviePopularity">
+
 Popularity
+
 </span>
 
 
@@ -95,12 +247,7 @@ Popularity
 
 
 
-
-<div 
-class="genres"
-id="movieGenres">
-
-</div>
+<div class="genres" id="movieGenres"></div>
 
 
 
@@ -108,10 +255,8 @@ id="movieGenres">
 
 
 
-<p
-
+<p 
 id="movieDescription"
-
 class="movie-description">
 
 Loading movie description...
@@ -124,24 +269,21 @@ Loading movie description...
 
 
 
-
 <div class="hero-buttons">
-
 
 
 <button class="watch">
 
-▶ Watch Trailer
+<i class="fa-solid fa-play"></i>
+
+Watch Trailer
 
 </button>
 
 
 
-
-
 <button 
 class="info"
-
 id="watchlistBtn">
 
 + Add To My List
@@ -149,11 +291,6 @@ id="watchlistBtn">
 </button>
 
 
-
-</div>
-
-
-
 </div>
 
 
@@ -163,6 +300,7 @@ id="watchlistBtn">
 </div>
 
 
+</div>
 
 
 
@@ -172,19 +310,17 @@ id="watchlistBtn">
 
 
 
-<!-- =========================
-     EXTRA INFORMATION
-========================= -->
+<!-- INFORMATION -->
 
 
 <section class="movie-extra-info">
 
 
-
 <h2>
-Movie Information
-</h2>
 
+Movie Information
+
+</h2>
 
 
 
@@ -192,142 +328,77 @@ Movie Information
 
 
 
-
-
 <div class="info-box glass">
 
-<h3>
-Director
-</h3>
+<h3>Director</h3>
 
-<p id="movieDirector">
-N/A
-</p>
+<p id="movieDirector">N/A</p>
 
 </div>
-
-
-
-
-
 
 
 
 <div class="info-box glass">
 
-<h3>
-Writer
-</h3>
+<h3>Writer</h3>
 
-<p id="movieWriter">
-N/A
-</p>
+<p id="movieWriter">N/A</p>
 
 </div>
-
-
-
-
-
 
 
 
 <div class="info-box glass">
 
-<h3>
-Production
-</h3>
+<h3>Production</h3>
 
-<p id="movieCompanies">
-N/A
-</p>
+<p id="movieCompanies">N/A</p>
 
 </div>
-
-
-
-
-
 
 
 
 <div class="info-box glass">
 
-<h3>
-Country
-</h3>
+<h3>Country</h3>
 
-<p id="movieCountry">
-N/A
-</p>
+<p id="movieCountry">N/A</p>
 
 </div>
-
-
-
-
-
 
 
 
 <div class="info-box glass">
 
-<h3>
-Languages
-</h3>
+<h3>Languages</h3>
 
-<p id="movieLanguages">
-N/A
-</p>
+<p id="movieLanguages">N/A</p>
 
 </div>
-
-
-
-
-
 
 
 
 <div class="info-box glass">
 
-<h3>
-Budget
-</h3>
+<h3>Budget</h3>
 
-<p id="movieBudget">
-N/A
-</p>
+<p id="movieBudget">N/A</p>
 
 </div>
-
-
-
-
-
 
 
 
 <div class="info-box glass">
 
-<h3>
-Revenue
-</h3>
+<h3>Revenue</h3>
 
-<p id="movieRevenue">
-N/A
-</p>
+<p id="movieRevenue">N/A</p>
 
 </div>
 
 
 
-
-
-
-
 </div>
-
 
 
 </section>
@@ -340,36 +411,33 @@ N/A
 
 
 
-<!-- =========================
-        TRAILER
-========================= -->
+<!-- TRAILER -->
 
 
 <section class="trailer-section">
 
 
 <h2>
+
 Official Trailer
+
 </h2>
 
 
 
-
 <div 
-
 id="trailerBox"
-
 class="trailer-box">
 
 
 <p>
+
 Loading trailer...
+
 </p>
 
 
-
 </div>
-
 
 
 </section>
@@ -382,29 +450,25 @@ Loading trailer...
 
 
 
-<!-- =========================
-        CAST
-========================= -->
+<!-- CAST -->
 
 
 <section class="cast-section">
 
 
 <h2>
+
 Cast
+
 </h2>
 
 
 
-
-<div
-
+<div 
 id="castContainer"
-
 class="cast-container">
 
 </div>
-
 
 
 </section>
@@ -417,30 +481,27 @@ class="cast-container">
 
 
 
-<!-- =========================
-        SIMILAR MOVIES
-========================= -->
+<!-- SIMILAR -->
 
 
 <section class="similar-section">
 
 
 <h2>
+
 More Like This
+
 </h2>
 
 
 
-<div
-
+<div 
 id="similarMovies"
-
 class="movie-container">
 
 </div>
 
 
-
 </section>
 
 
@@ -448,3 +509,54 @@ class="movie-container">
 
 
 </section>
+
+
+</main>
+
+
+
+
+
+
+
+
+<footer>
+
+
+<h2>
+
+TRAP MOVIES
+
+</h2>
+
+
+<p>
+
+Discover • Watch • Enjoy 🎬
+
+</p>
+
+
+<p>
+
+© 2026 TRAP MOVIES
+
+</p>
+
+
+</footer>
+
+
+
+
+
+
+
+<script src="script.js"></script>
+
+<script src="movie.js"></script>
+
+
+</body>
+
+</html>
