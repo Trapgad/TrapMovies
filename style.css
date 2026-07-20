@@ -3078,3 +3078,268 @@ footer p{
 
 
 }
+/* ==================================
+        TRAP MOVIES SERIES PAGE
+        PREMIUM HERO DESIGN
+================================== */
+
+
+
+.series-hero{
+
+    position:relative;
+
+    height:600px;
+
+    margin:130px 20px 50px;
+
+    border-radius:35px;
+
+    overflow:hidden;
+
+    display:flex;
+
+    align-items:flex-end;
+
+
+    border:
+
+    1px solid rgba(255,255,255,.15);
+
+
+    box-shadow:
+
+    0 30px 100px rgba(0,0,0,.8);
+
+}
+
+
+
+
+
+.series-backdrop{
+
+    position:absolute;
+
+    inset:0;
+
+
+    background-size:cover;
+
+    background-position:center;
+
+
+    filter:brightness(.75);
+
+
+    transition:1s;
+
+
+}
+
+
+
+
+
+.series-content{
+
+    position:relative;
+
+    z-index:2;
+
+
+    max-width:650px;
+
+
+    padding:60px;
+
+
+}
+
+
+
+
+
+.series-content::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+
+    background:
+
+    rgba(15,15,20,.45);
+
+
+    backdrop-filter:blur(15px);
+
+
+    border-radius:35px;
+
+
+    z-index:-1;
+
+
+}
+
+
+
+
+
+
+
+.series-content h1{
+
+
+    font-size:55px;
+
+
+    font-weight:900;
+
+
+    margin:20px 0;
+
+
+    line-height:1.1;
+
+
+}
+
+
+
+
+
+.series-content p{
+
+
+    color:#ddd;
+
+
+    font-size:17px;
+
+
+    line-height:1.8;
+
+
+    margin-bottom:25px;
+
+
+    display:-webkit-box;
+
+
+    -webkit-line-clamp:3;
+
+
+    -webkit-box-orient:vertical;
+
+
+    overflow:hidden;
+
+
+}
+
+
+
+
+
+
+
+
+/* SERIES CARD EFFECT */
+
+
+#trendingSeries .movie-card,
+#popularSeries .movie-card,
+#airingSeries .movie-card,
+#topSeries .movie-card{
+
+
+    min-width:190px;
+
+}
+
+
+
+
+
+#trendingSeries .movie-card:hover,
+#popularSeries .movie-card:hover,
+#airingSeries .movie-card:hover,
+#topSeries .movie-card:hover{
+
+
+    transform:
+
+    translateY(-15px)
+    scale(1.04);
+
+
+}
+
+
+
+
+
+
+
+/* MOBILE SERIES */
+
+
+@media(max-width:768px){
+
+
+
+.series-hero{
+
+
+    height:520px;
+
+    margin:120px 12px 40px;
+
+
+}
+
+
+
+
+
+.series-content{
+
+
+    padding:30px 20px;
+
+
+}
+
+
+
+
+
+.series-content h1{
+
+
+    font-size:35px;
+
+
+}
+
+
+
+
+
+.series-content p{
+
+
+    font-size:14px;
+
+
+}
+
+
+
+
+
+}
