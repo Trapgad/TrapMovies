@@ -2,10 +2,12 @@
         TRAP MOVIES
         SERIES ENGINE
         TMDB TV SYSTEM
+        PREMIUM VERSION
 ================================== */
 
 
 document.addEventListener("DOMContentLoaded",()=>{
+
 
 
 const API_KEY =
@@ -21,8 +23,10 @@ const IMAGE_URL =
 
 
 
+
+
 /* =========================
-        GET SERIES
+        GET SERIES DATA
 ========================= */
 
 
@@ -49,17 +53,25 @@ return data.results || [];
 
 }
 
+
 catch(error){
 
 
-console.log(error);
+console.log(
+"TMDB SERIES ERROR:",
+error
+);
+
 
 return [];
 
+
 }
 
 
 }
+
+
 
 
 
@@ -73,6 +85,7 @@ return [];
 
 
 function createSeriesCard(show){
+
 
 
 const image =
@@ -97,7 +110,9 @@ return `
 onclick="openSeries(${show.id})">
 
 
-<img src="${image}">
+
+<img src="${image}" alt="${show.name}">
+
 
 
 <h3>
@@ -107,17 +122,24 @@ ${show.name || "Unknown"}
 </h3>
 
 
+
 <p>
 
 ⭐ ${
 show.vote_average
+
 ?
+
 show.vote_average.toFixed(1)
+
 :
+
 "N/A"
+
 }
 
 </p>
+
 
 
 </div>
@@ -131,19 +153,29 @@ show.vote_average.toFixed(1)
 
 
 
-
-
-
-
 /* =========================
-        LOAD TV SECTIONS
+        SERIES SECTIONS
 ========================= */
 
 
-const containers =
-document.querySelectorAll(
-".series-container"
-);
+const containers = [
+
+
+document.querySelector("#trendingSeries"),
+
+
+document.querySelector("#popularSeries"),
+
+
+document.querySelector("#airingSeries"),
+
+
+document.querySelector("#topSeries")
+
+
+];
+
+
 
 
 
@@ -152,16 +184,19 @@ const sections=[
 
 "/trending/tv/week",
 
+
 "/tv/popular",
+
 
 "/tv/on_the_air",
 
-"/tv/top_rated",
 
-"/tv/airing_today"
+"/tv/top_rated"
 
 
 ];
+
+
 
 
 
@@ -180,14 +215,22 @@ i++
 ){
 
 
+
+if(!containers[i]) continue;
+
+
+
 const shows =
+
 await getSeries(
 sections[i]
 );
 
 
 
+
 containers[i].innerHTML="";
+
 
 
 
@@ -202,11 +245,15 @@ createSeriesCard(show);
 });
 
 
+
+}
+
+
 }
 
 
 
-}
+
 
 
 
@@ -225,13 +272,17 @@ loadSeries();
 ========================= */
 
 
+
 const searchInput =
+
 document.querySelector(
 "#seriesSearch"
 );
 
 
+
 const searchResults =
+
 document.querySelector(
 "#seriesResults"
 );
@@ -245,23 +296,49 @@ document.querySelector(
 async function searchSeries(query){
 
 
+
+try{
+
+
 const response =
+
 await fetch(
 
-`${BASE_URL}/search/tv?api_key=${API_KEY}&query=${query}`
+`${BASE_URL}/search/tv?api_key=${API_KEY}&query=${query}&language=en-US`
 
 );
 
 
 
 const data =
+
 await response.json();
+
 
 
 return data.results || [];
 
 
+
 }
+
+
+
+catch(error){
+
+
+console.log(error);
+
+
+return [];
+
+
+}
+
+
+}
+
+
 
 
 
@@ -270,61 +347,103 @@ return data.results || [];
 
 
 searchInput?.addEventListener(
+
 "input",
+
 async()=>{
 
 
+
 const value =
+
 searchInput.value.trim();
+
 
 
 
 if(!value){
 
+
+if(searchResults)
+
 searchResults.innerHTML="";
 
+
 return;
+
 
 }
 
 
 
-searchResults.innerHTML=
+
+
+
+if(searchResults)
+
+searchResults.innerHTML =
 
 `
-<h3>
-Searching...
-</h3>
+
+<div class="loading">
+
+Searching Series...
+
+</div>
+
 `;
 
 
 
+
+
+
+
 const shows =
+
 await searchSeries(value);
 
 
 
+
+
+
+if(searchResults)
+
 searchResults.innerHTML="";
+
+
 
 
 
 shows.forEach(show=>{
 
 
+
+if(searchResults)
+
 searchResults.innerHTML +=
 
 createSeriesCard(show);
 
 
-});
-
-
 
 });
 
 
 
+}
+
+);
+
+
+
+
+
+
+
 });
+
 
 
 
@@ -334,7 +453,7 @@ createSeriesCard(show);
 
 
 /* =========================
-        OPEN SERIES PAGE
+        OPEN SERIES DETAILS
 ========================= */
 
 
