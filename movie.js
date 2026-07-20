@@ -16,11 +16,11 @@ const BASE_URL =
 "https://api.themoviedb.org/3";
 
 
-const IMAGE_URL =
+const ORIGINAL_IMAGE =
 "https://image.tmdb.org/t/p/original/";
 
 
-const POSTER_URL =
+const IMAGE_URL =
 "https://image.tmdb.org/t/p/w500/";
 
 
@@ -34,7 +34,9 @@ window.location.search
 
 if(!movieID){
 
-console.log("Movie ID missing");
+console.log(
+"No movie ID found"
+);
 
 return;
 
@@ -44,7 +46,7 @@ return;
 
 
 
-async function fetchMovie(endpoint){
+async function fetchData(endpoint){
 
 
 try{
@@ -65,29 +67,29 @@ return await response.json();
 
 catch(error){
 
-console.log(
-"TMDB ERROR",
-error
-);
+
+console.log(error);
 
 return null;
 
-}
-
 
 }
 
 
+}
 
 
 
 
 
-function setText(id,value){
+
+
+function setText(selector,value){
 
 
 const element =
-document.querySelector(id);
+document.querySelector(selector);
+
 
 
 if(element){
@@ -108,16 +110,16 @@ value || "N/A";
 
 
 
-/* ===============================
-        MAIN MOVIE DATA
-================================ */
+/* =========================
+        MOVIE DETAILS
+========================= */
 
 
 async function loadMovie(){
 
 
 const movie =
-await fetchMovie(
+await fetchData(
 `/movie/${movieID}`
 );
 
@@ -125,7 +127,6 @@ await fetchMovie(
 
 if(!movie)
 return;
-
 
 
 
@@ -143,16 +144,18 @@ if(backdrop && movie.backdrop_path){
 backdrop.style.backgroundImage =
 
 `
+
 linear-gradient(
 90deg,
-#050505,
-rgba(0,0,0,.35)
+rgba(5,5,5,.95),
+rgba(5,5,5,.3)
 ),
-url(${IMAGE_URL}${movie.backdrop_path})
+
+url(${ORIGINAL_IMAGE}${movie.backdrop_path})
+
 `;
 
 }
-
 
 
 
@@ -167,16 +170,22 @@ document.querySelector(
 
 if(poster){
 
+
 poster.src =
+
 movie.poster_path
 
 ?
-POSTER_URL + movie.poster_path
+
+IMAGE_URL + movie.poster_path
 
 :
+
 "assets/images/no-image.jpg";
 
+
 }
+
 
 
 
@@ -191,11 +200,7 @@ movie.title
 
 setText(
 "#movieYear",
-movie.release_date
-?
-movie.release_date.substring(0,4)
-:
-"N/A"
+movie.release_date?.substring(0,4)
 );
 
 
@@ -209,67 +214,9 @@ setText(
 
 setText(
 "#movieDescription",
-movie.overview ||
-"No description available"
+movie.overview
 );
 
-
-
-
-
-const rating =
-document.querySelector(
-"#movieRating"
-);
-
-
-if(rating){
-
-rating.innerHTML =
-`
-⭐ ${movie.vote_average.toFixed(1)}
-`;
-
-}
-
-
-
-
-
-const genres =
-document.querySelector(
-"#movieGenres"
-);
-
-
-
-if(genres){
-
-genres.innerHTML="";
-
-
-movie.genres.forEach(g=>{
-
-
-genres.innerHTML +=
-
-`
-<span>
-${g.name}
-</span>
-`;
-
-});
-
-
-}
-
-
-
-
-
-
-/* EXTRA INFORMATION */
 
 
 setText(
@@ -308,20 +255,87 @@ movie.revenue
 
 
 
+
+
+const rating =
+document.querySelector(
+"#movieRating"
+);
+
+
+
+if(rating){
+
+rating.innerHTML =
+`
+⭐ ${movie.vote_average.toFixed(1)}
+`;
+
+}
+
+
+
+
+
+const genres =
+document.querySelector(
+"#movieGenres"
+);
+
+
+
+if(genres){
+
+
+genres.innerHTML="";
+
+
+movie.genres.forEach(
+genre=>{
+
+
+genres.innerHTML +=
+
+`
+
+<span>
+${genre.name}
+</span>
+
+`;
+
+});
+
+
+}
+
+
+
+
+
 loadWatchlist(movie);
 
 
 }
-/* ===============================
+
+
+
+
+
+
+
+
+
+/* =========================
         TRAILER
-================================ */
+========================= */
 
 
 async function loadTrailer(){
 
 
 const data =
-await fetchMovie(
+await fetchData(
 `/movie/${movieID}/videos`
 );
 
@@ -339,13 +353,20 @@ return;
 
 
 
-const trailer =
-data.results.find(video=>
 
-video.type === "Trailer" &&
-video.site === "YouTube"
+
+const trailer =
+data.results.find(
+video=>
+
+video.type==="Trailer"
+&&
+video.site==="YouTube"
 
 );
+
+
+
 
 
 
@@ -358,7 +379,9 @@ box.innerHTML =
 
 <iframe
 
-src="https://www.youtube.com/embed/${trailer.key}"
+src="
+https://www.youtube.com/embed/${trailer.key}
+"
 
 allowfullscreen>
 
@@ -379,6 +402,7 @@ box.innerHTML =
 <p>
 Trailer not available
 </p>
+
 `;
 
 }
@@ -394,173 +418,16 @@ Trailer not available
 
 
 
-/* ===============================
-        DIRECTOR + WRITERS
-================================ */
-
-
-async function loadCrew(){
-
-
-const data =
-await fetchMovie(
-
-`/movie/${movieID}/credits`
-
-);
-
-
-
-if(!data)
-return;
-
-
-
-const director =
-data.crew.find(
-person =>
-person.job === "Director"
-);
-
-
-
-const writers =
-data.crew
-.filter(
-person =>
-person.job === "Writer" ||
-person.job === "Screenplay"
-)
-.slice(0,3)
-.map(
-person=>person.name
-)
-.join(", ");
-
-
-
-
-
-setText(
-"#movieDirector",
-director?.name
-);
-
-
-
-setText(
-"#movieWriter",
-writers
-);
-
-
-
-}
-
-
-
-
-
-
-
-
-
-/* ===============================
-        PRODUCTION INFO
-================================ */
-
-
-async function loadProduction(){
-
-
-const movie =
-await fetchMovie(
-`/movie/${movieID}`
-);
-
-
-
-if(!movie)
-return;
-
-
-
-
-const companies =
-movie.production_companies
-?.slice(0,3)
-.map(
-company=>company.name
-)
-.join(", ");
-
-
-
-
-
-const countries =
-movie.production_countries
-?.map(
-country=>country.name
-)
-.join(", ");
-
-
-
-
-
-const languages =
-movie.spoken_languages
-?.map(
-lang=>lang.english_name
-)
-.join(", ");
-
-
-
-
-
-setText(
-"#movieCompanies",
-companies
-);
-
-
-
-setText(
-"#movieCountry",
-countries
-);
-
-
-
-setText(
-"#movieLanguages",
-languages
-);
-
-
-
-}
-
-
-
-
-
-
-
-
-
-/* ===============================
+/* =========================
         CAST
-================================ */
+========================= */
 
 
 async function loadCast(){
 
 
 const data =
-await fetchMovie(
+await fetchData(
 
 `/movie/${movieID}/credits`
 
@@ -568,24 +435,25 @@ await fetchMovie(
 
 
 
-const box =
+const container =
 document.querySelector(
 "#castContainer"
 );
 
 
 
-if(!box || !data)
+if(!container || !data)
 return;
 
 
 
-box.innerHTML="";
+
+container.innerHTML="";
 
 
 
 data.cast
-.slice(0,10)
+.slice(0,12)
 .forEach(actor=>{
 
 
@@ -595,7 +463,7 @@ actor.profile_path
 
 ?
 
-POSTER_URL + actor.profile_path
+IMAGE_URL + actor.profile_path
 
 :
 
@@ -603,9 +471,7 @@ POSTER_URL + actor.profile_path
 
 
 
-
-
-box.innerHTML +=
+container.innerHTML +=
 
 `
 
@@ -644,16 +510,171 @@ ${actor.character}
 
 
 
-/* ===============================
+/* =========================
+        CREW
+========================= */
+
+
+async function loadCrew(){
+
+
+const data =
+await fetchData(
+
+`/movie/${movieID}/credits`
+
+);
+
+
+
+if(!data)
+return;
+
+
+
+
+
+const director =
+data.crew.find(
+person=>
+
+person.job==="Director"
+
+);
+
+
+
+
+
+const writers =
+data.crew
+.filter(
+person=>
+
+person.job==="Writer"
+||
+person.job==="Screenplay"
+
+)
+.slice(0,3)
+.map(
+person=>person.name
+)
+.join(", ");
+
+
+
+
+
+setText(
+"#movieDirector",
+director?.name
+);
+
+
+
+setText(
+"#movieWriter",
+writers
+);
+
+
+}
+
+
+
+
+
+
+
+
+
+/* =========================
+        PRODUCTION
+========================= */
+
+
+async function loadProduction(){
+
+
+const movie =
+await fetchData(
+`/movie/${movieID}`
+);
+
+
+
+if(!movie)
+return;
+
+
+
+
+
+setText(
+
+"#movieCompanies",
+
+movie.production_companies
+?.map(
+company=>company.name
+)
+.join(", ")
+
+);
+
+
+
+
+setText(
+
+"#movieCountry",
+
+movie.production_countries
+?.map(
+country=>country.name
+)
+.join(", ")
+
+);
+
+
+
+
+
+setText(
+
+"#movieLanguages",
+
+movie.spoken_languages
+?.map(
+lang=>lang.english_name
+)
+.join(", ")
+
+);
+
+
+}
+
+
+
+
+
+
+
+
+
+/* =========================
         SIMILAR MOVIES
-================================ */
+========================= */
 
 
 async function loadSimilar(){
 
 
 const data =
-await fetchMovie(
+await fetchData(
 
 `/movie/${movieID}/similar`
 
@@ -694,7 +715,7 @@ onclick="openMovie(${movie.id})">
 <img src="${
 movie.poster_path
 ?
-POSTER_URL + movie.poster_path
+IMAGE_URL+movie.poster_path
 :
 "assets/images/no-image.jpg"
 }">
@@ -714,6 +735,8 @@ ${movie.title}
 
 `;
 
+
+
 });
 
 
@@ -727,9 +750,9 @@ ${movie.title}
 
 
 
-/* ===============================
-        WATCHLIST
-================================ */
+/* =========================
+        MY LIST
+========================= */
 
 
 function loadWatchlist(movie){
@@ -755,9 +778,13 @@ localStorage.getItem("watchlist")
 
 
 
-const exists =
-list.some(
-item=>item.id === movie.id
+
+button.onclick=()=>{
+
+
+let exists =
+list.find(
+item=>item.id===movie.id
 );
 
 
@@ -765,40 +792,10 @@ item=>item.id === movie.id
 
 if(exists){
 
-button.innerHTML =
-"✓ Added To My List";
 
-}
-
-
-
-
-
-
-button.onclick = ()=>{
-
-
-let movies =
-JSON.parse(
-localStorage.getItem("watchlist")
-)
-|| [];
-
-
-
-const found =
-movies.find(
-item=>item.id === movie.id
-);
-
-
-
-if(found){
-
-
-movies =
-movies.filter(
-item=>item.id !== movie.id
+list =
+list.filter(
+item=>item.id!==movie.id
 );
 
 
@@ -811,7 +808,7 @@ button.innerHTML =
 else{
 
 
-movies.push({
+list.push({
 
 id:movie.id,
 
@@ -820,7 +817,6 @@ title:movie.title,
 poster:movie.poster_path
 
 });
-
 
 
 button.innerHTML =
@@ -832,15 +828,14 @@ button.innerHTML =
 
 
 localStorage.setItem(
-
 "watchlist",
-
-JSON.stringify(movies)
-
+JSON.stringify(list)
 );
 
 
 };
+
+
 
 
 }
@@ -853,9 +848,9 @@ JSON.stringify(movies)
 
 
 
-/* ===============================
-        BUTTON SCROLL
-================================ */
+/* =========================
+        TRAILER BUTTON
+========================= */
 
 
 document
@@ -883,45 +878,34 @@ behavior:"smooth"
 
 
 
-
-/* ===============================
-        OPEN MOVIE
-================================ */
-
-
-window.openMovie =
-function(id){
-
-window.location.href =
-`movie.html?id=${id}`;
-
-};
-
-
-
-
-
-
-
-
-
-/* ===============================
-        START ENGINE
-================================ */
-
+/* START */
 
 loadMovie();
 
 loadTrailer();
 
+loadCast();
+
 loadCrew();
 
 loadProduction();
-
-loadCast();
 
 loadSimilar();
 
 
 
 });
+
+
+
+
+
+
+
+
+function openMovie(id){
+
+window.location.href =
+`movie.html?id=${id}`;
+
+}
