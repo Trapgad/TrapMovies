@@ -9,7 +9,6 @@
 document.addEventListener("DOMContentLoaded",()=>{
 
 
-
 const API_KEY =
 "17a1834e273320eef8a2a36b38a11964";
 
@@ -111,7 +110,7 @@ onclick="openSeries(${show.id})">
 
 
 
-<img src="${image}" alt="${show.name}">
+<img src="${image}" alt="${show.name || "Unknown"}">
 
 
 
@@ -327,7 +326,10 @@ return data.results || [];
 catch(error){
 
 
-console.log(error);
+console.log(
+"SEARCH ERROR:",
+error
+);
 
 
 return [];
@@ -442,22 +444,12 @@ createSeriesCard(show);
 
 
 
-});
-
-
-
-
-
-
-
-
-
 /* =========================
         OPEN SERIES DETAILS
 ========================= */
 
 
-function openSeries(id){
+window.openSeries = function(id){
 
 
 window.location.href =
@@ -465,4 +457,8 @@ window.location.href =
 `series-details.html?id=${id}`;
 
 
-}
+};
+
+
+
+});
