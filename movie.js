@@ -939,6 +939,30 @@ document.querySelector(".watch")
 ()=>{
 
 
+// Save movie to watch history
+
+addToHistory({
+
+id: movieID,
+
+title:
+document.getElementById("movieTitle")?.textContent,
+
+
+poster:
+document.getElementById("moviePoster")?.src,
+
+
+year:
+document.getElementById("movieYear")?.textContent
+
+
+});
+
+
+
+// Scroll to trailer
+
 document
 .getElementById("trailerBox")
 ?.scrollIntoView({
@@ -949,9 +973,6 @@ behavior:"smooth"
 
 
 });
-
-
-
 
 
 
