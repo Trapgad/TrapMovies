@@ -1,42 +1,53 @@
-const historyContainer = document.getElementById("historyContainer");
+document.addEventListener(
+"DOMContentLoaded",
+()=>{
 
 
-let historyMovies = JSON.parse(localStorage.getItem("watchHistory")) || [];
-
-
-
-if(historyMovies.length === 0){
-
-    historyContainer.innerHTML = `
-    
-    <h2>
-    No watch history yet 🎬
-    </h2>
-
-    `;
-
-}
+const container =
+document.getElementById(
+"historyContainer"
+);
 
 
 
-historyMovies.forEach(movie => {
+let history =
+
+JSON.parse(
+
+localStorage.getItem("watchHistory")
+
+)
+
+|| [];
 
 
-historyContainer.innerHTML += `
-
-<div class="movie-card">
 
 
-<img src="${movie.poster}" alt="${movie.title}">
+
+if(history.length === 0){
 
 
-<h3>
-${movie.title}
-</h3>
+container.innerHTML =
+
+`
+
+<div class="empty-history">
+
+
+<i class="fa-solid fa-clock"></i>
+
+
+<h2>
+
+No Watch History Yet
+
+</h2>
 
 
 <p>
-${movie.year || ""}
+
+Start watching movies to see them here.
+
 </p>
 
 
@@ -46,4 +57,88 @@ ${movie.year || ""}
 `;
 
 
+
+return;
+
+
+}
+
+
+
+
+
+
+
+container.innerHTML="";
+
+
+
+
+
+
+history.forEach(movie=>{
+
+
+
+
+
+container.innerHTML +=
+
+
+`
+
+<div class="movie-card"
+
+onclick="openMovie(${movie.id})">
+
+
+
+<img src="${movie.poster}">
+
+
+
+<h3>
+
+${movie.title}
+
+</h3>
+
+
+
+<p>
+
+${movie.year}
+
+</p>
+
+
+
+</div>
+
+
+
+`;
+
+
+
 });
+
+
+
+});
+
+
+
+
+
+
+
+function openMovie(id){
+
+
+window.location.href =
+
+`movie.html?id=${id}`;
+
+
+}
