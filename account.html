@@ -63,81 +63,56 @@ TRAP MENU
 <ul>
 
 
-
-
 <li>
-
 <i class="fa-solid fa-film"></i>
-
 <a href="index.html">
 Movies
 </a>
-
 </li>
 
 
 
-
 <li>
-
 <i class="fa-solid fa-tv"></i>
-
 <a href="series.html">
 Series
 </a>
-
 </li>
 
 
 
-
 <li>
-
 <i class="fa-solid fa-fire"></i>
-
 <a href="reels.html">
 Reels
 </a>
-
 </li>
 
 
 
-
 <li>
-
 <i class="fa-solid fa-user"></i>
-
 <a href="account.html">
 My Account
 </a>
-
 </li>
 
 
 
-
 <li>
-
 <i class="fa-solid fa-circle-info"></i>
-
 <a href="about.html">
 About
 </a>
-
 </li>
 
 
 
-
 <li>
-
 <i class="fa-solid fa-envelope"></i>
-
 <a href="contact.html">
 Contact
 </a>
-
 </li>
 
 
@@ -214,11 +189,54 @@ TRAP <span>MOVIES</span>
 
 
 
+
+
+<!-- PROFILE IMAGE -->
+
 <div class="profile-image">
 
-<i class="fa-solid fa-user"></i>
+
+<img
+
+id="profileImage"
+
+src="assets/images/default-avatar.png"
+
+alt="Profile Picture"
+
+>
+
 
 </div>
+
+
+
+
+<label class="upload-btn">
+
+
+<i class="fa-solid fa-camera"></i>
+
+Change Photo
+
+
+<input
+
+type="file"
+
+id="imageUpload"
+
+accept="image/*"
+
+hidden
+
+>
+
+
+</label>
+
+
+
 
 
 
@@ -239,6 +257,46 @@ TRAP USER
 user@email.com
 
 </p>
+
+
+
+
+
+
+<!-- EDIT PROFILE -->
+
+
+<div class="profile-edit">
+
+
+<input
+
+type="text"
+
+id="editName"
+
+placeholder="Change username"
+
+>
+
+
+
+<button id="saveProfile">
+
+
+<i class="fa-solid fa-save"></i>
+
+
+Save Profile
+
+
+</button>
+
+
+</div>
+
+
+
 
 
 
@@ -413,10 +471,11 @@ Profile Settings
 
 
 
-<div 
-id="watchlistContainer"
-class="movie-container">
+<div
 
+id="watchlistContainer"
+
+class="movie-container">
 
 
 </div>
@@ -492,6 +551,7 @@ Discover • Watch • Enjoy 🎬
 
 
 <script src="script.js"></script>
+
 
 <script type="module" src="account.js"></script>
 
