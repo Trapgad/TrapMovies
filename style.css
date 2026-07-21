@@ -4,11 +4,9 @@
         PART 1
 ================================== */
 
-
 /* =========================
         GLOBAL RESET
 ========================= */
-
 
 *{
     margin:0;
@@ -17,11 +15,9 @@
     font-family:'Poppins',sans-serif;
 }
 
-
 html{
     scroll-behavior:smooth;
 }
-
 
 body{
 
@@ -49,15 +45,11 @@ body{
 
 }
 
-
-
 body.reels-mode{
 
     overflow:hidden;
 
 }
-
-
 
 img{
 
@@ -67,8 +59,6 @@ img{
 
 }
 
-
-
 a{
 
     text-decoration:none;
@@ -76,8 +66,6 @@ a{
     color:inherit;
 
 }
-
-
 
 button{
 
@@ -89,14 +77,9 @@ button{
 
 }
 
-
-
-
-
 /* =========================
         SCROLL BAR
 ========================= */
-
 
 ::-webkit-scrollbar{
 
@@ -104,14 +87,11 @@ button{
 
 }
 
-
 ::-webkit-scrollbar-track{
 
     background:#050505;
 
 }
-
-
 
 ::-webkit-scrollbar-thumb{
 
@@ -126,14 +106,9 @@ button{
 
 }
 
-
-
-
-
 /* =========================
         GLASS SYSTEM
 ========================= */
-
 
 .glass{
 
@@ -141,21 +116,17 @@ button{
 
     rgba(20,20,25,.65);
 
-
     backdrop-filter:
 
     blur(25px);
-
 
     -webkit-backdrop-filter:
 
     blur(25px);
 
-
     border:
 
     1px solid rgba(255,255,255,.12);
-
 
     box-shadow:
 
@@ -163,92 +134,53 @@ button{
 
 }
 
-
-
-
-
-
-
 /* =========================
         HEADER
 ========================= */
 
-
 .header{
-
 
     position:fixed;
 
-
     top:20px;
-
 
     left:20px;
 
-
     right:20px;
-
-
 
     height:70px;
 
-
-
     padding:0 25px;
-
-
 
     display:flex;
 
-
     align-items:center;
 
-
     justify-content:space-between;
-
-
 
     background:
 
     rgba(15,15,20,.75);
 
-
-
     backdrop-filter:
 
     blur(25px);
-
-
 
     border:
 
     1px solid rgba(255,255,255,.15);
 
-
-
     border-radius:25px;
 
-
-
     z-index:1000;
-
-
 
     box-shadow:
 
     0 20px 60px rgba(0,0,0,.7);
 
-
 }
 
-
-
-
-
-
-
 /* LOGO */
-
 
 .logo{
 
@@ -260,10 +192,7 @@ button{
 
 }
 
-
-
 .logo span{
-
 
     background:
 
@@ -273,75 +202,47 @@ button{
         #8a2be2
     );
 
-
     -webkit-background-clip:text;
 
     color:transparent;
 
 }
 
-
-
-
-
-
-
 /* HEADER BUTTONS */
-
 
 .menu-btn,
 .search-btn{
 
-
     width:45px;
-
 
     height:45px;
 
-
     display:flex;
-
 
     align-items:center;
 
-
     justify-content:center;
-
-
 
     border-radius:50%;
 
-
-
     color:white;
-
-
 
     background:
 
     rgba(255,255,255,.08);
 
-
-
     border:
 
     1px solid rgba(255,255,255,.15);
-
-
 
     transition:.35s;
 
 }
 
-
-
-
 .menu-btn:hover,
 .search-btn:hover{
 
-
     transform:scale(1.1);
-
 
     background:
 
@@ -353,97 +254,57 @@ button{
 
 }
 
-
-
-
-
-
-
-
-
 /* =========================
         MAIN NAV
 ========================= */
 
-
 .main-nav{
-
 
     position:fixed;
 
-
     top:110px;
-
 
     left:50%;
 
-
     transform:translateX(-50%);
-
-
 
     display:flex;
 
-
     gap:45px;
 
-
-
     padding:15px 35px;
-
-
 
     background:
 
     rgba(15,15,20,.75);
 
-
-
     backdrop-filter:
 
     blur(20px);
-
-
 
     border:
 
     1px solid rgba(255,255,255,.12);
 
-
-
     border-radius:40px;
-
-
 
     z-index:999;
 
-
 }
-
-
-
 
 .main-nav a{
 
-
     color:#aaa;
-
 
     font-size:16px;
 
-
     font-weight:600;
 
-
     position:relative;
-
 
     transition:.3s;
 
 }
-
-
-
 
 .main-nav a:hover,
 .main-nav a.active{
@@ -452,35 +313,23 @@ button{
 
 }
 
-
-
 .main-nav a::after{
-
 
     content:"";
 
-
     position:absolute;
-
 
     bottom:-10px;
 
-
     left:50%;
-
 
     transform:translateX(-50%);
 
-
     width:0;
-
 
     height:3px;
 
-
     border-radius:20px;
-
-
 
     background:
 
@@ -490,88 +339,52 @@ button{
         #8a2be2
     );
 
-
-
     transition:.3s;
 
 }
 
-
-
-
 .main-nav a:hover::after,
 .main-nav a.active::after{
-
 
     width:100%;
 
 }
 
-
-
-
-
-
-
-
-
 /* =========================
         SIDE MENU
 ========================= */
 
-
 .side-menu{
-
 
     position:fixed;
 
-
     top:0;
-
 
     left:-330px;
 
-
-
     width:300px;
-
 
     height:100vh;
 
-
-
     padding:25px;
-
-
 
     background:
 
     rgba(15,15,20,.88);
 
-
-
     backdrop-filter:
 
     blur(30px);
-
-
 
     border-right:
 
     1px solid rgba(255,255,255,.15);
 
-
-
     z-index:2000;
-
-
 
     transition:.4s ease;
 
 }
-
-
-
 
 .side-menu.active{
 
@@ -579,41 +392,27 @@ button{
 
 }
 
-
-
 .menu-header{
-
 
     display:flex;
 
-
     justify-content:space-between;
 
-
     align-items:center;
-
 
     margin-bottom:35px;
 
 }
 
-
-
 .close-btn{
-
 
     width:40px;
 
-
     height:40px;
-
 
     border-radius:50%;
 
-
     color:white;
-
-
 
     background:
 
@@ -625,69 +424,41 @@ button{
 
 }
 
-
-
-
-
-
 .side-menu ul{
 
     list-style:none;
 
 }
 
-
-
 .side-menu li{
-
 
     display:flex;
 
-
     align-items:center;
-
 
     gap:15px;
 
-
-
     padding:15px;
-
-
 
     margin:10px 0;
 
-
-
     border-radius:18px;
-
-
 
     background:
 
     rgba(255,255,255,.05);
 
-
-
     border:
 
     1px solid rgba(255,255,255,.08);
-
-
 
     transition:.3s;
 
 }
 
-
-
-
 .side-menu li:hover{
 
-
     transform:translateX(8px);
-
-
 
     background:
 
@@ -695,60 +466,37 @@ button{
 
 }
 
-
-
-
-
-
 /* =========================
         OVERLAY
 ========================= */
 
-
 .overlay-bg{
-
 
     position:fixed;
 
-
     inset:0;
-
-
 
     background:
 
     rgba(0,0,0,.75);
 
-
-
     backdrop-filter:
 
     blur(8px);
 
-
-
     z-index:1500;
-
-
 
     opacity:0;
 
-
     visibility:hidden;
-
-
 
     transition:.3s;
 
 }
 
-
-
 .overlay-bg.active{
 
-
     opacity:1;
-
 
     visibility:visible;
 
@@ -756,7 +504,6 @@ button{
 /* ==================================
         HERO SLIDER
 ================================== */
-
 
 .hero{
 
@@ -770,22 +517,15 @@ button{
 
     overflow:hidden;
 
-
     border:
 
     1px solid rgba(255,255,255,.15);
-
-
 
     box-shadow:
 
     0 30px 100px rgba(0,0,0,.8);
 
 }
-
-
-
-
 
 .slide{
 
@@ -801,8 +541,6 @@ button{
 
 }
 
-
-
 .slide.active{
 
     opacity:1;
@@ -810,8 +548,6 @@ button{
     visibility:visible;
 
 }
-
-
 
 .slide img{
 
@@ -825,8 +561,6 @@ button{
 
 }
 
-
-
 @keyframes zoom{
 
     from{
@@ -834,7 +568,6 @@ button{
         transform:scale(1);
 
     }
-
 
     to{
 
@@ -844,30 +577,17 @@ button{
 
 }
 
-
-
-
-
-
 .hero-overlay{
-
 
     position:absolute;
 
-
     inset:0;
-
 
     display:flex;
 
-
     align-items:flex-end;
 
-
-
     padding:45px;
-
-
 
     background:
 
@@ -885,36 +605,21 @@ button{
 
 }
 
-
-
-
-
-
-
 .movie-info{
-
 
     max-width:600px;
 
-
     padding:30px;
 
-
     border-radius:30px;
-
-
 
     background:
 
     rgba(15,15,20,.55);
 
-
-
     backdrop-filter:
 
     blur(18px);
-
-
 
     border:
 
@@ -922,27 +627,17 @@ button{
 
 }
 
-
-
-
 .movie-info h1{
-
 
     font-size:52px;
 
-
     font-weight:900;
-
 
     margin:15px 0;
 
-
 }
 
-
-
 .movie-info p{
-
 
     color:#ddd;
 
@@ -950,22 +645,13 @@ button{
 
 }
 
-
-
-
-
 .tag{
-
 
     display:inline-block;
 
-
     padding:8px 18px;
 
-
     border-radius:30px;
-
-
 
     background:
 
@@ -975,50 +661,31 @@ button{
         #8a2be2
     );
 
-
-
     font-weight:700;
 
 }
 
-
-
-
-
-
 .movie-details{
-
 
     display:flex;
 
-
     gap:12px;
 
-
     flex-wrap:wrap;
-
 
     margin:20px 0;
 
 }
 
-
-
 .movie-details span{
-
 
     padding:8px 16px;
 
-
     border-radius:30px;
-
-
 
     background:
 
     rgba(255,255,255,.12);
-
-
 
     border:
 
@@ -1026,48 +693,30 @@ button{
 
 }
 
-
-
-
-
-
-
 .hero-buttons{
 
-
     display:flex;
-
 
     gap:15px;
 
 }
 
-
-
 .watch,
 .info{
 
-
     padding:14px 30px;
-
 
     border-radius:40px;
 
-
     color:white;
 
-
     font-weight:700;
-
 
     transition:.35s;
 
 }
 
-
-
 .watch{
-
 
     background:
 
@@ -1079,23 +728,17 @@ button{
 
 }
 
-
-
 .info{
-
 
     background:
 
     rgba(255,255,255,.12);
-
 
     border:
 
     1px solid rgba(255,255,255,.2);
 
 }
-
-
 
 .watch:hover,
 .info:hover{
@@ -1104,17 +747,9 @@ button{
 
 }
 
-
-
-
-
-
-
-
 /* ==================================
         MOVIE ROWS
 ================================== */
-
 
 .movie-sections{
 
@@ -1122,15 +757,11 @@ button{
 
 }
 
-
-
 .movie-row{
 
     margin:55px 20px;
 
 }
-
-
 
 .movie-row h2{
 
@@ -1140,25 +771,17 @@ button{
 
 }
 
-
-
 .movie-container{
-
 
     display:flex;
 
-
     gap:22px;
 
-
     overflow-x:auto;
-
 
     scroll-behavior:smooth;
 
 }
-
-
 
 .movie-container::-webkit-scrollbar{
 
@@ -1166,33 +789,19 @@ button{
 
 }
 
-
-
-
-
-
-
-
 /* ==================================
         MOVIE CARD
 ================================== */
 
-
 .movie-card{
-
 
     min-width:190px;
 
-
     overflow:hidden;
-
 
     cursor:pointer;
 
-
     border-radius:25px;
-
-
 
     background:
 
@@ -1206,37 +815,24 @@ button{
 
     );
 
-
-
     backdrop-filter:
 
     blur(15px);
-
-
 
     border:
 
     1px solid rgba(255,255,255,.15);
 
-
-
     transition:.4s;
 
 }
 
-
-
-
-
 .movie-card:hover{
-
 
     transform:
 
     translateY(-12px)
     scale(1.03);
-
-
 
     box-shadow:
 
@@ -1244,94 +840,57 @@ button{
 
 }
 
-
-
 .movie-card img{
 
-
     height:270px;
-
 
     object-fit:cover;
 
 }
 
-
-
 .movie-card h3{
-
 
     padding:14px;
 
-
 }
-
-
 
 .movie-card p{
 
-
     padding:0 14px 15px;
 
-
     color:#aaa;
-
 
     font-size:14px;
 
 }
 
-
-
-
-
-
-
-
 /* ==================================
         SEARCH PAGE
 ================================== */
 
-
 .search-page{
-
 
     position:fixed;
 
-
     inset:0;
-
 
     z-index:3000;
 
-
-
     padding:35px;
-
-
 
     background:
 
     rgba(5,5,5,.9);
 
-
-
     backdrop-filter:
 
     blur(25px);
 
-
-
     transform:translateY(100%);
-
-
 
     transition:.5s;
 
 }
-
-
-
 
 .search-page.active{
 
@@ -1339,40 +898,25 @@ button{
 
 }
 
-
-
-
-
 .search-header{
-
 
     display:flex;
 
-
     align-items:center;
-
 
     gap:20px;
 
 }
 
-
-
-
 .back-search{
-
 
     width:45px;
 
-
     height:45px;
-
 
     border-radius:50%;
 
-
     color:white;
-
 
     background:
 
@@ -1380,38 +924,23 @@ button{
 
 }
 
-
-
-
-
-
 .search-box{
-
 
     max-width:850px;
 
-
     margin:40px auto;
-
 
     display:flex;
 
-
     gap:15px;
-
 
     padding:18px 25px;
 
-
     border-radius:40px;
-
-
 
     background:
 
     rgba(255,255,255,.1);
-
-
 
     border:
 
@@ -1419,63 +948,39 @@ button{
 
 }
 
-
-
 .search-box input{
-
 
     width:100%;
 
-
     background:none;
-
 
     border:none;
 
-
     outline:none;
 
-
     color:white;
-
 
     font-size:17px;
 
 }
 
-
-
-
-
-
-
 .search-results{
 
-
     display:grid;
-
 
     grid-template-columns:
 
     repeat(auto-fit,minmax(160px,1fr));
 
-
     gap:25px;
 
 }
 
-
-
-
 .search-results .movie-card{
-
 
     min-width:0;
 
 }
-
-
-
 
 .search-results img{
 
@@ -1483,17 +988,9 @@ button{
 
 }
 
-
-
-
-
-
-
-
 /* ==================================
         MOVIE DETAILS
 ================================== */
-
 
 .movie-details-page{
 
@@ -1501,77 +998,49 @@ button{
 
 }
 
-
-
 .movie-hero{
-
 
     position:relative;
 
-
     margin:20px;
-
 
     min-height:650px;
 
-
     border-radius:35px;
-
 
     overflow:hidden;
 
 }
 
-
-
-
-
 .movie-backdrop{
-
 
     position:absolute;
 
-
     inset:0;
-
 
     background-size:cover;
 
-
     background-position:center;
 
-
     opacity:.45;
-
 
     filter:blur(3px);
 
 }
 
-
-
-
 .movie-content{
-
 
     position:relative;
 
-
     z-index:2;
-
 
     display:flex;
 
-
     align-items:center;
-
 
     gap:45px;
 
-
     padding:60px;
-
-
 
     background:
 
@@ -1587,50 +1056,29 @@ button{
 
 }
 
-
-
-
-
-
 .movie-poster img{
-
 
     width:280px;
 
-
     height:420px;
 
-
     object-fit:cover;
-
 
     border-radius:30px;
 
 }
 
-
-
-
-
-
 .movie-info-box{
-
 
     max-width:650px;
 
-
     padding:35px;
 
-
     border-radius:30px;
-
-
 
     background:
 
     rgba(255,255,255,.08);
-
-
 
     backdrop-filter:
 
@@ -1638,53 +1086,33 @@ button{
 
 }
 
-
-
-
-
 .movie-info-box h1{
 
-
     font-size:50px;
-
 
     font-weight:900;
 
 }
 
-
-
-
-
 .movie-meta,
 .genres{
 
-
     display:flex;
-
 
     gap:12px;
 
-
     flex-wrap:wrap;
-
 
     margin:20px 0;
 
 }
 
-
-
-
 .movie-meta span,
 .genres span{
 
-
     padding:8px 18px;
 
-
     border-radius:25px;
-
 
     background:
 
@@ -1692,56 +1120,33 @@ button{
 
 }
 
-
-
-
-
-
 #movieDescription{
 
-
     color:#ddd;
-
 
     line-height:1.8;
 
 }
 
-
-
-
-
-
-
-
 /* ==================================
         TRAILER
 ================================== */
-
 
 .trailer-section,
 .cast-section,
 .similar-section{
 
-
     margin:60px 20px;
 
 }
 
-
-
 .trailer-box{
-
 
     min-height:420px;
 
-
     border-radius:30px;
 
-
     overflow:hidden;
-
-
 
     background:
 
@@ -1749,16 +1154,11 @@ button{
 
 }
 
-
-
 .trailer-box iframe{
-
 
     width:100%;
 
-
     height:450px;
-
 
     border:none;
 
@@ -1766,7 +1166,6 @@ button{
 /* ==================================
         CAST SECTION
 ================================== */
-
 
 .cast-container{
 
@@ -1780,69 +1179,43 @@ button{
 
 }
 
-
-
 .cast-container::-webkit-scrollbar{
 
     display:none;
 
 }
 
-
-
-
-
 .cast-card{
-
 
     min-width:145px;
 
-
     max-width:145px;
-
 
     text-align:center;
 
-
     overflow:hidden;
 
-
     border-radius:22px;
-
-
 
     background:
 
     rgba(255,255,255,.07);
 
-
-
     backdrop-filter:
 
     blur(18px);
-
-
 
     border:
 
     1px solid rgba(255,255,255,.15);
 
-
-
     transition:.35s;
 
 }
 
-
-
-
-
 .cast-card:hover{
 
-
     transform:translateY(-10px);
-
-
 
     background:
 
@@ -1850,116 +1223,69 @@ button{
 
 }
 
-
-
 .cast-card img{
-
 
     width:145px;
 
-
     height:170px;
-
 
     object-fit:cover;
 
 }
 
-
-
 .cast-card h3{
-
 
     padding:12px 5px 5px;
 
-
     font-size:14px;
-
 
     white-space:nowrap;
 
-
     overflow:hidden;
-
 
     text-overflow:ellipsis;
 
 }
 
-
-
 .cast-card p{
-
 
     color:#aaa;
 
-
     font-size:12px;
-
 
     padding-bottom:15px;
 
-
 }
-
-
-
-
-
-
-
-
 
 /* ==================================
         SIMILAR MOVIES
 ================================== */
 
-
 .similar-section .movie-card{
-
 
     min-width:180px;
 
 }
 
-
-
-
-
-
-
-
-
-
 /* ==================================
         FOOTER
 ================================== */
 
-
 footer{
-
 
     margin-top:80px;
 
-
     padding:55px 20px;
 
-
     text-align:center;
-
-
 
     background:
 
     rgba(255,255,255,.06);
 
-
-
     backdrop-filter:
 
     blur(25px);
-
-
 
     border-top:
 
@@ -1967,17 +1293,11 @@ footer{
 
 }
 
-
-
 footer h2{
-
 
     font-size:32px;
 
-
     font-weight:900;
-
-
 
     background:
 
@@ -1987,72 +1307,43 @@ footer h2{
         #8a2be2
     );
 
-
-
     -webkit-background-clip:text;
-
 
     color:transparent;
 
 }
 
-
-
 footer p{
 
-
     margin-top:12px;
-
 
     color:#aaa;
 
 }
 
-
-
-
-
-
-
-
-
 /* ==================================
         SERIES PAGE HERO
 ================================== */
 
-
 .series-hero{
-
 
     position:relative;
 
-
     height:600px;
-
 
     margin:130px 20px 50px;
 
-
-
     border-radius:35px;
-
 
     overflow:hidden;
 
-
-
     display:flex;
 
-
     align-items:flex-end;
-
-
 
     border:
 
     1px solid rgba(255,255,255,.15);
-
-
 
     box-shadow:
 
@@ -2060,129 +1351,75 @@ footer p{
 
 }
 
-
-
-
-
 .series-backdrop{
-
 
     position:absolute;
 
-
     inset:0;
-
-
 
     background-size:cover;
 
-
     background-position:center;
-
-
 
     filter:brightness(.75);
 
 }
 
-
-
-
-
 .series-content{
-
 
     position:relative;
 
-
     z-index:2;
-
-
 
     max-width:650px;
 
-
     padding:60px;
-
-
 
     background:
 
     rgba(15,15,20,.55);
 
-
-
     backdrop-filter:
 
     blur(20px);
-
-
 
     border-radius:35px;
 
 }
 
-
-
-
-
 .series-content h1{
 
-
     font-size:55px;
-
 
     font-weight:900;
 
 }
 
-
-
-
-
 .series-content p{
-
 
     color:#ddd;
 
-
     line-height:1.8;
-
 
     margin:20px 0;
 
 }
 
-
-
-
-
-
-
-
-
 /* ==================================
         REELS TIKTOK UI
 ================================== */
 
-
 #reelsContainer{
-
 
     height:100vh;
 
-
     overflow-y:scroll;
 
-
     scroll-snap-type:y mandatory;
-
 
     background:black;
 
 }
-
-
 
 #reelsContainer::-webkit-scrollbar{
 
@@ -2190,79 +1427,46 @@ footer p{
 
 }
 
-
-
-
-
 .reel{
-
 
     height:100vh;
 
-
     width:100%;
-
 
     position:relative;
 
-
     scroll-snap-align:start;
 
-
     overflow:hidden;
-
 
     background:#000;
 
 }
 
-
-
-
-
 .reel-video,
 .reel-video iframe{
 
-
     position:absolute;
-
 
     inset:0;
 
-
     width:100%;
-
 
     height:100%;
 
 }
 
-
-
-
-
 .reel-video iframe{
-
 
     transform:scale(1.35);
 
 }
 
-
-
-
-
-
-
 .reel-gradient{
-
 
     position:absolute;
 
-
     inset:0;
-
-
 
     background:
 
@@ -2276,76 +1480,43 @@ footer p{
 
 }
 
-
-
-
-
-
-
-
 .reel-info{
-
 
     position:absolute;
 
-
     bottom:80px;
-
 
     left:20px;
 
-
     width:70%;
-
 
     z-index:5;
 
 }
 
-
-
-
-
 .reel-info h1{
 
-
     font-size:30px;
-
 
     font-weight:900;
 
 }
 
-
-
-
-
 .reel-info p{
 
-
     margin:15px 0;
-
 
     font-size:17px;
 
 }
 
-
-
-
-
 .reel-info button{
-
 
     padding:13px 30px;
 
-
     border-radius:30px;
 
-
     color:white;
-
-
 
     background:
 
@@ -2357,134 +1528,104 @@ footer p{
 
 }
 
-
-
-
-
-
-
 .reel-actions{
-
 
     position:absolute;
 
-
     right:20px;
-
 
     bottom:120px;
 
-
     display:flex;
-
 
     flex-direction:column;
 
-
     gap:22px;
-
 
     z-index:10;
 
 }
 
-
-
 .reel-actions button{
-
 
     width:55px;
 
-
     height:55px;
-
 
     border-radius:50%;
 
-
     color:white;
 
-
     font-size:25px;
-
-
 
     background:
 
     rgba(255,255,255,.15);
-
-
 
     backdrop-filter:
 
     blur(15px);
 
 }
-
-
-
-
-
-
-
-/* ==================================
-        LOADING
-================================== */
-
+/* =========================
+        REELS LOADING
+========================= */
 
 .loading{
 
+    position:absolute;
 
-    height:100px;
+    top:50%;
 
+    left:50%;
+
+    transform:translate(-50%,-50%);
 
     display:flex;
 
+    flex-direction:column;
 
     align-items:center;
 
-
     justify-content:center;
+
+    width:100%;
+
+    color:white;
+
+    z-index:20;
 
 }
 
+.loader{
 
+    width:55px;
 
-.loading::after{
-
-
-    content:"";
-
-
-    width:45px;
-
-
-    height:45px;
-
+    height:55px;
 
     border-radius:50%;
 
-
-    border:
-
-    5px solid rgba(255,255,255,.2);
-
-
+    border:5px solid rgba(255,255,255,.2);
 
     border-top-color:#e50914;
 
+    animation:spin 1s linear infinite;
 
-
-    animation:
-
-    spin .8s linear infinite;
+    margin-bottom:20px;
 
 }
 
+.loading p{
 
+    font-size:18px;
+
+    font-weight:600;
+
+    color:#ddd;
+
+}
 
 @keyframes spin{
-
 
     to{
 
@@ -2494,21 +1635,11 @@ footer p{
 
 }
 
-
-
-
-
-
-
-
-
 /* ==================================
         MOBILE DESIGN
 ================================== */
 
-
 @media(max-width:768px){
-
 
 .header{
 
@@ -2522,266 +1653,160 @@ footer p{
 
 }
 
-
-
 .logo{
 
     font-size:20px;
 
 }
 
-
-
 .main-nav{
-
 
     top:90px;
 
-
     gap:20px;
-
 
     padding:12px 20px;
 
 }
 
-
-
 .main-nav a{
-
 
     font-size:13px;
 
 }
 
-
-
-
-
 .hero{
 
-
     height:480px;
-
 
     margin:140px 12px 30px;
 
 }
 
-
-
-
-
 .hero-overlay{
-
 
     padding:20px;
 
 }
-
-
-
-
 
 .movie-info{
 
-
     padding:20px;
 
 }
 
-
-
-
-
 .movie-info h1{
-
 
     font-size:32px;
 
 }
 
-
-
-
-
 .hero-buttons{
-
 
     flex-direction:column;
 
 }
 
-
-
-
-
 .watch,
 .info{
-
 
     width:100%;
 
 }
 
-
-
-
-
 .movie-row{
-
 
     margin:40px 12px;
 
 }
 
-
-
-
-
 .movie-card{
-
 
     min-width:150px;
 
 }
 
-
-
-
-
 .movie-card img{
-
 
     height:220px;
 
 }
 
-
-
-
-
 .movie-content{
-
 
     flex-direction:column;
 
-
     padding:35px 20px;
-
 
     text-align:center;
 
 }
 
-
-
-
-
 .movie-poster img{
 
-
     width:220px;
-
 
     height:330px;
 
 }
 
-
-
-
-
 .movie-info-box h1{
-
 
     font-size:32px;
 
 }
 
-
-
-
-
 .series-hero{
 
-
     height:520px;
-
 
     margin:120px 12px 40px;
 
 }
 
-
-
 .series-content{
-
 
     padding:30px 20px;
 
 }
 
-
-
 .series-content h1{
-
 
     font-size:35px;
 
 }
 
-
-
 .reel-info h1{
-
 
     font-size:24px;
 
 }
 
-
-
 .reel-actions button{
-
 
     width:48px;
 
-
     height:48px;
-
 
     font-size:20px;
 
 }
 
-
-
 .search-page{
-
 
     padding:20px;
 
 }
 
-
-
 .search-results{
-
 
     grid-template-columns:repeat(2,1fr);
 
 }
 
-
 }
 
-
-
-
-
 @media(max-width:450px){
-
 
 .main-nav{
 
@@ -2789,15 +1814,11 @@ footer p{
 
 }
 
-
-
 .main-nav a{
 
     font-size:11px;
 
 }
-
-
 
 .movie-info h1{
 
@@ -2805,452 +1826,10 @@ footer p{
 
 }
 
-
-
 .side-menu{
 
     width:280px;
 
 }
-
-}
-/* ==================================
-        TRAP MOVIES
-        REELS V2
-        TIKTOK STYLE UI
-================================== */
-
-
-/* PAGE */
-
-.reels-page{
-
-    background:#000;
-    overflow:hidden;
-    height:100vh;
-
-}
-
-
-
-
-
-
-/* HEADER */
-
-.reels-header{
-
-    position:fixed;
-
-    top:15px;
-
-    left:15px;
-
-    right:15px;
-
-    z-index:1000;
-
-    background:
-
-    rgba(0,0,0,.35);
-
-    backdrop-filter:
-
-    blur(15px);
-
-}
-
-
-
-.back-btn{
-
-    width:45px;
-
-    height:45px;
-
-    display:flex;
-
-    align-items:center;
-
-    justify-content:center;
-
-    border-radius:50%;
-
-    background:
-
-    rgba(255,255,255,.12);
-
-    cursor:pointer;
-
-}
-
-
-
-
-
-/* REELS CONTAINER */
-
-.reels-container{
-
-    height:100vh;
-
-    width:100%;
-
-    overflow-y:scroll;
-
-    scroll-snap-type:y mandatory;
-
-    scrollbar-width:none;
-
-}
-
-
-
-.reels-container::-webkit-scrollbar{
-
-    display:none;
-
-}
-
-
-
-
-
-
-
-
-/* SINGLE REEL */
-
-.reel{
-
-
-    position:relative;
-
-    height:100vh;
-
-    width:100%;
-
-    scroll-snap-align:start;
-
-    overflow:hidden;
-
-    background:#000;
-
-}
-
-
-
-
-
-
-/* VIDEO */
-
-.reel-video{
-
-    position:absolute;
-
-    inset:0;
-
-    width:100%;
-
-    height:100%;
-
-    object-fit:cover;
-
-    border:none;
-
-    pointer-events:none;
-
-    transform:scale(1.35);
-
-}
-
-
-
-
-
-
-/* IMAGE FALLBACK */
-
-.reel-image{
-
-    position:absolute;
-
-    width:100%;
-
-    height:100%;
-
-    object-fit:cover;
-
-}
-
-
-
-
-
-
-
-/* DARK GRADIENT */
-
-.reel-gradient{
-
-
-    position:absolute;
-
-    inset:0;
-
-
-    background:
-
-    linear-gradient(
-
-    transparent 40%,
-
-    rgba(0,0,0,.9)
-
-    );
-
-}
-
-
-
-
-
-
-
-/* INFO */
-
-.reel-info{
-
-
-    position:absolute;
-
-    bottom:80px;
-
-    left:25px;
-
-    z-index:5;
-
-    max-width:75%;
-
-
-}
-
-
-
-.reel-info h1{
-
-
-    font-size:35px;
-
-    font-weight:900;
-
-    margin-bottom:15px;
-
-}
-
-
-
-.reel-info p{
-
-
-    font-size:18px;
-
-    margin-bottom:20px;
-
-}
-
-
-
-
-.reel-info button{
-
-
-    padding:
-
-    14px 30px;
-
-
-    border:none;
-
-    border-radius:40px;
-
-
-    color:white;
-
-    font-weight:700;
-
-
-    background:
-
-    linear-gradient(
-
-    135deg,
-
-    #e50914,
-
-    #8a2be2
-
-    );
-
-
-}
-
-
-
-
-
-
-
-
-/* RIGHT ACTION BUTTONS */
-
-.reel-actions{
-
-
-    position:absolute;
-
-    right:20px;
-
-    bottom:120px;
-
-    z-index:10;
-
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:20px;
-
-
-}
-
-
-
-
-
-.reel-actions button{
-
-
-    width:55px;
-
-    height:55px;
-
-
-    border-radius:50%;
-
-
-    border:none;
-
-
-    color:white;
-
-
-    font-size:25px;
-
-
-    background:
-
-    rgba(255,255,255,.15);
-
-
-    backdrop-filter:
-
-    blur(15px);
-
-
-}
-
-
-
-
-
-.reel-actions button:hover{
-
-
-    transform:scale(1.1);
-
-}
-
-
-
-
-
-
-
-/* BRAND */
-
-.reels-brand{
-
-
-    position:fixed;
-
-
-    bottom:20px;
-
-
-    left:50%;
-
-
-    transform:translateX(-50%);
-
-
-    z-index:20;
-
-
-    font-weight:800;
-
-
-    font-size:14px;
-
-
-    color:white;
-
-
-    opacity:.7;
-
-
-}
-
-
-
-
-
-
-
-
-/* MOBILE */
-
-@media(max-width:768px){
-
-
-.reel-info h1{
-
-
-    font-size:28px;
-
-}
-
-
-
-.reel-info{
-
-
-    left:20px;
-
-    bottom:90px;
-
-}
-
-
-.reel-actions{
-
-
-    right:12px;
-
-}
-
-
 
 }
