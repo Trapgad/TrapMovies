@@ -749,7 +749,7 @@ entry.target;
 
 
 const video =
-reel.querySelector("video");
+reel.querySelector(".reel-video");
 
 
 
