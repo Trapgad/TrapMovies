@@ -101,6 +101,16 @@ IMAGE_URL + show.poster_path
 
 
 
+const title =
+
+show.name ||
+
+show.original_name ||
+
+"Unknown";
+
+
+
 return `
 
 
@@ -110,13 +120,13 @@ onclick="openSeries(${show.id})">
 
 
 
-<img src="${image}" alt="${show.name || "Unknown"}">
+<img src="${image}" alt="${title}">
 
 
 
 <h3>
 
-${show.name || "Unknown"}
+${title}
 
 </h3>
 
@@ -233,6 +243,31 @@ containers[i].innerHTML="";
 
 
 
+
+if(!shows.length){
+
+
+containers[i].innerHTML =
+
+`
+<p class="loading">
+
+No series found
+
+</p>
+
+`;
+
+continue;
+
+
+}
+
+
+
+
+
+
 shows.forEach(show=>{
 
 
@@ -327,7 +362,7 @@ catch(error){
 
 
 console.log(
-"SEARCH ERROR:",
+"SERIES SEARCH ERROR:",
 error
 );
 
@@ -413,6 +448,29 @@ await searchSeries(value);
 if(searchResults)
 
 searchResults.innerHTML="";
+
+
+
+
+
+if(!shows.length){
+
+
+searchResults.innerHTML =
+
+`
+<p class="loading">
+
+No series found
+
+</p>
+
+`;
+
+return;
+
+
+}
 
 
 
