@@ -1,17 +1,18 @@
 /* ==================================
         TRAP MOVIES
         ACCOUNT SYSTEM
-        FIREBASE VERSION
+        FIREBASE PREMIUM VERSION
 ================================== */
 
 
-import { auth, db } from "./firebase-config.js";
+import { auth, db, storage } from "./firebase-config.js";
 
 
 import {
 
 onAuthStateChanged,
-signOut
+signOut,
+updateProfile
 
 }
 
@@ -24,13 +25,28 @@ from
 import {
 
 doc,
-getDoc
+getDoc,
+setDoc
 
 }
 
 from
 
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+
+import {
+
+ref,
+uploadBytes,
+getDownloadURL
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
 
 
 
@@ -44,7 +60,7 @@ document.addEventListener("DOMContentLoaded",()=>{
 
 
 /* =========================
-        USER DATA
+        USER PROFILE
 ========================= */
 
 
@@ -54,6 +70,22 @@ document.querySelector("#username");
 
 const email =
 document.querySelector("#email");
+
+
+const profileImage =
+document.querySelector("#profileImage");
+
+
+const imageUpload =
+document.querySelector("#imageUpload");
+
+
+const editName =
+document.querySelector("#editName");
+
+
+const saveProfile =
+document.querySelector("#saveProfile");
 
 
 
@@ -68,7 +100,7 @@ if(user){
 
 
 
-// Display Firebase user data
+// Show account details
 
 if(username){
 
@@ -90,10 +122,26 @@ user.email;
 
 
 
-// Get extra user data from Firestore
+
+// Load profile photo
+
+if(profileImage && user.photoURL){
+
+profileImage.src =
+user.photoURL;
+
+}
+
+
+
+
+
+
+// Load Firestore data
 
 const userRef =
 doc(db,"users",user.uid);
+
 
 
 const userSnap =
@@ -112,12 +160,157 @@ userSnap.data();
 if(username){
 
 username.textContent =
-data.name;
+data.name || user.displayName;
 
 }
 
 
+
+if(editName){
+
+editName.value =
+data.name || "";
+
 }
+
+
+
+}
+
+
+
+
+// Save username
+
+saveProfile?.addEventListener("click", async()=>{
+
+
+const newName =
+editName.value.trim();
+
+
+
+if(newName){
+
+
+await updateProfile(user,{
+
+displayName:newName
+
+});
+
+
+
+await setDoc(
+
+doc(db,"users",user.uid),
+
+{
+
+name:newName,
+
+email:user.email
+
+},
+
+{
+
+merge:true
+
+}
+
+);
+
+
+
+username.textContent =
+newName;
+
+
+
+alert("Profile updated successfully");
+
+
+}
+
+
+
+});
+
+
+
+
+
+
+
+// Upload profile picture
+
+imageUpload?.addEventListener("change",async()=>{
+
+
+
+const file =
+imageUpload.files[0];
+
+
+
+if(file){
+
+
+
+const imageRef =
+ref(
+
+storage,
+
+"profileImages/"+user.uid
+
+);
+
+
+
+await uploadBytes(
+
+imageRef,
+
+file
+
+);
+
+
+
+const imageURL =
+await getDownloadURL(imageRef);
+
+
+
+
+
+await updateProfile(user,{
+
+photoURL:imageURL
+
+});
+
+
+
+
+
+profileImage.src =
+imageURL;
+
+
+
+alert("Profile picture updated");
+
+
+}
+
+
+
+});
+
+
 
 
 
@@ -126,8 +319,6 @@ data.name;
 
 else{
 
-
-// No user logged in
 
 window.location.href="login.html";
 
@@ -147,7 +338,7 @@ window.location.href="login.html";
 
 
 /* =========================
-        LOAD LIST DATA
+        LOAD WATCHLIST
 ========================= */
 
 
@@ -214,30 +405,22 @@ document.querySelector("#saveCount");
 
 
 
-if(movieCount){
 
+if(movieCount)
 movieCount.textContent =
 movieList.length;
 
-}
 
 
-
-if(seriesCount){
-
+if(seriesCount)
 seriesCount.textContent =
 seriesList.length;
 
-}
 
 
-
-if(saveCount){
-
+if(saveCount)
 saveCount.textContent =
 allList.length;
-
-}
 
 
 
@@ -248,14 +431,12 @@ allList.length;
 
 
 /* =========================
-        WATCHLIST DISPLAY
+        DISPLAY WATCHLIST
 ========================= */
 
 
 const watchlistContainer =
-
 document.querySelector("#watchlistContainer");
-
 
 
 
@@ -274,19 +455,15 @@ watchlistContainer.innerHTML =
 
 <div class="empty-list">
 
-
 <i class="fa-solid fa-film"></i>
-
 
 <h3>
 Your watchlist is empty
 </h3>
 
-
 <p>
 Start saving movies and series you love.
 </p>
-
 
 </div>
 
@@ -303,9 +480,8 @@ else{
 allList.forEach(item=>{
 
 
-const poster =
 
-item.poster
+const poster = item.poster
 
 ?
 
@@ -340,7 +516,6 @@ Saved
 
 </div>
 
-
 `;
 
 
@@ -370,7 +545,6 @@ Saved
 
 const logoutBtn =
 document.querySelector("#logoutBtn");
-
 
 
 
