@@ -1,30 +1,71 @@
 // ==================================
 // TRAP MOVIES
 // AUTHENTICATION SYSTEM
+// CLEAN VERSION
 // ==================================
 
 
 import { auth, db } from "./firebase-config.js";
 
 
-import { 
+import {
+
 createUserWithEmailAndPassword,
+
 signInWithEmailAndPassword,
+
 updateProfile,
+
 signOut,
+
 sendPasswordResetEmail
-} 
-from 
+
+}
+
+from
+
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 
 
 import {
+
 doc,
+
 setDoc
+
 }
+
 from
+
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+
+
+
+
+// ===============================
+// HELPER MESSAGE
+// ===============================
+
+
+function showMessage(text, type=""){
+
+const message =
+document.querySelector("#message");
+
+
+if(message){
+
+message.innerHTML = text;
+
+message.className = type;
+
+}
+
+}
+
 
 
 
@@ -35,42 +76,39 @@ from
 // ===============================
 
 
-const signupBtn = document.querySelector("#signupBtn");
+const signupBtn =
+document.querySelector("#signupBtn");
 
 
-if(signupBtn){
 
-
-signupBtn.addEventListener("click", async()=>{
+signupBtn?.addEventListener(
+"click",
+async()=>{
 
 
 const name =
-document.querySelector("#name").value;
+document.querySelector("#name")?.value.trim();
 
 
 const email =
-document.querySelector("#email").value;
+document.querySelector("#email")?.value.trim();
 
 
 const password =
-document.querySelector("#password").value;
+document.querySelector("#password")?.value;
 
 
 const confirmPassword =
-document.querySelector("#confirmPassword").value;
-
-
-
-const message =
-document.querySelector("#message");
+document.querySelector("#confirmPassword")?.value;
 
 
 
 
-if(password !== confirmPassword){
+if(!name || !email || !password){
 
-message.innerHTML =
-"❌ Passwords do not match";
+showMessage(
+"❌ Please fill all fields"
+);
 
 return;
 
@@ -78,14 +116,39 @@ return;
 
 
 
+
+if(password !== confirmPassword){
+
+
+showMessage(
+"❌ Passwords do not match"
+);
+
+
+return;
+
+
+}
+
+
+
+
 try{
 
 
+signupBtn.disabled = true;
+
+
 const userCredential =
+
 await createUserWithEmailAndPassword(
+
 auth,
+
 email,
+
 password
+
 );
 
 
@@ -95,27 +158,12 @@ userCredential.user;
 
 
 
-// Add username to Firebase profile
 
-await updateProfile(user,{
-displayName:name
-});
-
-
-
-
-
-// Save user data in Firestore
-
-await setDoc(
-doc(db,"users",user.uid),
+await updateProfile(
+user,
 {
 
-name:name,
-
-email:email,
-
-createdAt:new Date()
+displayName:name
 
 }
 
@@ -125,14 +173,44 @@ createdAt:new Date()
 
 
 
-message.innerHTML =
-"✅ Account created successfully";
+await setDoc(
+
+doc(
+db,
+"users",
+user.uid
+),
+
+{
+
+name:name,
+
+email:email,
+
+createdAt:
+new Date()
+
+}
+
+);
+
+
+
+
+
+
+showMessage(
+"✅ Account created successfully"
+);
+
 
 
 
 setTimeout(()=>{
 
-window.location.href="account.html";
+
+location.href="account.html";
+
 
 },1500);
 
@@ -140,11 +218,27 @@ window.location.href="account.html";
 
 }
 
+
 catch(error){
 
 
-message.innerHTML =
-"❌ " + error.message;
+console.error(error);
+
+
+
+showMessage(
+"❌ Unable to create account"
+);
+
+
+
+}
+
+
+finally{
+
+
+signupBtn.disabled=false;
 
 
 }
@@ -152,9 +246,6 @@ message.innerHTML =
 
 
 });
-
-
-}
 
 
 
@@ -174,44 +265,72 @@ document.querySelector("#loginBtn");
 
 
 
-if(loginBtn){
-
-
-loginBtn.addEventListener("click", async()=>{
+loginBtn?.addEventListener(
+"click",
+async()=>{
 
 
 const email =
-document.querySelector("#loginEmail").value;
+document.querySelector("#loginEmail")
+?.value.trim();
+
 
 
 const password =
-document.querySelector("#loginPassword").value;
+document.querySelector("#loginPassword")
+?.value;
 
 
-const message =
-document.querySelector("#message");
+
+
+if(!email || !password){
+
+showMessage(
+"❌ Enter email and password"
+);
+
+return;
+
+}
+
+
 
 
 
 try{
 
 
+loginBtn.disabled=true;
+
+
+
 await signInWithEmailAndPassword(
+
 auth,
+
 email,
+
 password
+
 );
 
 
 
-message.innerHTML =
-"✅ Login successful";
+
+
+showMessage(
+"✅ Login successful"
+);
+
+
 
 
 
 setTimeout(()=>{
 
-window.location.href="account.html";
+
+location.href="account.html";
+
 
 },1000);
 
@@ -219,11 +338,29 @@ window.location.href="account.html";
 
 }
 
+
+
 catch(error){
 
 
-message.innerHTML =
-"❌ Invalid email or password";
+console.error(error);
+
+
+
+showMessage(
+"❌ Invalid email or password"
+);
+
+
+
+}
+
+
+
+finally{
+
+
+loginBtn.disabled=false;
 
 
 }
@@ -232,8 +369,6 @@ message.innerHTML =
 
 });
 
-
-}
 
 
 
@@ -252,26 +387,37 @@ document.querySelector("#logoutBtn");
 
 
 
-if(logoutBtn){
+logoutBtn?.addEventListener(
+"click",
+async()=>{
 
 
-logoutBtn.addEventListener("click",()=>{
+try{
 
 
-signOut(auth)
-.then(()=>{
+await signOut(auth);
 
 
-window.location.href="login.html";
 
+location.href="login.html";
 
-});
-
-
-});
 
 
 }
+
+catch(error){
+
+
+console.error(error);
+
+
+}
+
+
+
+});
+
+
 
 
 
@@ -285,30 +431,62 @@ window.location.href="login.html";
 
 
 window.resetPassword =
+
 async function(email){
+
+
+
+if(!email){
+
+alert(
+"Enter your email address"
+);
+
+return;
+
+}
+
+
 
 
 try{
 
 
 await sendPasswordResetEmail(
+
 auth,
-email
+
+email.trim()
+
 );
+
 
 
 alert(
-"Password reset email sent"
+"✅ Password reset email sent"
 );
 
 
+
 }
+
+
 
 catch(error){
 
-alert(error.message);
+
+console.error(error);
+
+
+
+alert(
+"❌ Unable to send reset email"
+);
+
+
 
 }
 
 
-}
+
+};
