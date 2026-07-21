@@ -994,3 +994,30 @@ window.location.href=
 
 
 };
+function addToHistory(movie){
+
+
+let history = JSON.parse(localStorage.getItem("watchHistory")) || [];
+
+
+// remove duplicate
+history = history.filter(
+item => item.id !== movie.id
+);
+
+
+// add latest watch first
+history.unshift(movie);
+
+
+// keep only last 50
+history = history.slice(0,50);
+
+
+localStorage.setItem(
+"watchHistory",
+JSON.stringify(history)
+);
+
+
+}
