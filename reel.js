@@ -1,3 +1,11 @@
+/* ==================================
+        TRAP MOVIES
+        REELS ENGINE
+        TMDB SYSTEM
+        PREMIUM VERSION
+================================== */
+
+
 document.addEventListener("DOMContentLoaded",()=>{
 
 
@@ -13,9 +21,20 @@ const IMAGE_URL =
 "https://image.tmdb.org/t/p/original";
 
 
+
 const container =
 document.querySelector("#reelsContainer");
 
+
+
+if(!container) return;
+
+
+
+
+/* =========================
+        GET TRENDING
+========================= */
 
 
 async function getTrending(){
@@ -31,10 +50,9 @@ const response = await fetch(
 );
 
 
+
 const data = await response.json();
 
-
-console.log(data);
 
 
 return data.results || [];
@@ -42,29 +60,42 @@ return data.results || [];
 
 }
 
+
+
 catch(error){
 
+
 console.log(
-"TMDB ERROR:",
+"TMDB REELS ERROR:",
 error
 );
 
+
 return [];
 
-}
-
 
 }
 
 
+}
 
+
+
+
+
+
+/* =========================
+        LOAD REELS
+========================= */
 
 
 async function loadReels(){
 
 
+
 const movies =
 await getTrending();
+
 
 
 
@@ -74,7 +105,9 @@ if(!movies.length){
 container.innerHTML=`
 
 <h2>
+
 No movies found
+
 </h2>
 
 `;
@@ -87,36 +120,69 @@ return;
 
 
 
+
+
 container.innerHTML="";
 
 
 
-movies.slice(0,20).forEach(movie=>{
+
+movies
+.filter(movie=>movie.backdrop_path)
+.slice(0,20)
+.forEach(movie=>{
+
+
+
 
 
 const image =
 
-movie.backdrop_path
+IMAGE_URL + movie.backdrop_path;
 
-?
 
-IMAGE_URL + movie.backdrop_path
 
-:
 
-"assets/images/no-image.jpg";
+
+const title =
+
+movie.title ||
+
+movie.name ||
+
+"Unknown";
+
+
+
+
+
+const type =
+
+movie.media_type ||
+
+"movie";
+
+
+
 
 
 
 container.innerHTML += `
 
 
+
 <section class="reel">
 
 
-<img 
-class="reel-image"
+
+<img
+
+class="reel-video"
+
 src="${image}"
+
+alt="${title}"
+
 >
 
 
@@ -127,12 +193,13 @@ src="${image}"
 
 
 
+
 <div class="reel-info">
 
 
 <h1>
 
-${movie.title || movie.name}
+${title}
 
 </h1>
 
@@ -140,13 +207,26 @@ ${movie.title || movie.name}
 
 <p>
 
-⭐ ${movie.vote_average?.toFixed(1) || "N/A"}
+⭐ ${
+movie.vote_average
+
+?
+
+movie.vote_average.toFixed(1)
+
+:
+
+"N/A"
+
+}
 
 </p>
 
 
 
-<button onclick="openContent('${movie.media_type}',${movie.id})">
+<button
+
+onclick="openContent('${type}',${movie.id})">
 
 ▶ Watch Now
 
@@ -158,7 +238,9 @@ ${movie.title || movie.name}
 
 
 
+
 </section>
+
 
 
 `;
@@ -175,30 +257,46 @@ ${movie.title || movie.name}
 
 
 
+/* =========================
+        OPEN CONTENT
+========================= */
+
 
 window.openContent=function(type,id){
 
 
-if(type==="movie"){
+
+if(type==="tv"){
+
 
 
 location.href =
-`movie.html?id=${id}`;
+
+`series-details.html?id=${id}`;
+
 
 
 }
+
+
 
 else{
 
 
+
 location.href =
-`series-details.html?id=${id}`;
+
+`movie.html?id=${id}`;
+
 
 
 }
 
 
-}
+
+};
+
+
 
 
 
