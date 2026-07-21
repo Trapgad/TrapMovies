@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
 ========================= */
 
 
-const API_KEY = "YOUR_TMDB_API_KEY";
+const API_KEY = "17a1834e273320eef8a2a36b38a11964";
 
 const BASE_URL =
 "https://api.themoviedb.org/3";
