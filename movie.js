@@ -1117,40 +1117,27 @@ JSON.stringify(history)
 
 
 
-/* =========================
-        TRAILER BUTTON
-========================= */
-
-
 document.querySelector(".watch")
-
 ?.addEventListener(
-
 "click",
-
 ()=>{
 
 
-
+setTimeout(()=>{
 
 
 if(currentMovie){
 
 
-
 addToHistory({
 
-
 id:currentMovie.id,
-
 
 
 title:currentMovie.title,
 
 
-
 poster:
-
 
 currentMovie.poster_path
 
@@ -1164,9 +1151,7 @@ IMAGE_URL + currentMovie.poster_path
 
 
 
-
 year:
-
 
 currentMovie.release_date
 
@@ -1179,31 +1164,28 @@ currentMovie.release_date.slice(0,4)
 "N/A"
 
 
-
 });
 
 
-
-console.log(
-
-"Added to watch history"
-
-);
+console.log("Added to watch history");
 
 
+}
+else{
+
+console.log("Movie not loaded yet");
 
 }
 
 
 
+},500);
 
 
 
 
 document
-
 .getElementById("trailerBox")
-
 ?.scrollIntoView({
 
 behavior:"smooth"
@@ -1211,10 +1193,7 @@ behavior:"smooth"
 });
 
 
-
-}
-
-);
+});
 
 
 
