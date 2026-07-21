@@ -1,17 +1,17 @@
-/* ==================================
-        TRAP MOVIES
-        ACCOUNT SYSTEM
-        FIREBASE PREMIUM VERSION
-================================== */
+// ==================================
+// TRAP MOVIES
+// ACCOUNT SYSTEM
+// FIREBASE PREMIUM CLEAN VERSION
+// ==================================
 
 
-import { auth, db, storage } from "./firebase-config.js";
+import { auth, db, storage } 
+from "./firebase-config.js";
 
 
 import {
 
 onAuthStateChanged,
-signOut,
 updateProfile
 
 }
@@ -52,16 +52,17 @@ from
 
 
 
-
-document.addEventListener("DOMContentLoaded",()=>{
-
-
-
+document.addEventListener(
+"DOMContentLoaded",
+()=>{
 
 
-/* =========================
-        USER PROFILE
-========================= */
+
+
+
+// ===============================
+// ELEMENTS
+// ===============================
 
 
 const username =
@@ -88,47 +89,88 @@ const saveProfile =
 document.querySelector("#saveProfile");
 
 
+const watchlistContainer =
+document.querySelector("#watchlistContainer");
+
+
+
+const movieCount =
+document.querySelector("#movieCount");
+
+
+const seriesCount =
+document.querySelector("#seriesCount");
+
+
+const saveCount =
+document.querySelector("#saveCount");
 
 
 
 
-onAuthStateChanged(auth, async(user)=>{
 
 
 
-if(user){
+
+
+// ===============================
+// AUTH STATE
+// ===============================
+
+
+onAuthStateChanged(
+
+auth,
+
+async(user)=>{
+
+
+if(!user){
+
+
+location.href="login.html";
+
+return;
+
+
+}
 
 
 
-// Show account details
 
-if(username){
+
+// BASIC INFO
+
+
+if(username)
 
 username.textContent =
 user.displayName || "TRAP USER";
 
-}
 
 
-
-if(email){
+if(email)
 
 email.textContent =
 user.email;
 
-}
 
 
 
 
 
+// PROFILE PHOTO
 
-// Load profile photo
 
-if(profileImage && user.photoURL){
+if(profileImage){
+
 
 profileImage.src =
-user.photoURL;
+
+user.photoURL ||
+
+"assets/images/default-user.png";
+
 
 }
 
@@ -137,40 +179,49 @@ user.photoURL;
 
 
 
-// Load Firestore data
+
+// FIRESTORE DATA
+
+
+try{
+
 
 const userRef =
-doc(db,"users",user.uid);
+doc(
+db,
+"users",
+user.uid
+);
 
 
 
-const userSnap =
+const snapshot =
 await getDoc(userRef);
 
 
 
-if(userSnap.exists()){
+if(snapshot.exists()){
 
 
 const data =
-userSnap.data();
+snapshot.data();
 
 
 
-if(username){
+if(username)
 
 username.textContent =
-data.name || user.displayName;
-
-}
+data.name || "TRAP USER";
 
 
 
-if(editName){
+if(editName)
 
 editName.value =
 data.name || "";
 
+
+
 }
 
 
@@ -178,11 +229,29 @@ data.name || "";
 }
 
 
+catch(error){
 
 
-// Save username
+console.error(
+"PROFILE ERROR:",
+error
+);
 
-saveProfile?.addEventListener("click", async()=>{
+
+}
+
+
+
+
+
+// SAVE PROFILE
+
+
+saveProfile?.addEventListener(
+
+"click",
+
+async()=>{
 
 
 const newName =
@@ -190,20 +259,45 @@ editName.value.trim();
 
 
 
-if(newName){
+if(!newName){
 
 
-await updateProfile(user,{
+alert(
+"Enter a username"
+);
+
+
+return;
+
+
+}
+
+
+
+try{
+
+
+await updateProfile(
+
+user,
+
+{
 
 displayName:newName
 
-});
+}
+
+);
 
 
 
 await setDoc(
 
-doc(db,"users",user.uid),
+doc(
+db,
+"users",
+user.uid
+),
 
 {
 
@@ -228,7 +322,25 @@ newName;
 
 
 
-alert("Profile updated successfully");
+alert(
+"Profile updated successfully"
+);
+
+
+
+}
+
+
+catch(error){
+
+
+console.error(error);
+
+
+alert(
+"Unable to update profile"
+);
+
 
 
 }
@@ -243,9 +355,15 @@ alert("Profile updated successfully");
 
 
 
-// Upload profile picture
 
-imageUpload?.addEventListener("change",async()=>{
+// PROFILE IMAGE UPLOAD
+
+
+imageUpload?.addEventListener(
+
+"change",
+
+async()=>{
 
 
 
@@ -254,11 +372,54 @@ imageUpload.files[0];
 
 
 
-if(file){
+if(!file)
+return;
 
+
+
+
+
+if(!file.type.startsWith("image/")){
+
+
+alert(
+"Only image files are allowed"
+);
+
+
+return;
+
+
+}
+
+
+
+
+
+
+if(file.size > 2 * 1024 * 1024){
+
+
+alert(
+"Image must be below 2MB"
+);
+
+
+return;
+
+
+}
+
+
+
+
+
+
+try{
 
 
 const imageRef =
+
 ref(
 
 storage,
@@ -266,6 +427,9 @@ storage,
 "profileImages/"+user.uid
 
 );
+
+
+
 
 
 
@@ -279,29 +443,70 @@ file
 
 
 
-const imageURL =
-await getDownloadURL(imageRef);
+
+
+
+const url =
+
+await getDownloadURL(
+
+imageRef
+
+);
 
 
 
 
 
-await updateProfile(user,{
 
-photoURL:imageURL
+await updateProfile(
 
-});
+user,
+
+{
+
+photoURL:url
+
+}
+
+);
 
 
 
 
 
-profileImage.src =
-imageURL;
+
+if(profileImage)
+
+profileImage.src=url;
 
 
 
-alert("Profile picture updated");
+
+
+alert(
+"Profile picture updated"
+);
+
+
+
+}
+
+
+catch(error){
+
+
+console.error(
+"UPLOAD ERROR:",
+error
+);
+
+
+
+alert(
+"Image upload failed"
+);
+
 
 
 }
@@ -315,18 +520,6 @@ alert("Profile picture updated");
 
 
 
-}
-
-else{
-
-
-window.location.href="login.html";
-
-
-}
-
-
-
 });
 
 
@@ -337,16 +530,33 @@ window.location.href="login.html";
 
 
 
-/* =========================
-        LOAD WATCHLIST
-========================= */
+// ===============================
+// WATCHLIST SYSTEM
+// ===============================
 
 
-const movieList =
+const movies =
 
 JSON.parse(
 
-localStorage.getItem("watchlist")
+localStorage.getItem(
+"watchlist"
+)
+
+)
+
+|| [];
+
+
+
+
+const series =
+
+JSON.parse(
+
+localStorage.getItem(
+"seriesList"
+)
 
 )
 
@@ -356,25 +566,11 @@ localStorage.getItem("watchlist")
 
 
 
-const seriesList =
+const allItems = [
 
-JSON.parse(
+...movies,
 
-localStorage.getItem("seriesList")
-
-)
-
-|| [];
-
-
-
-
-
-const allList = [
-
-...movieList,
-
-...seriesList
+...series
 
 ];
 
@@ -383,60 +579,27 @@ const allList = [
 
 
 
-
-
-
-/* =========================
-        ACCOUNT STATS
-========================= */
-
-
-const movieCount =
-document.querySelector("#movieCount");
-
-
-const seriesCount =
-document.querySelector("#seriesCount");
-
-
-const saveCount =
-document.querySelector("#saveCount");
-
-
-
-
-
 if(movieCount)
+
 movieCount.textContent =
-movieList.length;
+movies.length;
 
 
 
 if(seriesCount)
+
 seriesCount.textContent =
-seriesList.length;
+series.length;
 
 
 
 if(saveCount)
+
 saveCount.textContent =
-allList.length;
+allItems.length;
 
 
 
-
-
-
-
-
-
-/* =========================
-        DISPLAY WATCHLIST
-========================= */
-
-
-const watchlistContainer =
-document.querySelector("#watchlistContainer");
 
 
 
@@ -445,13 +608,11 @@ if(watchlistContainer){
 
 
 
-if(allList.length === 0){
+if(allItems.length===0){
 
 
 
-watchlistContainer.innerHTML =
-
-`
+watchlistContainer.innerHTML=`
 
 <div class="empty-list">
 
@@ -462,8 +623,9 @@ Your watchlist is empty
 </h3>
 
 <p>
-Start saving movies and series you love.
+Save movies and series to see them here.
 </p>
+
 
 </div>
 
@@ -476,12 +638,14 @@ Start saving movies and series you love.
 else{
 
 
+watchlistContainer.innerHTML =
 
-allList.forEach(item=>{
+allItems.map(item=>{
 
 
+const poster =
 
-const poster = item.poster
+item.poster
 
 ?
 
@@ -493,38 +657,37 @@ const poster = item.poster
 
 
 
-watchlistContainer.innerHTML +=
+return `
 
-
-`
 
 <div class="movie-card">
 
 
-<img src="${poster}">
+<img src="${poster}" alt="${item.title || item.name}">
 
 
 <h3>
+
 ${item.title || item.name || "Unknown"}
+
 </h3>
 
 
+
 <p>
-Saved
+
+Saved ✓
+
 </p>
 
 
 </div>
 
+
 `;
 
 
-
-});
-
-
-
-}
+}).join("");
 
 
 
@@ -532,42 +695,8 @@ Saved
 
 
 
+}
 
-
-
-
-
-
-/* =========================
-        LOGOUT
-========================= */
-
-
-const logoutBtn =
-document.querySelector("#logoutBtn");
-
-
-
-logoutBtn?.addEventListener("click",()=>{
-
-
-
-signOut(auth)
-
-.then(()=>{
-
-
-alert("Logged out successfully");
-
-
-window.location.href="login.html";
-
-
-});
-
-
-
-});
 
 
 
