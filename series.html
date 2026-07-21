@@ -28,13 +28,78 @@ rel="stylesheet">
 <body>
 
 
+
+<!-- SIDE MENU -->
+
+<div class="overlay-bg"></div>
+
+
+<aside class="side-menu">
+
+
+<div class="menu-header">
+
+<h2>
+TRAP MENU
+</h2>
+
+
+<button class="close-btn">
+
+<i class="fa-solid fa-xmark"></i>
+
+</button>
+
+</div>
+
+
+
+<ul>
+
+<li>
+<i class="fa-solid fa-house"></i>
+<a href="index.html">Home</a>
+</li>
+
+
+<li>
+<i class="fa-solid fa-film"></i>
+<a href="movies.html">Movies</a>
+</li>
+
+
+<li>
+<i class="fa-solid fa-tv"></i>
+<a href="series.html">Series</a>
+</li>
+
+
+<li>
+<i class="fa-solid fa-user"></i>
+<a href="about.html">About</a>
+</li>
+
+
+</ul>
+
+
+</aside>
+
+
+
+
+
+
 <!-- HEADER -->
+
 
 <header class="header">
 
 
 <div class="menu-btn">
+
 <i class="fa-solid fa-bars"></i>
+
 </div>
 
 
@@ -55,6 +120,38 @@ TRAP <span>MOVIES</span>
 
 
 </header>
+
+
+
+
+
+
+
+<!-- NAVIGATION -->
+
+
+<nav class="main-nav">
+
+<a href="index.html">
+Home
+</a>
+
+<a href="movies.html">
+Movies
+</a>
+
+<a class="active" href="series.html">
+Series
+</a>
+
+<a href="about.html">
+About
+</a>
+
+</nav>
+
+
+
 
 
 
@@ -89,11 +186,13 @@ Loading...
 
 
 
-<p id="seriesOverview">
+<p id="seriesDescription">
 
 Discover the best series on TRAP MOVIES.
 
 </p>
+
+
 
 
 
@@ -133,7 +232,63 @@ More Info
 
 
 
-<!-- SERIES SECTIONS -->
+
+
+<!-- SEARCH PAGE -->
+
+
+<section class="search-page">
+
+
+<div class="search-header">
+
+
+<button class="back-search">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+</button>
+
+
+<h2>
+Search Series
+</h2>
+
+
+</div>
+
+
+
+<div class="search-box">
+
+
+<input 
+id="seriesSearch"
+type="text"
+placeholder="Search series...">
+
+
+</div>
+
+
+
+<div id="seriesResults" class="search-results">
+
+
+</div>
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- SERIES ROWS -->
 
 
 <main class="movie-sections">
@@ -142,12 +297,15 @@ More Info
 
 <section class="movie-row">
 
+
 <h2>
 🔥 Trending Series
 </h2>
 
 
-<div class="movie-container" id="trendingSeries">
+<div 
+class="movie-container"
+id="trendingSeries">
 
 </div>
 
@@ -158,14 +316,18 @@ More Info
 
 
 
+
 <section class="movie-row">
+
 
 <h2>
 ⭐ Popular Series
 </h2>
 
 
-<div class="movie-container" id="popularSeries">
+<div 
+class="movie-container"
+id="popularSeries">
 
 </div>
 
@@ -177,15 +339,17 @@ More Info
 
 
 
-
 <section class="movie-row">
+
 
 <h2>
 📺 Airing Today
 </h2>
 
 
-<div class="movie-container" id="airingSeries">
+<div 
+class="movie-container"
+id="airingSeries">
 
 </div>
 
@@ -197,15 +361,17 @@ More Info
 
 
 
-
 <section class="movie-row">
+
 
 <h2>
 🏆 Top Rated Series
 </h2>
 
 
-<div class="movie-container" id="topSeries">
+<div 
+class="movie-container"
+id="topSeries">
 
 </div>
 
@@ -216,6 +382,7 @@ More Info
 
 
 </main>
+
 
 
 
@@ -241,6 +408,7 @@ Discover • Watch • Enjoy 🎬
 
 
 </footer>
+
 
 
 
