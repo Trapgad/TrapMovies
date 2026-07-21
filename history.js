@@ -1,8 +1,8 @@
-/* ==================================
-   TRAP MOVIES
-   WATCH HISTORY ENGINE V2
-   MATCHES GLASS CINEMA V3
-================================== */
+// ==================================
+// TRAP MOVIES
+// WATCH HISTORY ENGINE
+// PREMIUM CLEAN VERSION
+// ==================================
 
 
 document.addEventListener(
@@ -18,10 +18,7 @@ document.getElementById(
 
 
 
-
-
 if(!historyContainer)
-
 return;
 
 
@@ -29,9 +26,19 @@ return;
 
 
 
-let history =
 
-JSON.parse(
+// ===============================
+// SAFE STORAGE
+// ===============================
+
+
+function getHistory(){
+
+
+try{
+
+
+return JSON.parse(
 
 localStorage.getItem(
 "watchHistory"
@@ -42,6 +49,30 @@ localStorage.getItem(
 || [];
 
 
+}
+
+catch(error){
+
+
+console.error(
+"History Error:",
+error
+);
+
+
+return [];
+
+
+}
+
+
+}
+
+
+
+
+
+let history = getHistory();
 
 
 
@@ -49,19 +80,18 @@ localStorage.getItem(
 
 
 
-/* =========================
-        EMPTY STATE
-========================= */
 
 
-if(history.length === 0){
+// ===============================
+// EMPTY STATE
+// ===============================
 
 
+function showEmpty(){
 
-historyContainer.innerHTML =
 
+historyContainer.innerHTML = `
 
-`
 
 <div class="empty-history">
 
@@ -74,7 +104,6 @@ historyContainer.innerHTML =
 No Watch History
 
 </h2>
-
 
 
 <p>
@@ -90,10 +119,6 @@ Movies you watch will appear here
 `;
 
 
-
-return;
-
-
 }
 
 
@@ -104,45 +129,82 @@ return;
 
 
 
-/* =========================
-        DISPLAY HISTORY
-========================= */
+// ===============================
+// DISPLAY HISTORY
+// ===============================
 
 
-historyContainer.innerHTML = "";
-
-
-
-
-
-history.forEach(movie=>{
+function renderHistory(){
 
 
 
+if(history.length === 0){
 
 
-historyContainer.innerHTML +=
+showEmpty();
+
+
+return;
+
+
+}
 
 
 
-`
+
+
+historyContainer.innerHTML =
+
+history.map(movie=>{
+
+
+
+const poster =
+
+movie.poster?.startsWith("http")
+
+?
+
+movie.poster
+
+
+:
+
+movie.poster
+
+?
+
+"https://image.tmdb.org/t/p/w500/" 
++
+movie.poster
+
+
+:
+
+"assets/images/no-image.jpg";
+
+
+
+
+
+
+
+return `
+
 
 <div class="history-card"
 
-onclick="openMovie(${movie.id})">
+data-id="${movie.id}">
 
 
 
 
 
-<img src="${
+<img
 
-movie.poster ||
+src="${poster}"
 
-"assets/images/no-image.jpg"
-
-}">
-
+alt="${movie.title || "Movie"}">
 
 
 
@@ -150,10 +212,9 @@ movie.poster ||
 
 <h3>
 
-${movie.title}
+${movie.title || "Unknown"}
 
 </h3>
-
 
 
 
@@ -168,6 +229,22 @@ ${movie.year || "N/A"}
 
 
 
+<button
+
+class="remove-history"
+
+data-id="${movie.id}">
+
+
+<i class="fa-solid fa-trash"></i>
+
+Remove
+
+
+</button>
+
+
+
 
 </div>
 
@@ -176,7 +253,16 @@ ${movie.year || "N/A"}
 
 
 
-});
+}).join("");
+
+
+
+}
+
+
+
+
+renderHistory();
 
 
 
@@ -184,7 +270,80 @@ ${movie.year || "N/A"}
 
 
 
-});
+
+
+// ===============================
+// OPEN MOVIE
+// ===============================
+
+
+historyContainer.addEventListener(
+
+"click",
+
+(e)=>{
+
+
+
+const card =
+
+e.target.closest(
+".history-card"
+);
+
+
+
+const remove =
+
+e.target.closest(
+".remove-history"
+);
+
+
+
+
+
+if(remove){
+
+
+const id =
+Number(
+remove.dataset.id
+);
+
+
+
+history =
+
+history.filter(
+
+movie=>movie.id !== id
+
+);
+
+
+
+
+
+localStorage.setItem(
+
+"watchHistory",
+
+JSON.stringify(history)
+
+);
+
+
+
+
+
+renderHistory();
+
+
+return;
+
+
+}
 
 
 
@@ -192,19 +351,15 @@ ${movie.year || "N/A"}
 
 
 
+if(card){
 
 
-/* =========================
-        OPEN MOVIE
-========================= */
-
-
-window.openMovie=function(id){
+const id =
+card.dataset.id;
 
 
 
-window.location.href =
-
+location.href =
 
 "movie.html?id="
 
@@ -214,4 +369,15 @@ encodeURIComponent(id);
 
 
 
-};
+}
+
+
+
+});
+
+
+
+
+
+
+});
