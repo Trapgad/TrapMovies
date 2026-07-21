@@ -1,22 +1,20 @@
-/* ==================================
-        TRAP MOVIES
-        FAVORITE SYSTEM
-        PREMIUM VERSION
-================================== */
+// ==================================
+// TRAP MOVIES
+// FAVORITE SYSTEM
+// PREMIUM CLEAN VERSION
+// ==================================
 
 
-document.addEventListener("DOMContentLoaded",()=>{
-
-
+document.addEventListener(
+"DOMContentLoaded",
+()=>{
 
 
 
 const container =
-
-document.querySelector("#favoriteContainer");
-
-
-
+document.querySelector(
+"#favoriteContainer"
+);
 
 
 
@@ -28,42 +26,62 @@ return;
 
 
 
+// ===============================
+// SAFE STORAGE
+// ===============================
 
-/* =========================
-        GET FAVORITES
-========================= */
+
+function getStorage(key){
 
 
-const movieFavorites =
+try{
 
-JSON.parse(
 
-localStorage.getItem("favorites")
-
+return JSON.parse(
+localStorage.getItem(key)
 )
-
 || [];
 
 
+}
+
+catch(error){
 
 
-const seriesFavorites =
-
-JSON.parse(
-
-localStorage.getItem("seriesFavorites")
-
-)
-
-|| [];
+console.error(
+"Storage Error:",
+error
+);
 
 
+return [];
+
+
+}
+
+
+}
 
 
 
 
 
-const favorites = [
+
+let movieFavorites =
+getStorage("favorites");
+
+
+
+let seriesFavorites =
+getStorage("seriesFavorites");
+
+
+
+
+function getAllFavorites(){
+
+
+return [
 
 ...movieFavorites,
 
@@ -72,24 +90,34 @@ const favorites = [
 ];
 
 
+}
 
 
 
 
 
 
-/* =========================
-        DISPLAY FAVORITES
-========================= */
+// ===============================
+// RENDER FAVORITES
+// ===============================
+
+
+function renderFavorites(){
+
+
+
+const favorites =
+getAllFavorites();
+
+
+
 
 
 if(!favorites.length){
 
 
+container.innerHTML = `
 
-container.innerHTML =
-
-`
 
 <div class="empty-list">
 
@@ -98,26 +126,19 @@ container.innerHTML =
 
 
 <h3>
-
 No Favorites Yet
-
 </h3>
 
 
-
 <p>
-
 Add movies and series to your favorites.
-
 </p>
-
 
 
 </div>
 
+
 `;
-
-
 
 return;
 
@@ -129,16 +150,10 @@ return;
 
 
 
-container.innerHTML="";
 
+container.innerHTML =
 
-
-
-
-favorites.forEach(item=>{
-
-
-
+favorites.map(item=>{
 
 
 const poster =
@@ -147,7 +162,8 @@ item.poster
 
 ?
 
-"https://image.tmdb.org/t/p/w500/" + item.poster
+"https://image.tmdb.org/t/p/w500/" 
++ item.poster
 
 :
 
@@ -156,19 +172,17 @@ item.poster
 
 
 
+return `
 
-
-
-container.innerHTML +=
-
-
-`
 
 <div class="movie-card">
 
 
+<img 
 
-<img src="${poster}">
+src="${poster}"
+
+alt="${item.title || item.name}">
 
 
 
@@ -180,6 +194,7 @@ ${item.title || item.name || "Unknown"}
 
 
 
+
 <p>
 
 ⭐ ${item.rating || "N/A"}
@@ -188,13 +203,19 @@ ${item.title || item.name || "Unknown"}
 
 
 
-<button 
+
+
+<button
+
 class="remove-favorite"
+
 data-id="${item.id}">
+
 
 <i class="fa-solid fa-heart-crack"></i>
 
 Remove
+
 
 </button>
 
@@ -202,36 +223,57 @@ Remove
 
 </div>
 
+
 `;
 
 
 
-
-
-});
-
+}).join("");
 
 
 
+}
 
 
 
 
 
-/* =========================
-        REMOVE FAVORITE
-========================= */
-
-
-document
-.querySelectorAll(".remove-favorite")
-.forEach(button=>{
+renderFavorites();
 
 
 
-button.addEventListener(
+
+
+
+
+
+
+// ===============================
+// REMOVE FAVORITE
+// ===============================
+
+
+container.addEventListener(
+
 "click",
-()=>{
+
+(e)=>{
+
+
+
+const button =
+
+e.target.closest(
+".remove-favorite"
+);
+
+
+
+if(!button)
+return;
+
+
+
 
 
 
@@ -245,29 +287,18 @@ button.dataset.id
 
 
 
-let movies =
 
-JSON.parse(
 
-localStorage.getItem("favorites")
+const confirmRemove =
 
-)
-
-|| [];
+confirm(
+"Remove from favorites?"
+);
 
 
 
-
-
-let series =
-
-JSON.parse(
-
-localStorage.getItem("seriesFavorites")
-
-)
-
-|| [];
+if(!confirmRemove)
+return;
 
 
 
@@ -275,7 +306,9 @@ localStorage.getItem("seriesFavorites")
 
 
 
-movies = movies.filter(
+movieFavorites =
+
+movieFavorites.filter(
 
 item=>item.id !== id
 
@@ -284,7 +317,11 @@ item=>item.id !== id
 
 
 
-series = series.filter(
+
+
+seriesFavorites =
+
+seriesFavorites.filter(
 
 item=>item.id !== id
 
@@ -300,9 +337,12 @@ localStorage.setItem(
 
 "favorites",
 
-JSON.stringify(movies)
+JSON.stringify(
+movieFavorites
+)
 
 );
+
 
 
 
@@ -312,7 +352,9 @@ localStorage.setItem(
 
 "seriesFavorites",
 
-JSON.stringify(series)
+JSON.stringify(
+seriesFavorites
+)
 
 );
 
@@ -321,15 +363,15 @@ JSON.stringify(series)
 
 
 
-location.reload();
+
+renderFavorites();
+
+
 
 
 
 });
 
-
-
-});
 
 
 
