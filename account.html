@@ -7,29 +7,150 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Account | TRAP MOVIES</title>
+<title>TRAP MOVIES | Account</title>
 
 
 <link rel="stylesheet" href="style.css">
 
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link 
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+
+<link 
+href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+rel="stylesheet">
 
 
 </head>
+
 
 
 <body>
 
 
 
-<header>
+<!-- SIDE MENU -->
+
+<div class="overlay-bg"></div>
+
+
+
+<aside class="side-menu">
+
+
+<div class="menu-header">
+
+<h2>
+TRAP MENU
+</h2>
+
+
+<button class="close-btn">
+
+<i class="fa-solid fa-xmark"></i>
+
+</button>
+
+</div>
+
+
+
+
+
+<ul>
+
+
+<li>
+<i class="fa-solid fa-house"></i>
+<a href="index.html">Home</a>
+</li>
+
+
+
+<li>
+<i class="fa-solid fa-film"></i>
+<a href="movies.html">Movies</a>
+</li>
+
+
+
+<li>
+<i class="fa-solid fa-tv"></i>
+<a href="series.html">Series</a>
+</li>
+
+
+
+<li>
+<i class="fa-solid fa-fire"></i>
+<a href="reels.html">Reels</a>
+</li>
+
+
+
+<li>
+<i class="fa-solid fa-user"></i>
+<a href="account.html">My Account</a>
+</li>
+
+
+
+<li>
+<i class="fa-solid fa-circle-info"></i>
+<a href="about.html">About</a>
+</li>
+
+
+
+<li>
+<i class="fa-solid fa-envelope"></i>
+<a href="contact.html">Contact</a>
+</li>
+
+
+</ul>
+
+
+</aside>
+
+
+
+
+
+
+
+
+
+<!-- HEADER -->
+
+
+<header class="header">
+
+
+<div class="menu-btn">
+
+<i class="fa-solid fa-bars"></i>
+
+</div>
+
+
 
 <div class="logo">
 
-<h2>🎬 TRAP MOVIES</h2>
+TRAP <span>MOVIES</span>
 
 </div>
+
+
+
+<div class="search-btn">
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+</div>
+
 
 </header>
 
@@ -37,35 +158,80 @@
 
 
 
-<section class="account">
 
 
-<div class="account-box">
 
 
-<img 
-id="profileImg"
-src="https://i.imgur.com/6VBx3io.png"
-alt="Profile"
->
+<!-- ACCOUNT PAGE -->
 
 
-<h2 id="userName">
-User
-</h2>
+<main class="account-page">
 
 
-<p id="userEmail">
-Loading...
-</p>
 
 
-<button id="logoutBtn">
-Logout
-</button>
+
+<section class="account-card glass">
+
+
+
+<div class="profile-image">
+
+
+<i class="fa-solid fa-user"></i>
 
 
 </div>
+
+
+
+
+
+<h1 id="username">
+
+TRAP USER
+
+</h1>
+
+
+
+<p id="email">
+
+user@email.com
+
+</p>
+
+
+
+
+
+
+<div class="account-buttons">
+
+
+<button class="watch">
+
+<i class="fa-solid fa-list"></i>
+
+My Watchlist
+
+</button>
+
+
+
+
+<button class="info">
+
+<i class="fa-solid fa-gear"></i>
+
+Settings
+
+</button>
+
+
+
+</div>
+
 
 
 </section>
@@ -74,11 +240,89 @@ Logout
 
 
 
-<footer>
+
+
+
+
+<section class="watchlist-section">
+
+
+<h2>
+
+🎬 My Watchlist
+
+</h2>
+
+
+
+<div 
+id="watchlistContainer"
+class="movie-container">
+
 
 <p>
-© 2026 TRAP MOVIES | Created by <strong>TRAP GAD</strong>
+
+No saved movies yet.
+
 </p>
+
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+<button id="logoutBtn" class="logout-btn">
+
+
+<i class="fa-solid fa-right-from-bracket"></i>
+
+Logout
+
+
+</button>
+
+
+
+
+
+
+</main>
+
+
+
+
+
+
+
+
+
+<footer>
+
+
+<h2>
+TRAP MOVIES
+</h2>
+
+
+<p>
+Discover • Watch • Enjoy 🎬
+</p>
+
+
+<p>
+© 2026 TRAP MOVIES
+</p>
+
 
 </footer>
 
@@ -86,7 +330,11 @@ Logout
 
 
 
-<script type="module" src="account.js"></script>
+
+<script src="script.js"></script>
+
+<script src="account.js"></script>
+
 
 
 </body>
