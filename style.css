@@ -2597,3 +2597,124 @@ transform:scale(1.1);
 }
 
 }
+/* =========================
+      WATCH HISTORY PAGE
+========================= */
+
+
+.history-page{
+
+    padding:120px 30px 50px;
+    min-height:100vh;
+
+}
+
+
+.history-page h1{
+
+    font-size:32px;
+    margin-bottom:30px;
+    color:white;
+
+}
+
+
+
+.movie-container{
+
+    display:grid;
+    grid-template-columns:
+    repeat(auto-fill,minmax(180px,1fr));
+
+    gap:25px;
+
+}
+
+
+
+
+
+.movie-card{
+
+    background:
+    rgba(255,255,255,0.08);
+
+    border-radius:18px;
+
+    overflow:hidden;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    backdrop-filter:blur(10px);
+
+}
+
+
+
+.movie-card:hover{
+
+    transform:translateY(-8px);
+
+}
+
+
+
+.movie-card img{
+
+    width:100%;
+
+    height:260px;
+
+    object-fit:cover;
+
+}
+
+
+
+.movie-card h3{
+
+    color:white;
+
+    padding:12px;
+
+    font-size:16px;
+
+}
+
+
+
+.movie-card p{
+
+    color:#aaa;
+
+    padding:0 12px 15px;
+
+}
+
+
+
+
+
+.empty-history{
+
+    text-align:center;
+
+    color:white;
+
+    padding:80px 20px;
+
+}
+
+
+
+.empty-history i{
+
+    font-size:60px;
+
+    margin-bottom:20px;
+
+    color:#ff2a55;
+
+}
