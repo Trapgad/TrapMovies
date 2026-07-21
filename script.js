@@ -1,197 +1,130 @@
 /* ==================================
-        TRAP MOVIES JAVASCRIPT
-        MERGED FINAL FIX
-        PART 1/3
-
-        TMDB + MENU + SLIDER + SEARCH
+        TRAP MOVIES
+        script.js
+        PART 1
+        CORE SYSTEM
 ================================== */
 
+document.addEventListener("DOMContentLoaded", () => {
 
-document.addEventListener("DOMContentLoaded",()=>{
-
+"use strict";
 
 /* =========================
         TMDB CONFIG
 ========================= */
 
+const API_KEY = "YOUR_TMDB_API_KEY";
+const BASE_URL = "https://api.themoviedb.org/3";
+const IMAGE_URL = "https://image.tmdb.org/t/p/w500";
 
-const API_KEY =
-"17a1834e273320eef8a2a36b38a11964";
+/* =========================
+        COMMON ELEMENTS
+========================= */
 
+const movieContainers =
+document.querySelectorAll(".movie-container");
 
-const BASE_URL =
-"https://api.themoviedb.org/3";
+const searchInput =
+document.getElementById("searchInput");
 
+const searchResults =
+document.getElementById("searchResults");
 
-const IMAGE_URL =
-"https://image.tmdb.org/t/p/w500/";
+/* =========================
+        FETCH DATA
+========================= */
 
+async function fetchTMDB(endpoint){
 
+    try{
 
+        const response = await fetch(
+            `${BASE_URL}${endpoint}`
+        );
 
+        if(!response.ok){
+            throw new Error(
+                `HTTP ${response.status}`
+            );
+        }
+
+        return await response.json();
+
+    }
+
+    catch(error){
+
+        console.error(error);
+
+        return null;
+
+    }
+
+}
 
 /* =========================
         GET MOVIES
 ========================= */
 
-
 async function getMovies(endpoint){
 
+    const data = await fetchTMDB(
 
-try{
+`${endpoint}?api_key=${API_KEY}&language=en-US`
 
+    );
 
-const response = await fetch(
-
-`${BASE_URL}${endpoint}?api_key=${API_KEY}&language=en-US`
-
-);
-
-
-
-const data =
-await response.json();
-
-
-
-return data.results || [];
-
-
+    return data?.results || [];
 
 }
-
-
-catch(error){
-
-
-console.log(
-"TMDB ERROR:",
-error
-);
-
-
-
-return [];
-
-
-}
-
-
-}
-
-
-
-
-
-
 
 /* =========================
         MOVIE CARD
 ========================= */
 
-
 function createMovieCard(movie){
 
+    const poster = movie.poster_path
+    ? IMAGE_URL + movie.poster_path
+    : "assets/images/no-image.jpg";
 
-const poster =
+    const title =
+    movie.title ||
+    movie.name ||
+    "Unknown";
 
-movie.poster_path
+    const rating =
+    movie.vote_average
+    ? movie.vote_average.toFixed(1)
+    : "N/A";
 
-?
-
-IMAGE_URL + movie.poster_path
-
-:
-
-"assets/images/no-image.jpg";
-
-
-
-const title =
-
-movie.title ||
-
-movie.name ||
-
-"Unknown";
-
-
-
-const rating =
-
-movie.vote_average
-
-?
-
-movie.vote_average.toFixed(1)
-
-:
-
-"N/A";
-
-
-
-
-return `
-
+    return `
 
 <div class="movie-card"
+data-id="${movie.id}">
 
-onclick="openMovie(${movie.id})">
+<img
+src="${poster}"
+alt="${title}"
+loading="lazy">
 
+<h3>${title}</h3>
 
-<img src="${poster}" alt="${title}">
-
-
-<h3>
-
-${title}
-
-</h3>
-
-
-<p>
-
-⭐ ${rating}
-
-</p>
-
+<p>⭐ ${rating}</p>
 
 </div>
 
-
 `;
 
-
-
 }
-
-
-
-
-
-
 
 /* =========================
         LOAD MOVIES
 ========================= */
 
-
-const movieContainers =
-
-document.querySelectorAll(
-".movie-container"
-);
-
-
-
-
-
 async function loadMovies(){
 
-
 const sections=[
-
 
 "/trending/movie/week",
 
@@ -203,155 +136,89 @@ const sections=[
 
 "/movie/upcoming"
 
-
 ];
 
+for(let i=0;i<movieContainers.length;i++){
 
+    if(!sections[i]) continue;
 
+    const movies =
+    await getMovies(sections[i]);
 
-for(
-let i=0;
-i<movieContainers.length;
-i++
-){
+    movieContainers[i].innerHTML =
 
+movies.map(createMovieCard).join("");
 
+}
 
-if(!sections[i]) continue;
+}
 
+/* =========================
+        OPEN MOVIE
+========================= */
 
+document.addEventListener("click",(e)=>{
 
-const movies =
+const card = e.target.closest(".movie-card");
 
-await getMovies(
-sections[i]
-);
+if(!card) return;
 
+const id = card.dataset.id;
 
-
-movieContainers[i].innerHTML="";
-
-
-
-movies.forEach(movie=>{
-
-
-movieContainers[i].innerHTML +=
-
-createMovieCard(movie);
-
+window.location.href =
+`movie.html?id=${id}`;
 
 });
 
-
-
-}
-
-
-
-}
-
-
+/* =========================
+        START
+========================= */
 
 loadMovies();
-
-
-
-
-
-
-
+/* ==================================
+        PART 2
+        MENU + SEARCH + SLIDER
+================================== */
 
 
 /* =========================
         SIDE MENU
 ========================= */
 
-
 const menuBtn =
-
-document.querySelector(
-".menu-btn"
-);
-
+document.querySelector(".menu-btn");
 
 const closeBtn =
-
-document.querySelector(
-".close-btn"
-);
-
-
+document.querySelector(".close-btn");
 
 const sideMenu =
-
-document.querySelector(
-".side-menu"
-);
-
-
+document.querySelector(".side-menu");
 
 const overlay =
-
-document.querySelector(
-".overlay-bg"
-);
-
-
-
-
-
+document.querySelector(".overlay-bg");
 
 
 function openMenu(){
 
+    sideMenu?.classList.add("active");
 
-sideMenu?.classList.add(
-"active"
-);
+    overlay?.classList.add("active");
 
-
-overlay?.classList.add(
-"active"
-);
-
-
-
-document.body.style.overflow =
-"hidden";
-
+    document.body.style.overflow="hidden";
 
 }
-
-
-
-
 
 
 
 function closeMenu(){
 
+    sideMenu?.classList.remove("active");
 
-sideMenu?.classList.remove(
-"active"
-);
+    overlay?.classList.remove("active");
 
-
-
-overlay?.classList.remove(
-"active"
-);
-
-
-
-document.body.style.overflow =
-"";
-
+    document.body.style.overflow="";
 
 }
-
-
-
 
 
 
@@ -380,27 +247,19 @@ closeMenu
 
 
 
-
-
 /* =========================
         HERO SLIDER
 ========================= */
 
 
 const slides =
-
-document.querySelectorAll(
-".slide"
-);
-
+document.querySelectorAll(".slide");
 
 
 const dots =
-
 document.querySelectorAll(
 ".slider-dots span"
 );
-
 
 
 
@@ -410,36 +269,25 @@ let sliderTimer;
 
 
 
-
-
-
 function showSlide(index){
-
 
 
 slides.forEach(slide=>{
 
-
-slide.classList.remove(
-"active"
-);
-
+    slide.classList.remove(
+        "active"
+    );
 
 });
-
 
 
 dots.forEach(dot=>{
 
-
-dot.classList.remove(
-"active"
-);
-
+    dot.classList.remove(
+        "active"
+    );
 
 });
-
-
 
 
 
@@ -460,39 +308,24 @@ dots[index]?.classList.add(
 
 
 
-
-
 function nextSlide(){
-
 
 
 currentSlide++;
 
 
+if(currentSlide >= slides.length){
 
-
-if(
-currentSlide >= slides.length
-){
-
-
-currentSlide=0;
-
+    currentSlide = 0;
 
 }
 
 
 
-
-showSlide(
-currentSlide
-);
+showSlide(currentSlide);
 
 
 }
-
-
-
 
 
 
@@ -500,14 +333,11 @@ currentSlide
 function startSlider(){
 
 
-clearInterval(
-sliderTimer
-);
+clearInterval(sliderTimer);
 
 
 
 sliderTimer =
-
 setInterval(
 nextSlide,
 5000
@@ -515,9 +345,6 @@ nextSlide,
 
 
 }
-
-
-
 
 
 
@@ -546,18 +373,14 @@ startSlider();
 
 
 
-
-
 if(slides.length){
-
 
 showSlide(0);
 
-
 startSlider();
 
-
 }
+
 
 
 
@@ -572,44 +395,15 @@ startSlider();
 
 
 const searchBtn =
-
-document.querySelector(
-".search-btn"
-);
-
+document.querySelector(".search-btn");
 
 
 const searchPage =
-
-document.querySelector(
-".search-page"
-);
-
+document.querySelector(".search-page");
 
 
 const backSearch =
-
-document.querySelector(
-".back-search"
-);
-
-
-
-const searchInput =
-
-document.querySelector(
-"#searchInput"
-);
-
-
-
-const searchResults =
-
-document.querySelector(
-"#searchResults"
-);
-
-
+document.querySelector(".back-search");
 
 
 
@@ -617,16 +411,12 @@ document.querySelector(
 function openSearch(){
 
 
-
 searchPage?.classList.add(
 "active"
 );
 
 
-
-document.body.style.overflow =
-"hidden";
-
+document.body.style.overflow="hidden";
 
 
 searchInput?.focus();
@@ -637,11 +427,7 @@ searchInput?.focus();
 
 
 
-
-
-
 function closeSearch(){
-
 
 
 searchPage?.classList.remove(
@@ -649,14 +435,10 @@ searchPage?.classList.remove(
 );
 
 
-
-document.body.style.overflow =
-"";
+document.body.style.overflow="";
 
 
 }
-
-
 
 
 
@@ -678,57 +460,33 @@ closeSearch
 
 
 
+
+/* =========================
+        SEARCH MOVIES
+========================= */
+
+
 async function searchMovies(query){
 
 
-try{
-
-
-const response =
-
-await fetch(
-
-`${BASE_URL}/search/movie?api_key=${API_KEY}&query=${query}`
-
-);
-
-
-
 const data =
-await response.json();
+await fetchTMDB(
 
+`/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}`
 
-
-return data.results || [];
-
-
-
-}
-
-catch(error){
-
-
-console.log(
-"SEARCH ERROR:",
-error
 );
 
 
 
-return [];
+return data?.results || [];
 
 
 }
 
 
-}
 
 
-
-
-
-
-let searchTimeout;
+let searchTimer;
 
 
 
@@ -737,30 +495,21 @@ searchInput?.addEventListener(
 ()=>{
 
 
-clearTimeout(
-searchTimeout
-);
+clearTimeout(searchTimer);
 
 
 
-searchTimeout =
-
+searchTimer =
 setTimeout(async()=>{
 
 
-
 const value =
-
 searchInput.value.trim();
-
-
 
 
 
 if(!value){
 
-
-if(searchResults)
 
 searchResults.innerHTML="";
 
@@ -772,11 +521,7 @@ return;
 
 
 
-
-
-if(searchResults)
-
-searchResults.innerHTML=
+searchResults.innerHTML =
 
 `
 <div class="loading">
@@ -787,33 +532,16 @@ Searching...
 
 
 
-
 const movies =
-
 await searchMovies(value);
 
 
 
+searchResults.innerHTML =
 
-
-
-if(searchResults)
-
-searchResults.innerHTML="";
-
-
-
-
-
-movies.forEach(movie=>{
-
-
-searchResults.innerHTML +=
-
-createMovieCard(movie);
-
-
-});
+movies
+.map(createMovieCard)
+.join("");
 
 
 
@@ -829,8 +557,9 @@ createMovieCard(movie);
 
 
 
+
 /* =========================
-        ESC CLOSE
+        ESC KEY
 ========================= */
 
 
@@ -844,47 +573,33 @@ if(e.key==="Escape"){
 
 closeMenu();
 
-
 closeSearch();
 
 
 }
 
 
-});
-
-
 
 });
 /* ==================================
-        TRAP MOVIES REELS SYSTEM
-        PART 2/3
+        PART 3
+        REELS + DETAILS + TRAILER
 ================================== */
 
 
-document.addEventListener("DOMContentLoaded",()=>{
-
-
+/* =========================
+        REELS SYSTEM
+========================= */
 
 const reels =
-
 document.querySelectorAll(".reel");
 
 
 
-if(!reels.length) return;
+if(reels.length){
 
 
-
-
-
-/* =========================
-        AUTO VIEW OBSERVER
-========================= */
-
-
-const reelObserver =
-
+const observer =
 new IntersectionObserver(
 
 (entries)=>{
@@ -893,20 +608,13 @@ new IntersectionObserver(
 entries.forEach(entry=>{
 
 
-const reel = entry.target;
-
-
-
 if(entry.isIntersecting){
 
 
-
-increaseViews(reel);
-
+increaseViews(entry.target);
 
 
 }
-
 
 
 });
@@ -915,37 +623,22 @@ increaseViews(reel);
 },
 
 {
-
-threshold:0.75
-
+threshold:.75
 }
 
 );
 
 
 
-
-
 reels.forEach(reel=>{
 
-
-reelObserver.observe(reel);
-
+observer.observe(reel);
 
 });
 
 
 
-
-
-
-
-
-
-/* =========================
-        LIKE SYSTEM
-========================= */
-
+/* LIKE SYSTEM */
 
 document
 .querySelectorAll(".like-btn")
@@ -960,35 +653,26 @@ button.addEventListener(
 e.stopPropagation();
 
 
-
 button.classList.toggle(
 "liked"
 );
 
 
 
-if(
+button.innerHTML =
+
 button.classList.contains("liked")
-){
 
+?
 
-button.innerHTML="❤️";
+"❤️"
 
+:
 
-}
-
-else{
-
-
-button.innerHTML="🤍";
-
-
-}
-
+"🤍";
 
 
 });
-
 
 });
 
@@ -996,21 +680,13 @@ button.innerHTML="🤍";
 
 
 
-
-
-
-/* =========================
-        DOUBLE TAP LIKE
-========================= */
+/* DOUBLE TAP */
 
 
 reels.forEach(reel=>{
 
 
-
 let lastTap = 0;
-
-
 
 
 reel.addEventListener(
@@ -1018,47 +694,35 @@ reel.addEventListener(
 (e)=>{
 
 
-
-if(
-e.target.closest("button")
-)
+if(e.target.closest("button"))
 return;
 
 
 
-
-
-const now = Date.now();
-
-
-
-
-if(
-now - lastTap < 300
-){
+const now =
+Date.now();
 
 
 
-const likeBtn =
+if(now-lastTap <300){
 
+
+const like =
 reel.querySelector(
 ".like-btn"
 );
 
 
 
+if(like){
 
-if(likeBtn){
 
-
-likeBtn.classList.add(
+like.classList.add(
 "liked"
 );
 
 
-
-likeBtn.innerHTML="❤️";
-
+like.innerHTML="❤️";
 
 
 showHeart(reel);
@@ -1067,61 +731,39 @@ showHeart(reel);
 }
 
 
+}
+
+
+lastTap=now;
+
+
+});
+
+
+
+});
+
+
 
 }
 
 
 
-lastTap = now;
-
-
-
-});
-
-
-
-});
-
-
-
-
-
-
-
-
-
-/* =========================
-        HEART EFFECT
-========================= */
-
-
 function showHeart(reel){
 
 
-
 const heart =
-
-document.createElement(
-"div"
-);
-
+document.createElement("div");
 
 
 heart.className =
 "double-heart";
 
 
-
-heart.innerHTML =
-"❤️";
+heart.innerHTML="❤️";
 
 
-
-reel.appendChild(
-heart
-);
-
-
+reel.appendChild(heart);
 
 
 
@@ -1134,78 +776,46 @@ heart.remove();
 },800);
 
 
-
 }
 
 
 
 
-
-
-
-
-
-/* =========================
-        VIEW COUNTER
-========================= */
 
 
 function increaseViews(reel){
 
 
-
-const viewText =
-
-reel.querySelector(
-".views"
-);
+const view =
+reel.querySelector(".views");
 
 
 
-if(!viewText)
+if(!view ||
+reel.dataset.viewed)
+
 return;
 
 
 
-
-
-if(
-reel.dataset.viewed
-)
-return;
-
-
-
-
-
-let views =
-
+let count =
 Number(
-viewText.dataset.views || 0
+view.dataset.views || 0
 );
 
 
 
-views++;
+count++;
 
 
+reel.dataset.viewed="true";
 
 
-
-reel.dataset.viewed =
-"true";
+view.dataset.views=count;
 
 
-
-viewText.dataset.views =
-views;
-
-
-
-viewText.innerHTML =
-
-views + " views";
-
+view.textContent =
+count+" views";
 
 
 }
@@ -1218,233 +828,59 @@ views + " views";
 
 
 
+
 /* =========================
-        BUTTON ANIMATION
-========================= */
-
-
-document
-.querySelectorAll(".reel-actions button")
-.forEach(button=>{
-
-
-
-button.addEventListener(
-"click",
-()=>{
-
-
-
-button.style.transform =
-"scale(1.25)";
-
-
-
-setTimeout(()=>{
-
-
-button.style.transform =
-"scale(1)";
-
-
-},200);
-
-
-
-});
-
-
-
-});
-
-
-
-
-
-});
-/* ==================================
-        TRAP MOVIES SYSTEM
-        PART 3/3
-
         MOVIE DETAILS
-        TRAILER
-        WATCHLIST
-================================== */
-
-
-document.addEventListener("DOMContentLoaded",()=>{
-
-
-
-
-
-/* =========================
-        GLOBAL CONFIG
-========================= */
-
-
-const API_KEY =
-
-"17a1834e273320eef8a2a36b38a11964";
-
-
-
-const BASE_URL =
-
-"https://api.themoviedb.org/3";
-
-
-
-const IMAGE_URL =
-
-"https://image.tmdb.org/t/p/w500/";
-
-
-
-
-
-
-
-/* =========================
-        OPEN MOVIE
-========================= */
-
-
-window.openMovie = function(id){
-
-
-window.location.href =
-
-`movie.html?id=${id}`;
-
-
-};
-
-
-
-
-
-
-
-
-
-/* =========================
-        MOVIE DETAILS PAGE
 ========================= */
 
 
 const movieContent =
-
 document.querySelector(
 ".movie-content"
 );
 
 
 
-
-
-
-async function getMovieDetails(id){
-
-
-try{
-
-
-const response =
-
-await fetch(
-
-`${BASE_URL}/movie/${id}?api_key=${API_KEY}&language=en-US`
-
-);
-
-
-
-return await response.json();
-
-
-
-}
-
-
-catch(error){
-
-
-console.log(
-"MOVIE DETAILS ERROR:",
-error
-);
-
-
-
-return null;
-
-
-}
-
-
-
-}
-
-
-
-
-
-
-
-
-
 async function loadMovieDetails(){
 
 
-
 const params =
-
 new URLSearchParams(
-window.location.search
+location.search
 );
 
 
 
-const movieId =
-
+const id =
 params.get("id");
 
 
 
-
-
-if(!movieId)
+if(!id || !movieContent)
 return;
 
 
 
+const data =
+await fetchTMDB(
+
+`/movie/${id}?api_key=${API_KEY}&language=en-US`
+
+);
 
 
-const movie =
 
-await getMovieDetails(movieId);
-
-
-
-
-
-if(!movie)
+if(!data)
 return;
-
-
-
-
 
 
 
 const poster =
-
-movie.poster_path
+data.poster_path
 
 ?
 
-IMAGE_URL + movie.poster_path
+IMAGE_URL + data.poster_path
 
 :
 
@@ -1453,24 +889,16 @@ IMAGE_URL + movie.poster_path
 
 
 
-
-
-
-if(movieContent){
-
-
-
 movieContent.innerHTML = `
 
 
 <div class="movie-poster">
 
-
-<img src="${poster}" alt="${movie.title}">
-
+<img 
+src="${poster}"
+alt="${data.title}">
 
 </div>
-
 
 
 
@@ -1478,43 +906,29 @@ movieContent.innerHTML = `
 
 
 <h1>
-
-${movie.title}
-
+${data.title}
 </h1>
 
 
 
-<p id="movieDescription">
+<p>
 
-${movie.overview || "No description available"}
+${data.overview ||
+"No description available"}
 
 </p>
 
 
 
-
 <div class="movie-meta">
 
+⭐ ${data.vote_average?.toFixed(1)}
 
-<span>
+<br>
 
-⭐ ${movie.vote_average?.toFixed(1) || "N/A"}
-
-</span>
-
-
-
-<span>
-
-📅 ${movie.release_date || "Unknown"}
-
-</span>
-
-
+📅 ${data.release_date}
 
 </div>
-
 
 
 
@@ -1533,38 +947,20 @@ ${movie.overview || "No description available"}
 </button>
 
 
-
 </div>
-
 
 `;
 
 
 
-}
-
-
-
-
-getTrailer(movieId);
-
+loadTrailer(id);
 
 
 }
 
-
-
-
-
-
-
-if(movieContent){
 
 
 loadMovieDetails();
-
-
-}
 
 
 
@@ -1575,184 +971,111 @@ loadMovieDetails();
 
 
 /* =========================
-        TRAILER SYSTEM
+        TRAILER
 ========================= */
 
 
-const trailerModal =
+async function loadTrailer(id){
 
+
+const modal =
 document.querySelector(
 ".trailer-modal"
 );
 
 
+const frame =
+document.getElementById(
+"trailerFrame"
+);
 
-const trailerFrame =
 
+
+const button =
 document.querySelector(
-"#trailerFrame"
+".trailer-btn"
 );
 
 
 
-const closeTrailer =
-
-document.querySelector(
-".close-trailer"
-);
-
-
-
-
-
-
-async function getTrailer(id){
-
-
-
-try{
-
-
-const response =
-
-await fetch(
-
-`${BASE_URL}/movie/${id}/videos?api_key=${API_KEY}&language=en-US`
-
-);
+if(!button)
+return;
 
 
 
 const data =
+await fetchTMDB(
 
-await response.json();
+`/movie/${id}/videos?api_key=${API_KEY}&language=en-US`
 
-
+);
 
 
 
 const trailer =
+data?.results?.find(
 
-data.results.find(
+video=>
 
-video =>
-
-video.type === "Trailer"
+video.type==="Trailer"
 
 &&
 
-video.site === "YouTube"
+video.site==="YouTube"
 
 );
 
 
 
+if(!trailer)
+return;
 
 
 
-if(trailer){
+button.addEventListener(
+"click",
+()=>{
+
+
+modal?.classList.add(
+"active"
+);
+
+
+
+if(frame){
+
+frame.src =
+`https://youtube.com/embed/${trailer.key}`;
+
+}
+
+
+});
+
 
 
 
 document
-
-.querySelector(".trailer-btn")
-
+.querySelector(".close-trailer")
 ?.addEventListener(
-
 "click",
-
 ()=>{
 
 
-
-trailerModal?.classList.add(
+modal?.classList.remove(
 "active"
 );
 
 
+if(frame)
+frame.src="";
 
 
-
-if(trailerFrame){
-
-
-trailerFrame.src =
-
-`https://www.youtube.com/embed/${trailer.key}`;
+});
 
 
 }
-
-
-
-}
-
-
-);
-
-
-
-}
-
-
-
-}
-
-
-catch(error){
-
-
-console.log(
-"TRAILER ERROR:",
-error
-);
-
-
-
-}
-
-
-
-}
-
-
-
-
-
-
-
-
-
-closeTrailer?.addEventListener(
-
-"click",
-
-()=>{
-
-
-
-trailerModal?.classList.remove(
-"active"
-);
-
-
-
-if(trailerFrame){
-
-
-trailerFrame.src="";
-
-
-}
-
-
-
-}
-
-
-
-);
 
 
 
@@ -1768,28 +1091,19 @@ trailerFrame.src="";
 
 
 document.addEventListener(
-
 "click",
-
 (e)=>{
 
 
-
-if(
-
-e.target.classList.contains(
-"watch-btn"
-)
-
-){
-
-
-
 const button =
+e.target.closest(
+".watch-btn"
+);
 
-e.target;
 
 
+if(!button)
+return;
 
 
 
@@ -1799,49 +1113,20 @@ button.classList.toggle(
 
 
 
-
-
-
-if(
-
-button.classList.contains(
-"saved"
-)
-
-){
-
-
-
 button.innerHTML =
 
-"✓ Saved";
+button.classList.contains("saved")
 
+?
 
+"✓ Saved"
 
-}
-
-
-else{
-
-
-
-button.innerHTML =
+:
 
 "+ Add Watchlist";
 
 
-
-}
-
-
-
-}
-
-
-
-}
-
-);
+});
 
 
 
@@ -1856,30 +1141,14 @@ button.innerHTML =
 ========================= */
 
 
-const backBtn =
-
-document.querySelector(
-".back-btn"
-);
-
-
-
-backBtn?.addEventListener(
-
+document
+.querySelector(".back-btn")
+?.addEventListener(
 "click",
-
 ()=>{
 
 
 history.back();
-
-
-}
-
-
-
-);
-
 
 
 });
