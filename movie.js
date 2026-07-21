@@ -1798,3 +1798,19 @@ clearInterval(checkMovie);
 
 
 });
+const checkMovie = setInterval(()=>{
+
+const movie = TRAP_MOVIE.getCurrentMovie();
+
+if(movie){
+
+saveAccountStats();
+
+clearInterval(checkMovie);
+
+}
+
+},300);
+
+
+});
