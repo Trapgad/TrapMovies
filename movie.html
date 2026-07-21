@@ -7,38 +7,25 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="theme-color" content="#120018">
-
-<title>TRAP MOVIES | Movie Details</title>
-
+<title>TRAP MOVIES | Details</title>
 
 <link rel="stylesheet" href="style.css">
-
 
 <link 
 rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-
 <link 
 href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
 rel="stylesheet">
 
-
 </head>
-
-
 
 <body>
 
-
-<!-- =========================
-        HEADER
-========================= -->
-
+<!-- HEADER -->
 
 <header class="header">
-
 
 <div class="menu-btn">
 
@@ -46,16 +33,11 @@ rel="stylesheet">
 
 </div>
 
-
-
 <div class="logo">
 
 TRAP <span>MOVIES</span>
 
 </div>
-
-
-
 
 <div class="search-btn">
 
@@ -63,32 +45,15 @@ TRAP <span>MOVIES</span>
 
 </div>
 
-
 </header>
 
+<!-- SIDE MENU -->
 
-
-
-
-
-
-
-<!-- =========================
-        SIDE MENU
-========================= -->
-
-
-<nav class="side-menu" id="sideMenu">
-
+<nav class="side-menu">
 
 <div class="menu-header">
 
-
-<h2>
-TRAP MOVIES
-</h2>
-
-
+<h2>TRAP MOVIES</h2>
 
 <div class="close-btn">
 
@@ -96,214 +61,73 @@ TRAP MOVIES
 
 </div>
 
-
 </div>
-
-
-
-
-
-
 
 <ul>
 
-
-
 <li>
-
-<i class="fa-solid fa-user"></i>
-
-<a href="account.html">
-My Account
-</a>
-
-</li>
-
-
-
-
-
-<li>
-
 <i class="fa-solid fa-heart"></i>
-
-<a href="favorites.html">
-Favorites
+<a href="mylist.html">
+My List
 </a>
-
 </li>
-
-
-
-
 
 <li>
-
 <i class="fa-solid fa-clock"></i>
-
 <a href="history.html">
-Watch History
+History
 </a>
-
 </li>
-
-
-
-
 
 <hr>
 
-
-
-
-
 <li>
-
 <i class="fa-solid fa-film"></i>
-
 <a href="index.html">
 Movies
 </a>
-
 </li>
 
-
-
-
-
 <li>
-
 <i class="fa-solid fa-tv"></i>
-
 <a href="series.html">
 Series
 </a>
-
 </li>
 
-
-
-
-
 <li>
-
-<i class="fa-solid fa-video"></i>
-
-<a href="reels.html">
-Reels
-</a>
-
-</li>
-
-
-
-
-
-<li>
-
 <i class="fa-solid fa-fire"></i>
-
 <a href="trending.html">
 Trending
 </a>
-
 </li>
 
-
-
-
-
 <li>
-
 <i class="fa-solid fa-star"></i>
-
 <a href="top-rated.html">
 Top Rated
 </a>
-
 </li>
-
-
-
-
-
-<hr>
-
-
-
-
-
-<li>
-
-<i class="fa-solid fa-phone"></i>
-
-<a href="contact.html">
-Contact
-</a>
-
-</li>
-
-
-
-
-
-<li>
-
-<i class="fa-solid fa-gear"></i>
-
-<a href="settings.html">
-Settings
-</a>
-
-</li>
-
-
 
 </ul>
 
-
-
 </nav>
-
-
-
-
-
 
 <div class="overlay-bg"></div>
 
-
-
-
-
-
-
-
-
-<main class="movie-details-page">
-
-
+<main>
 
 <!-- =========================
-        MOVIE HERO
+ PREMIUM HERO
 ========================= -->
 
-
-<section class="movie-hero">
-
+<section class="premium-movie-hero">
 
 <div class="movie-backdrop"></div>
 
+<div class="hero-content">
 
-
-
-
-<div class="movie-content">
-
-
-
-<div class="movie-poster">
-
+<div class="poster-container">
 
 <img
 
@@ -313,29 +137,15 @@ src="assets/images/no-image.jpg"
 
 alt="Movie Poster">
 
-
 </div>
 
+<div class="movie-details-content">
 
-
-
-
-
-
-
-<div class="movie-info-box">
-
-
-
-<span class="tag">
+<div class="movie-badge">
 
 🔥 Featured
 
-</span>
-
-
-
-
+</div>
 
 <h1 id="movieTitle">
 
@@ -343,13 +153,7 @@ Loading...
 
 </h1>
 
-
-
-
-
-
-<div class="movie-meta">
-
+<div class="movie-stats">
 
 <span id="movieRating">
 
@@ -357,15 +161,11 @@ Loading...
 
 </span>
 
-
-
 <span id="movieYear">
 
 2026
 
 </span>
-
-
 
 <span id="movieRuntime">
 
@@ -373,48 +173,31 @@ Loading...
 
 </span>
 
+<span id="moviePopularity">
 
+Popularity
+
+</span>
 
 </div>
-
-
-
-
-
-
 
 <div 
 class="genre-container"
 id="movieGenres">
 
-
 </div>
 
+<p
 
-
-
-
-
-
-<p id="movieDescription">
+id="movieDescription">
 
 Loading movie description...
 
 </p>
 
-
-
-
-
-
-
 <div class="hero-buttons">
 
-
-
-<button 
-class="trailer-btn watch">
-
+<button class="watch">
 
 <i class="fa-solid fa-play"></i>
 
@@ -422,280 +205,294 @@ Watch Trailer
 
 </button>
 
+<button
 
+class="info"
 
-
-
-
-<button 
-class="watch-btn info"
 id="watchlistBtn">
-
 
 <i class="fa-solid fa-plus"></i>
 
-Add Watchlist
+My List
 
 </button>
 
-
+</div>
 
 </div>
 
-
-
 </div>
-
-
-
-</div>
-
 
 </section>
+
 <!-- =========================
-        REVIEWS SECTION
+ MOVIE DETAILS
 ========================= -->
 
-<section class="reviews-section">
-
+<section class="details-section">
 
 <h2>
-User Reviews
+
+Movie Details
+
 </h2>
 
+<div class="details-grid">
 
+<div class="detail-card">
 
-<div class="reviews-container" id="reviewsContainer">
-
-
-
-<div class="review-card">
-
-
-<div class="review-user">
-
-<i class="fa-solid fa-user-circle"></i>
-
-<span>
-TRAP USER
-</span>
-
-</div>
-
-
-
-<p>
-Amazing movie experience. The action and story were incredible.
-</p>
-
-
-
-<div class="review-rating">
-
-⭐⭐⭐⭐⭐
-
-</div>
-
-
-
-</div>
-
-
-
-
-</div>
-
-
-
-
-
-
-<!-- ADD REVIEW -->
-
-<div class="add-review">
-
+<i class="fa-solid fa-video"></i>
 
 <h3>
-Leave a Review
+
+Director
+
 </h3>
 
+<p id="movieDirector">
 
+N/A
 
-<textarea
-id="reviewText"
-placeholder="Write your review..."
-></textarea>
-
-
-
-
-<button id="submitReview">
-
-Submit Review
-
-</button>
-
-
+</p>
 
 </div>
 
+<div class="detail-card">
 
+<i class="fa-solid fa-pen"></i>
+
+<h3>
+
+Writer
+
+</h3>
+
+<p id="movieWriter">
+
+N/A
+
+</p>
+
+</div>
+
+<div class="detail-card">
+
+<i class="fa-solid fa-building"></i>
+
+<h3>
+
+Studio
+
+</h3>
+
+<p id="movieCompanies">
+
+N/A
+
+</p>
+
+</div>
+
+<div class="detail-card">
+
+<i class="fa-solid fa-earth-americas"></i>
+
+<h3>
+
+Country
+
+</h3>
+
+<p id="movieCountry">
+
+N/A
+
+</p>
+
+</div>
+
+<div class="detail-card">
+
+<i class="fa-solid fa-language"></i>
+
+<h3>
+
+Languages
+
+</h3>
+
+<p id="movieLanguages">
+
+N/A
+
+</p>
+
+</div>
+
+<div class="detail-card">
+
+<i class="fa-solid fa-money-bill"></i>
+
+<h3>
+
+Budget
+
+</h3>
+
+<p id="movieBudget">
+
+N/A
+
+</p>
+
+</div>
+
+<div class="detail-card">
+
+<i class="fa-solid fa-chart-line"></i>
+
+<h3>
+
+Revenue
+
+</h3>
+
+<p id="movieRevenue">
+
+N/A
+
+</p>
+
+</div>
+
+</div>
 
 </section>
 
-
-
-
-
-
-
-
-
 <!-- =========================
-        RECOMMENDATIONS
+ STORY
 ========================= -->
 
-
-<section class="recommend-section">
-
+<section class="story-section">
 
 <h2>
-Recommended Movies
+
+Storyline
+
 </h2>
 
+<div class="story-card">
 
+<p id="storyText">
 
-<div 
-class="movie-container"
-id="recommendedMovies">
+Loading story...
 
+</p>
 
 </div>
 
-
-
 </section>
 
-
-
-
-
-
-
-
-
 <!-- =========================
-        COMMENTS
+ TRAILER
 ========================= -->
 
-
-<section class="comments-section">
-
+<section class="trailer-section">
 
 <h2>
-Comments
+
+Official Trailer
+
 </h2>
 
-
-
 <div 
-id="commentsContainer"
-class="comments-container">
 
+id="trailerBox"
 
-</div>
+class="trailer-box">
 
+<p>
 
+Loading trailer...
 
-
-
-<div class="comment-box">
-
-
-<input
-
-type="text"
-
-id="commentInput"
-
-placeholder="Add a comment...">
-
-
-<button id="commentBtn">
-
-Send
-
-</button>
-
-
+</p>
 
 </div>
-
-
-
 
 </section>
 
-
-
-
-
-
-
-
-
 <!-- =========================
-        TRAILER MODAL
+ CAST
 ========================= -->
 
+<section class="cast-section">
 
-<div class="trailer-modal">
+<h2>
 
+Top Cast
 
+</h2>
 
-<div class="trailer-content">
+<div
 
+id="castContainer"
 
-
-<button class="close-trailer">
-
-<i class="fa-solid fa-xmark"></i>
-
-</button>
-
-
-
-
-<iframe
-
-id="trailerFrame"
-
-allowfullscreen>
-
-</iframe>
-
-
-
+class="cast-container">
 
 </div>
 
+</section>
+
+<!-- =========================
+ SIMILAR
+========================= -->
+
+<section class="similar-section">
+
+<h2>
+
+More Like This
+
+</h2>
+
+<div
+
+id="similarMovies"
+
+class="movie-container">
 
 </div>
 
+</section>
 
+</main>
 
+<footer>
 
+<h2>
 
+TRAP MOVIES
 
+</h2>
 
+<p>
 
-<!-- =========================
-        BACK TO TOP
-========================= -->
+Discover • Watch • Enjoy 🎬
 
+</p>
 
-<button class="back-top">
+<p>
 
-<i class="fa-solid fa-arrow-up"></i>
+© 2026 TRAP MOVIES
 
-</button>
+</p>
+
+</footer>
+
+<script src="script.js"></script>
+
+<script src="movie.js"></script>
+
+</body>
+
+</html>
