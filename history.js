@@ -1,25 +1,28 @@
-document.addEventListener(
-"DOMContentLoaded",
-()=>{
+/* ==================================
+   TRAP MOVIES
+   WATCH HISTORY ENGINE
+================================== */
 
 
-const container =
+document.addEventListener("DOMContentLoaded",()=>{
+
+
+const historyContainer =
 document.getElementById(
 "historyContainer"
 );
 
 
 
-let history =
+if(!historyContainer)
+return;
 
-JSON.parse(
 
+
+let history = JSON.parse(
 localStorage.getItem("watchHistory")
-
 )
-
 || [];
-
 
 
 
@@ -27,39 +30,25 @@ localStorage.getItem("watchHistory")
 if(history.length === 0){
 
 
-container.innerHTML =
-
-`
+historyContainer.innerHTML = `
 
 <div class="empty-history">
 
-
 <i class="fa-solid fa-clock"></i>
 
-
 <h2>
-
-No Watch History Yet
-
+No Watch History
 </h2>
 
-
 <p>
-
-Start watching movies to see them here.
-
+Movies you watch will appear here
 </p>
-
 
 </div>
 
-
 `;
 
-
-
 return;
-
 
 }
 
@@ -67,34 +56,22 @@ return;
 
 
 
-
-
-container.innerHTML="";
-
-
-
+historyContainer.innerHTML = "";
 
 
 
 history.forEach(movie=>{
 
 
+historyContainer.innerHTML += `
 
-
-
-container.innerHTML +=
-
-
-`
 
 <div class="movie-card"
 
 onclick="openMovie(${movie.id})">
 
 
-
 <img src="${movie.poster}">
-
 
 
 <h3>
@@ -104,17 +81,14 @@ ${movie.title}
 </h3>
 
 
-
 <p>
 
-${movie.year}
+${movie.year || "N/A"}
 
 </p>
 
 
-
 </div>
-
 
 
 `;
@@ -133,12 +107,9 @@ ${movie.year}
 
 
 
-function openMovie(id){
-
+window.openMovie=function(id){
 
 window.location.href =
-
 `movie.html?id=${id}`;
 
-
-}
+};
