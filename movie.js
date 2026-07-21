@@ -1,15 +1,14 @@
 /* ==================================
    TRAP MOVIES
-   PREMIUM MOVIE DETAILS ENGINE V4
+   PREMIUM MOVIE DETAILS ENGINE V6
 
-   FIXED:
+   CLEAN VERSION
    - TMDB DETAILS
    - SAFE FETCH
    - POSTER
    - BACKDROP
    - RATING
    - GENRES
-   - CLEAN SCOPE
 ================================== */
 
 
@@ -39,6 +38,7 @@ const ORIGINAL_IMAGE =
 
 
 const movieID =
+
 new URLSearchParams(
 window.location.search
 ).get("id");
@@ -59,6 +59,10 @@ return;
 
 
 
+
+
+
+
 /* =========================
         SAFE FETCH
 ========================= */
@@ -66,11 +70,11 @@ return;
 
 async function fetchTMDB(endpoint){
 
+
 try{
 
 
-const response =
-await fetch(
+const response = await fetch(
 
 `${BASE_URL}${endpoint}?api_key=${API_KEY}&language=en-US`
 
@@ -96,6 +100,7 @@ return await response.json();
 
 catch(error){
 
+
 console.error(
 "TMDB ERROR:",
 error
@@ -113,8 +118,11 @@ return null;
 
 
 
+
+
+
 /* =========================
-        TEXT UPDATE
+        UPDATE TEXT
 ========================= */
 
 
@@ -122,18 +130,23 @@ function updateText(id,text){
 
 
 const element =
+
 document.getElementById(id);
+
 
 
 if(element){
 
 element.textContent =
+
 text || "N/A";
 
 }
 
 
 }
+
+
 
 
 
@@ -150,6 +163,7 @@ async function loadMovie(){
 
 
 const movie =
+
 await fetchTMDB(
 `/movie/${movieID}`
 );
@@ -168,7 +182,10 @@ return;
 
 
 
+
 currentMovie = movie;
+
+
 
 
 
@@ -178,6 +195,7 @@ currentMovie = movie;
 
 
 const backdrop =
+
 document.querySelector(
 ".movie-backdrop"
 );
@@ -187,25 +205,35 @@ document.querySelector(
 if(backdrop && movie.backdrop_path){
 
 
+
 backdrop.style.backgroundImage =
 
 
 `
 
 linear-gradient(
+
 90deg,
+
 rgba(5,5,5,.95),
+
 rgba(5,5,5,.35)
+
 ),
 
 url(
+
 ${ORIGINAL_IMAGE}${movie.backdrop_path}
+
 )
 
 `;
 
 
+
 }
+
+
 
 
 
@@ -215,6 +243,7 @@ ${ORIGINAL_IMAGE}${movie.backdrop_path}
 
 
 const poster =
+
 document.getElementById(
 "moviePoster"
 );
@@ -238,10 +267,6 @@ IMAGE_URL + movie.poster_path
 
 
 
-poster.alt =
-movie.title;
-
-
 }
 
 
@@ -262,47 +287,70 @@ movie.title
 
 updateText(
 "movieYear",
+
 movie.release_date
+
 ?
+
 movie.release_date.slice(0,4)
+
 :
+
 "N/A"
+
 );
 
 
 
 updateText(
 "movieRuntime",
+
 movie.runtime
+
 ?
+
 movie.runtime+" min"
+
 :
+
 "N/A"
+
 );
 
 
 
 updateText(
 "moviePopularity",
+
 movie.popularity
+
 ?
+
 Math.floor(movie.popularity)+" Views"
+
 :
+
 "N/A"
+
 );
 
 
 
 updateText(
 "movieDescription",
+
 movie.overview
+
 );
+
 
 
 
 updateText(
 "storyText",
+
 movie.overview
+
 );
 
 
@@ -315,6 +363,7 @@ movie.overview
 
 
 const rating =
+
 document.getElementById(
 "movieRating"
 );
@@ -344,7 +393,12 @@ movie.vote_average.toFixed(1)
 
 `;
 
+
 }
+
+
+
+
 
 
 
@@ -352,6 +406,7 @@ movie.vote_average.toFixed(1)
 
 
 const genres =
+
 document.getElementById(
 "movieGenres"
 );
@@ -365,15 +420,20 @@ genres.innerHTML="";
 
 
 
-movie.genres.forEach(genre=>{
+(movie.genres || [])
+
+.forEach(genre=>{
 
 
 genres.innerHTML +=
 
+
 `
 
 <span>
+
 ${genre.name}
+
 </span>
 
 `;
@@ -388,7 +448,22 @@ ${genre.name}
 
 
 
-loadExtraFeatures(movie);
+
+/* LOAD OTHER FEATURES */
+
+loadTrailer();
+
+loadCast();
+
+loadCrew();
+
+loadCompany();
+
+loadSimilar();
+
+loadWatchlist(movie);
+
+setupFavourite(movie);
 
 
 
@@ -398,17 +473,12 @@ loadExtraFeatures(movie);
 
 
 
-
-
-
-
 /* =========================
-        EXPORT
+        GLOBAL ACCESS
 ========================= */
 
 
 window.TRAP_MOVIE = {
-
 
 movieID,
 
@@ -428,43 +498,7 @@ getCurrentMovie:()=>currentMovie
 
 
 
-/* START */
-
 loadMovie();
-
-
-
-});
-/* =========================
-        EXTRA FEATURES
-========================= */
-
-
-async function loadExtraFeatures(movie){
-
-
-await loadTrailer();
-
-await loadCast();
-
-await loadCrew();
-
-await loadCompany();
-
-await loadSimilar();
-
-loadWatchlist(movie);
-
-setupFavourite(movie);
-
-saveAccountStats();
-
-
-}
-
-
-
-
 
 
 
@@ -493,7 +527,9 @@ document.getElementById(
 
 
 if(!box || !data)
+
 return;
+
 
 
 
@@ -527,11 +563,14 @@ box.innerHTML =
 
 src="https://www.youtube.com/embed/${trailer.key}"
 
+allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+
 allowfullscreen>
 
 </iframe>
 
 `;
+
 
 
 }
@@ -551,7 +590,10 @@ Trailer unavailable
 
 `;
 
+
+
 }
+
 
 
 }
@@ -589,12 +631,17 @@ document.getElementById(
 
 
 if(!box || !data)
+
 return;
 
 
 
 
-box.innerHTML="";
+
+box.innerHTML = "";
+
+
+
 
 
 
@@ -620,7 +667,9 @@ IMAGE_URL + actor.profile_path
 
 
 
+
 box.innerHTML +=
+
 
 `
 
@@ -631,18 +680,23 @@ box.innerHTML +=
 
 
 <h3>
+
 ${actor.name}
+
 </h3>
 
 
 <p>
+
 ${actor.character || "Unknown"}
+
 </p>
 
 
 </div>
 
 `;
+
 
 
 });
@@ -675,7 +729,9 @@ await fetchTMDB(
 
 
 if(!data)
+
 return;
+
 
 
 
@@ -684,7 +740,7 @@ const director =
 
 (data.crew || [])
 
-.find(person=>
+.find(person =>
 
 person.job === "Director"
 
@@ -698,7 +754,7 @@ const writers =
 
 (data.crew || [])
 
-.filter(person=>
+.filter(person =>
 
 person.job === "Writer"
 
@@ -733,6 +789,7 @@ director.name
 "N/A"
 
 );
+
 
 
 
@@ -774,6 +831,7 @@ await fetchTMDB(
 
 
 if(!movie)
+
 return;
 
 
@@ -826,6 +884,8 @@ updateText(
 
 
 
+
+
 updateText(
 
 "movieBudget",
@@ -844,6 +904,8 @@ movie.budget
 
 
 
+
+
 updateText(
 
 "movieRevenue",
@@ -859,6 +921,7 @@ movie.revenue
 "N/A"
 
 );
+
 
 
 }
@@ -889,6 +952,8 @@ await fetchTMDB(
 
 
 
+
+
 const box =
 
 document.getElementById(
@@ -898,12 +963,16 @@ document.getElementById(
 
 
 if(!box || !data)
+
 return;
 
 
 
 
+
 box.innerHTML="";
+
+
 
 
 
@@ -916,6 +985,7 @@ box.innerHTML="";
 
 box.innerHTML +=
 
+
 `
 
 <div class="movie-card"
@@ -923,9 +993,7 @@ box.innerHTML +=
 onclick="openMovie(${movie.id})">
 
 
-<img src="
-
-${
+<img src="${
 
 movie.poster_path
 
@@ -937,9 +1005,7 @@ IMAGE_URL + movie.poster_path
 
 "assets/images/no-image.jpg"
 
-}
-
-">
+}">
 
 
 <h3>
@@ -973,10 +1039,13 @@ movie.vote_average.toFixed(1)
 `;
 
 
+
 });
 
 
 }
+
+
 /* =========================
         WATCHLIST SYSTEM
 ========================= */
@@ -994,6 +1063,7 @@ document.getElementById(
 
 
 if(!button)
+
 return;
 
 
@@ -1021,8 +1091,12 @@ function updateButton(){
 const exists =
 
 list.some(
+
 item=>item.id === movie.id
+
 );
+
+
 
 
 
@@ -1058,7 +1132,9 @@ My List
 
 
 
+
 updateButton();
+
 
 
 
@@ -1070,14 +1146,18 @@ button.onclick = ()=>{
 const exists =
 
 list.some(
+
 item=>item.id === movie.id
+
 );
 
 
 
 
 
+
 if(exists){
+
 
 
 list =
@@ -1089,16 +1169,20 @@ item=>item.id !== movie.id
 );
 
 
+
 }
 
 else{
+
 
 
 list.push({
 
 id:movie.id,
 
+
 title:movie.title,
+
 
 poster:
 
@@ -1129,6 +1213,7 @@ movie.release_date.slice(0,4)
 :
 
 "N/A"
+
 
 
 });
@@ -1185,7 +1270,9 @@ document.getElementById(
 
 
 if(!button)
+
 return;
+
 
 
 
@@ -1201,6 +1288,7 @@ localStorage.getItem(
 )
 
 || [];
+
 
 
 
@@ -1263,7 +1351,6 @@ updateFavourite();
 
 
 
-
 button.onclick = ()=>{
 
 
@@ -1280,7 +1367,9 @@ item=>item.id === movie.id
 
 
 
+
 if(exists){
+
 
 
 favourites =
@@ -1292,16 +1381,20 @@ item=>item.id !== movie.id
 );
 
 
+
 }
 
 else{
+
 
 
 favourites.push({
 
 id:movie.id,
 
+
 title:movie.title,
+
 
 poster:
 
@@ -1319,6 +1412,7 @@ IMAGE_URL + movie.poster_path
 rating:
 
 movie.vote_average
+
 
 
 });
@@ -1360,11 +1454,12 @@ updateFavourite();
 
 
 /* =========================
-        WATCH HISTORY
+        HISTORY SYSTEM
 ========================= */
 
 
 function addToHistory(movie){
+
 
 
 let history =
@@ -1378,6 +1473,7 @@ localStorage.getItem(
 )
 
 || [];
+
 
 
 
@@ -1437,6 +1533,7 @@ JSON.stringify(history)
 function saveContinueWatching(movie){
 
 
+
 let list =
 
 JSON.parse(
@@ -1448,7 +1545,6 @@ localStorage.getItem(
 )
 
 || [];
-
 
 
 
@@ -1467,12 +1563,13 @@ item=>item.id !== movie.id
 
 
 
-
 list.unshift({
 
 id:movie.id,
 
+
 title:movie.title,
+
 
 poster:
 
@@ -1490,6 +1587,7 @@ IMAGE_URL + movie.poster_path
 time:
 
 Date.now()
+
 
 
 });
@@ -1517,14 +1615,13 @@ JSON.stringify(list)
 
 
 }
+
 /* =========================
         WATCH BUTTON
 ========================= */
 
 
-document
-
-.getElementById("watchBtn")
+document.getElementById("watchBtn")
 
 ?.addEventListener(
 
@@ -1535,8 +1632,7 @@ document
 
 const movie =
 
-TRAP_MOVIE.getCurrentMovie();
-
+window.TRAP_MOVIE.getCurrentMovie();
 
 
 
@@ -1565,7 +1661,6 @@ IMAGE_URL + movie.poster_path
 "assets/images/no-image.jpg",
 
 
-
 year:
 
 movie.release_date
@@ -1579,15 +1674,12 @@ movie.release_date.slice(0,4)
 "N/A",
 
 
-
 rating:
 
 movie.vote_average
 
 
-
 };
-
 
 
 
@@ -1600,7 +1692,6 @@ saveContinueWatching(movie);
 
 
 }
-
 
 
 }
@@ -1621,7 +1712,6 @@ saveContinueWatching(movie);
 
 
 function saveAccountStats(){
-
 
 
 const history =
@@ -1670,6 +1760,7 @@ localStorage.getItem(
 
 
 
+
 const watchedCount =
 
 document.getElementById(
@@ -1678,13 +1769,11 @@ document.getElementById(
 
 
 
-
 const favoriteCount =
 
 document.getElementById(
 "favoriteCount"
 );
-
 
 
 
@@ -1702,6 +1791,7 @@ document.getElementById(
 if(watchedCount)
 
 watchedCount.textContent =
+
 history.length;
 
 
@@ -1710,6 +1800,7 @@ history.length;
 if(favoriteCount)
 
 favoriteCount.textContent =
+
 favourites.length;
 
 
@@ -1718,6 +1809,7 @@ favourites.length;
 if(listCount)
 
 listCount.textContent =
+
 watchlist.length;
 
 
@@ -1747,6 +1839,7 @@ window.location.href =
 encodeURIComponent(id);
 
 
+
 };
 
 
@@ -1758,33 +1851,29 @@ encodeURIComponent(id);
 
 
 /* =========================
-        START ENGINE
+        WAIT FOR MOVIE
 ========================= */
 
 
-const checkMovie =
+const accountTimer =
 
 setInterval(()=>{
 
 
-
 const movie =
 
-TRAP_MOVIE.getCurrentMovie();
-
-
+window.TRAP_MOVIE?.getCurrentMovie();
 
 
 
 if(movie){
 
 
-
 saveAccountStats();
 
 
 
-clearInterval(checkMovie);
+clearInterval(accountTimer);
 
 
 
@@ -1796,21 +1885,6 @@ clearInterval(checkMovie);
 
 
 
-
-});
-const checkMovie = setInterval(()=>{
-
-const movie = TRAP_MOVIE.getCurrentMovie();
-
-if(movie){
-
-saveAccountStats();
-
-clearInterval(checkMovie);
-
-}
-
-},300);
 
 
 });
