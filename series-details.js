@@ -45,11 +45,6 @@ return;
 
 
 
-/* =========================
-        FETCH DATA
-========================= */
-
-
 async function fetchData(endpoint){
 
 
@@ -72,7 +67,11 @@ return await response.json();
 catch(error){
 
 
-console.log(error);
+console.log(
+"TMDB ERROR:",
+error
+);
+
 
 return null;
 
@@ -114,11 +113,6 @@ value || "N/A";
 
 
 
-/* =========================
-        SERIES DETAILS
-========================= */
-
-
 async function loadSeries(){
 
 
@@ -134,9 +128,6 @@ return;
 
 
 
-
-
-/* BACKDROP */
 
 
 const backdrop =
@@ -169,9 +160,6 @@ url(${ORIGINAL_IMAGE}${series.backdrop_path})
 
 
 
-/* POSTER */
-
-
 const poster =
 document.querySelector(
 "#seriesPoster"
@@ -201,19 +189,10 @@ IMAGE_URL + series.poster_path
 
 
 
-
-setText(
-"#seriesTitle",
-series.name
-);
+setText("#seriesTitle",series.name);
 
 
-
-setText(
-"#seriesDescription",
-series.overview
-);
-
+setText("#seriesDescription",series.overview);
 
 
 setText(
@@ -249,11 +228,23 @@ document.querySelector(
 
 if(rating){
 
-
 rating.innerHTML =
 
 `
-⭐ ${series.vote_average.toFixed(1)}
+
+⭐ ${
+series.vote_average
+
+?
+
+series.vote_average.toFixed(1)
+
+:
+
+"N/A"
+
+}
+
 `;
 
 }
@@ -262,8 +253,6 @@ rating.innerHTML =
 
 
 
-
-/* GENRES */
 
 
 const genres =
@@ -280,7 +269,7 @@ genres.innerHTML="";
 
 
 
-series.genres.forEach(genre=>{
+(series.genres || []).forEach(genre=>{
 
 
 genres.innerHTML +=
@@ -356,7 +345,6 @@ series.created_by
 
 
 
-
 loadWatchlist(series);
 
 
@@ -368,11 +356,6 @@ loadWatchlist(series);
 
 
 
-
-
-/* =========================
-        TRAILER
-========================= */
 
 
 async function loadTrailer(){
@@ -399,9 +382,10 @@ return;
 
 
 
+
 const trailer =
 
-data.results.find(video=>
+data?.results?.find(video=>
 
 video.type==="Trailer"
 
@@ -432,8 +416,6 @@ allowfullscreen>
 
 `;
 
-
-
 }
 
 else{
@@ -454,7 +436,6 @@ Trailer not available
 }
 
 
-
 }
 
 
@@ -463,11 +444,6 @@ Trailer not available
 
 
 
-
-
-/* =========================
-        CAST
-========================= */
 
 
 async function loadCast(){
@@ -498,7 +474,7 @@ container.innerHTML="";
 
 
 
-data.cast
+(data?.cast || [])
 .slice(0,12)
 .forEach(actor=>{
 
@@ -538,7 +514,7 @@ ${actor.name}
 
 <p>
 
-${actor.character}
+${actor.character || "Unknown"}
 
 </p>
 
@@ -552,7 +528,6 @@ ${actor.character}
 });
 
 
-
 }
 
 
@@ -561,11 +536,6 @@ ${actor.character}
 
 
 
-
-
-/* =========================
-        PREMIUM EPISODES
-========================= */
 
 
 async function loadEpisodes(){
@@ -594,6 +564,7 @@ document.querySelector(
 
 if(!series || !select || !container)
 return;
+
 
 
 
@@ -631,46 +602,31 @@ Season ${season.season_number}
 
 
 
-async function getSeasonEpisodes(seasonNumber){
+async function showEpisodes(season){
+
+
+
+container.innerHTML=
+
+`
+<p>
+Loading Episodes...
+</p>
+`;
+
 
 
 const data =
 await fetchData(
 
-`/tv/${seriesID}/season/${seasonNumber}`
+`/tv/${seriesID}/season/${season}`
 
 );
 
 
-return data.episodes || [];
-
-
-}
-
-
-
-
-
-
-
-async function showEpisodes(season){
-
-
-container.innerHTML =
-
-`
-
-<p>
-Loading Episodes...
-</p>
-
-`;
-
-
 
 const episodes =
-
-await getSeasonEpisodes(season);
+data?.episodes || [];
 
 
 
@@ -681,21 +637,6 @@ container.innerHTML="";
 episodes.forEach(ep=>{
 
 
-const image =
-
-ep.still_path
-
-?
-
-IMAGE_URL + ep.still_path
-
-:
-
-"assets/images/no-image.jpg";
-
-
-
-
 container.innerHTML +=
 
 `
@@ -703,9 +644,18 @@ container.innerHTML +=
 <div class="episode-card">
 
 
+<img src="${
+ep.still_path
 
-<img src="${image}">
+?
 
+IMAGE_URL+ep.still_path
+
+:
+
+"assets/images/no-image.jpg"
+
+}">
 
 
 <div class="episode-info">
@@ -718,16 +668,11 @@ ${ep.episode_number}. ${ep.name}
 </h3>
 
 
-
 <p>
 
-📅 ${
-ep.air_date || "Unknown"
-
-}
+📅 ${ep.air_date || "Unknown"}
 
 </p>
-
 
 
 <p>
@@ -735,7 +680,6 @@ ep.air_date || "Unknown"
 ${ep.overview || "No description available"}
 
 </p>
-
 
 
 </div>
@@ -750,8 +694,8 @@ ${ep.overview || "No description available"}
 });
 
 
-
 }
+
 
 
 
@@ -763,7 +707,7 @@ select.addEventListener(
 
 
 showEpisodes(
-select.value
+Number(select.value)
 );
 
 
@@ -772,19 +716,17 @@ select.value
 
 
 
-
-
 showEpisodes(1);
-
 
 
 }
 
 
 
-/* =========================
-        SIMILAR SERIES
-========================= */
+
+
+
+
 
 
 async function loadSimilar(){
@@ -815,7 +757,7 @@ box.innerHTML="";
 
 
 
-data.results
+(data?.results || [])
 .slice(0,10)
 .forEach(show=>{
 
@@ -831,10 +773,15 @@ onclick="openSeries(${show.id})">
 
 <img src="${
 show.poster_path
+
 ?
+
 IMAGE_URL+show.poster_path
+
 :
+
 "assets/images/no-image.jpg"
+
 }">
 
 
@@ -847,7 +794,18 @@ ${show.name}
 
 <p>
 
-⭐ ${show.vote_average.toFixed(1)}
+⭐ ${
+show.vote_average
+
+?
+
+show.vote_average.toFixed(1)
+
+:
+
+"N/A"
+
+}
 
 </p>
 
@@ -855,8 +813,6 @@ ${show.name}
 </div>
 
 `;
-
-
 
 });
 
@@ -869,11 +825,6 @@ ${show.name}
 
 
 
-
-
-/* =========================
-        MY LIST
-========================= */
 
 
 function loadWatchlist(series){
@@ -901,11 +852,6 @@ localStorage.getItem("seriesList")
 
 
 
-
-
-button.onclick=()=>{
-
-
 const exists =
 list.find(
 item=>item.id===series.id
@@ -915,12 +861,32 @@ item=>item.id===series.id
 
 if(exists){
 
+button.innerHTML =
+"✓ Added To My List";
+
+}
+
+
+
+
+
+button.onclick=()=>{
+
+
+const saved =
+list.find(
+item=>item.id===series.id
+);
+
+
+
+if(saved){
+
 
 list =
 list.filter(
 item=>item.id!==series.id
 );
-
 
 
 button.innerHTML =
@@ -941,7 +907,6 @@ title:series.name,
 poster:series.poster_path
 
 });
-
 
 
 button.innerHTML =
@@ -965,7 +930,6 @@ JSON.stringify(list)
 };
 
 
-
 }
 
 
@@ -973,12 +937,6 @@ JSON.stringify(list)
 
 
 
-
-
-
-/* =========================
-        START ENGINE
-========================= */
 
 
 loadSeries();
@@ -1001,13 +959,12 @@ loadSimilar();
 
 
 
-/* OPEN SERIES */
 
-function openSeries(id){
+window.openSeries = function(id){
 
 
 window.location.href =
 
 `series-details.html?id=${id}`;
 
-}
+};
