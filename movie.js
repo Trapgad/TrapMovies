@@ -1,7 +1,7 @@
 /* ==================================
    TRAP MOVIES
    PREMIUM MOVIE DETAILS ENGINE V2
-   TMDB + TRAILER + CAST + LIST
+   TMDB + TRAILER + CAST + LIST + HISTORY
 ================================== */
 
 
@@ -31,6 +31,11 @@ window.location.search
 ).get("id");
 
 
+// STORE CURRENT MOVIE FOR HISTORY
+
+let currentMovie = null;
+
+
 
 if(!movieID){
 
@@ -39,7 +44,6 @@ console.log("Movie ID missing");
 return;
 
 }
-
 
 
 
@@ -100,8 +104,10 @@ document.getElementById(id);
 
 if(element){
 
+
 element.textContent =
 text || "N/A";
+
 
 }
 
@@ -131,7 +137,14 @@ await fetchTMDB(
 
 
 
-if(!movie) return;
+if(!movie)
+return;
+
+
+
+// SAVE MOVIE DATA
+
+currentMovie = movie;
 
 
 
@@ -140,6 +153,7 @@ if(!movie) return;
 
 
 // BACKDROP
+
 
 const backdrop =
 document.querySelector(
@@ -176,7 +190,9 @@ ${ORIGINAL_IMAGE}${movie.backdrop_path}
 
 
 
+
 // POSTER
+
 
 const poster =
 document.getElementById(
@@ -189,6 +205,7 @@ if(poster){
 
 
 poster.src =
+
 
 movie.poster_path
 
@@ -209,7 +226,9 @@ IMAGE_URL + movie.poster_path
 
 
 
+
 // BASIC INFO
+
 
 
 updateText(
@@ -264,6 +283,7 @@ movie.overview
 
 // RATING
 
+
 const rating =
 document.getElementById(
 "movieRating"
@@ -273,7 +293,9 @@ document.getElementById(
 
 if(rating){
 
+
 rating.innerHTML =
+
 `
 ⭐ ${movie.vote_average.toFixed(1)}
 `;
@@ -285,8 +307,8 @@ rating.innerHTML =
 
 
 
-
 // GENRES
+
 
 const genres =
 document.getElementById(
@@ -301,17 +323,23 @@ if(genres){
 genres.innerHTML="";
 
 
+
 movie.genres.forEach(item=>{
 
 
 genres.innerHTML +=
 
+
 `
+
 <span>
+
 ${item.name}
+
 </span>
 
 `;
+
 
 });
 
@@ -323,18 +351,17 @@ ${item.name}
 
 
 
-
-
-
 // MONEY
 
 
 updateText(
+
 "movieBudget",
 
 movie.budget
 
 ?
+
 "$"+movie.budget.toLocaleString()
 
 :
@@ -346,11 +373,13 @@ movie.budget
 
 
 updateText(
+
 "movieRevenue",
 
 movie.revenue
 
 ?
+
 "$"+movie.revenue.toLocaleString()
 
 :
@@ -362,19 +391,12 @@ movie.revenue
 
 
 
+
 loadWatchlist(movie);
 
 
+
 }
-
-
-
-
-
-
-
-
-
 /* =========================
         TRAILER
 ========================= */
@@ -419,7 +441,6 @@ video.site==="YouTube"
 
 
 
-
 if(trailer){
 
 
@@ -439,14 +460,18 @@ allowfullscreen>
 
 }
 
+
 else{
 
 
-box.innerHTML=
+box.innerHTML =
 
 `
+
 <p>
+
 Trailer unavailable
+
 </p>
 
 `;
@@ -493,7 +518,10 @@ return;
 
 
 
+
+
 box.innerHTML="";
+
 
 
 
@@ -506,15 +534,20 @@ data.cast
 
 const image =
 
+
 actor.profile_path
 
 ?
 
-IMAGE_URL+actor.profile_path
+
+IMAGE_URL + actor.profile_path
+
 
 :
 
+
 "assets/images/no-user.jpg";
+
 
 
 
@@ -545,6 +578,7 @@ ${actor.character}
 </p>
 
 
+
 </div>
 
 `;
@@ -552,7 +586,6 @@ ${actor.character}
 
 
 });
-
 
 
 }
@@ -590,7 +623,9 @@ return;
 
 
 const director =
+
 data.crew.find(
+
 person=>
 
 person.job==="Director"
@@ -599,25 +634,37 @@ person.job==="Director"
 
 
 
+
+
 const writers =
+
 
 data.crew
 
-.filter(person=>
+.filter(
+
+person=>
 
 person.job==="Writer"
+
 ||
+
 person.job==="Screenplay"
 
 )
 
+
 .slice(0,3)
 
-.map(person=>
+
+.map(
+
+person=>
 
 person.name
 
 )
+
 
 .join(", ");
 
@@ -626,15 +673,23 @@ person.name
 
 
 updateText(
+
 "movieDirector",
+
 director?.name
+
 );
 
 
 
+
+
 updateText(
+
 "movieWriter",
+
 writers
+
 );
 
 
@@ -657,6 +712,7 @@ async function loadCompany(){
 
 
 const movie =
+
 await fetchTMDB(
 
 `/movie/${movieID}`
@@ -665,8 +721,11 @@ await fetchTMDB(
 
 
 
+
 if(!movie)
 return;
+
+
 
 
 
@@ -685,6 +744,10 @@ movie.production_companies
 
 
 
+
+
+
+
 updateText(
 
 "movieCountry",
@@ -696,6 +759,10 @@ movie.production_countries
 .join(", ")
 
 );
+
+
+
+
 
 
 
@@ -712,16 +779,8 @@ movie.spoken_languages
 );
 
 
+
 }
-
-
-
-
-
-
-
-
-
 /* =========================
         SIMILAR MOVIES
 ========================= */
@@ -751,7 +810,10 @@ return;
 
 
 
+
+
 box.innerHTML="";
+
 
 
 
@@ -761,7 +823,9 @@ data.results
 .forEach(movie=>{
 
 
+
 box.innerHTML +=
+
 
 `
 
@@ -775,13 +839,14 @@ movie.poster_path
 
 ?
 
-IMAGE_URL+movie.poster_path
+IMAGE_URL + movie.poster_path
 
 :
 
 "assets/images/no-image.jpg"
 
 }">
+
 
 
 <h3>
@@ -791,11 +856,13 @@ ${movie.title}
 </h3>
 
 
+
 <p>
 
 ⭐ ${movie.vote_average.toFixed(1)}
 
 </p>
+
 
 
 </div>
@@ -827,6 +894,7 @@ function loadWatchlist(movie){
 
 
 const button =
+
 document.getElementById(
 "watchlistBtn"
 );
@@ -838,10 +906,14 @@ return;
 
 
 
+
+
 let list =
 
 JSON.parse(
+
 localStorage.getItem("watchlist")
+
 )
 
 || [];
@@ -850,13 +922,17 @@ localStorage.getItem("watchlist")
 
 
 
-button.onclick=()=>{
+
+button.onclick = ()=>{
+
 
 
 const exists =
 
 list.find(
-item=>item.id===movie.id
+
+item => item.id === movie.id
+
 );
 
 
@@ -869,16 +945,28 @@ if(exists){
 list =
 
 list.filter(
-item=>item.id!==movie.id
+
+item => item.id !== movie.id
+
 );
 
 
-button.innerHTML=
 
-"+ My List";
+button.innerHTML =
+
+`
+
+<i class="fa-solid fa-plus"></i>
+
+My List
+
+`;
+
 
 
 }
+
+
 
 else{
 
@@ -889,14 +977,33 @@ id:movie.id,
 
 title:movie.title,
 
-poster:movie.poster_path
+poster:
+
+movie.poster_path
+
+?
+
+IMAGE_URL + movie.poster_path
+
+:
+
+"assets/images/no-image.jpg"
+
 
 });
 
 
-button.innerHTML=
 
-"✓ Added";
+
+
+button.innerHTML =
+
+`
+
+✓ Added
+
+`;
+
 
 
 }
@@ -914,7 +1021,89 @@ JSON.stringify(list)
 );
 
 
+
 };
+
+
+
+}
+
+
+
+
+
+
+
+
+
+/* =========================
+        WATCH HISTORY
+========================= */
+
+
+function addToHistory(movie){
+
+
+
+let history =
+
+JSON.parse(
+
+localStorage.getItem("watchHistory")
+
+)
+
+|| [];
+
+
+
+
+
+// REMOVE DUPLICATE
+
+
+history =
+
+history.filter(
+
+item => item.id !== movie.id
+
+);
+
+
+
+
+
+
+// ADD NEW MOVIE FIRST
+
+
+history.unshift(movie);
+
+
+
+
+
+
+// KEEP LAST 50
+
+
+history =
+
+history.slice(0,50);
+
+
+
+
+
+
+localStorage.setItem(
+
+"watchHistory",
+
+JSON.stringify(history)
+
+);
 
 
 
@@ -934,37 +1123,87 @@ JSON.stringify(list)
 
 
 document.querySelector(".watch")
+
 ?.addEventListener(
+
 "click",
+
 ()=>{
 
 
-// Save movie to watch history
+
+
+
+if(currentMovie){
+
+
 
 addToHistory({
 
-id: movieID,
 
-title:
-document.getElementById("movieTitle")?.textContent,
+id:currentMovie.id,
+
+
+
+title:currentMovie.title,
+
 
 
 poster:
-document.getElementById("moviePoster")?.src,
+
+
+currentMovie.poster_path
+
+?
+
+IMAGE_URL + currentMovie.poster_path
+
+:
+
+"assets/images/no-image.jpg",
+
+
 
 
 year:
-document.getElementById("movieYear")?.textContent
+
+
+currentMovie.release_date
+
+?
+
+currentMovie.release_date.slice(0,4)
+
+:
+
+"N/A"
+
 
 
 });
 
 
 
-// Scroll to trailer
+console.log(
+
+"Added to watch history"
+
+);
+
+
+
+}
+
+
+
+
+
+
 
 document
+
 .getElementById("trailerBox")
+
 ?.scrollIntoView({
 
 behavior:"smooth"
@@ -972,30 +1211,45 @@ behavior:"smooth"
 });
 
 
-});
+
+}
+
+);
 
 
 
 
 
 
-/* START ENGINE */
+
+
+
+/* =========================
+        START ENGINE
+========================= */
 
 
 loadMovie();
 
+
 loadTrailer();
+
 
 loadCast();
 
+
 loadCrew();
 
+
 loadCompany();
+
 
 loadSimilar();
 
 
 
+
+
 });
 
 
@@ -1006,39 +1260,17 @@ loadSimilar();
 
 
 
+/* =========================
+        OPEN MOVIE
+========================= */
+
+
 window.openMovie=function(id){
 
 
-window.location.href=
+window.location.href =
 
 `movie.html?id=${id}`;
 
 
 };
-function addToHistory(movie){
-
-
-let history = JSON.parse(localStorage.getItem("watchHistory")) || [];
-
-
-// remove duplicate
-history = history.filter(
-item => item.id !== movie.id
-);
-
-
-// add latest watch first
-history.unshift(movie);
-
-
-// keep only last 50
-history = history.slice(0,50);
-
-
-localStorage.setItem(
-"watchHistory",
-JSON.stringify(history)
-);
-
-
-}
