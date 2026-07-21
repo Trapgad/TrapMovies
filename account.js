@@ -1,8 +1,40 @@
 /* ==================================
         TRAP MOVIES
         ACCOUNT SYSTEM
-        PREMIUM VERSION
+        FIREBASE VERSION
 ================================== */
+
+
+import { auth, db } from "./firebase-config.js";
+
+
+import {
+
+onAuthStateChanged,
+signOut
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+
+
+import {
+
+doc,
+getDoc
+
+}
+
+from
+
+"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+
+
 
 
 document.addEventListener("DOMContentLoaded",()=>{
@@ -25,20 +57,23 @@ document.querySelector("#email");
 
 
 
-const user = {
-
-name:"TRAP USER",
-
-email:"user@email.com"
-
-};
 
 
 
+onAuthStateChanged(auth, async(user)=>{
+
+
+
+if(user){
+
+
+
+// Display Firebase user data
 
 if(username){
 
-username.textContent = user.name;
+username.textContent =
+user.displayName || "TRAP USER";
 
 }
 
@@ -46,9 +81,62 @@ username.textContent = user.name;
 
 if(email){
 
-email.textContent = user.email;
+email.textContent =
+user.email;
 
 }
+
+
+
+
+
+// Get extra user data from Firestore
+
+const userRef =
+doc(db,"users",user.uid);
+
+
+const userSnap =
+await getDoc(userRef);
+
+
+
+if(userSnap.exists()){
+
+
+const data =
+userSnap.data();
+
+
+
+if(username){
+
+username.textContent =
+data.name;
+
+}
+
+
+}
+
+
+
+
+}
+
+else{
+
+
+// No user logged in
+
+window.location.href="login.html";
+
+
+}
+
+
+
+});
 
 
 
@@ -166,21 +254,13 @@ allList.length;
 
 const watchlistContainer =
 
-document.querySelector(
-"#watchlistContainer"
-);
+document.querySelector("#watchlistContainer");
 
 
 
 
 
 if(watchlistContainer){
-
-
-
-watchlistContainer.innerHTML="";
-
-
 
 
 
@@ -199,16 +279,12 @@ watchlistContainer.innerHTML =
 
 
 <h3>
-
 Your watchlist is empty
-
 </h3>
 
 
 <p>
-
 Start saving movies and series you love.
-
 </p>
 
 
@@ -227,20 +303,17 @@ else{
 allList.forEach(item=>{
 
 
-
 const poster =
 
 item.poster
 
 ?
 
-"https://image.tmdb.org/t/p/w500/" + item.poster
+"https://image.tmdb.org/t/p/w500/"+item.poster
 
 :
 
 "assets/images/no-image.jpg";
-
-
 
 
 
@@ -256,16 +329,12 @@ watchlistContainer.innerHTML +=
 
 
 <h3>
-
 ${item.title || item.name || "Unknown"}
-
 </h3>
 
 
 <p>
-
 Saved
-
 </p>
 
 
@@ -300,42 +369,27 @@ Saved
 
 
 const logoutBtn =
-
-document.querySelector(
-"#logoutBtn"
-);
+document.querySelector("#logoutBtn");
 
 
 
 
-
-logoutBtn?.addEventListener(
-"click",
-()=>{
+logoutBtn?.addEventListener("click",()=>{
 
 
 
-localStorage.removeItem(
-"watchlist"
-);
+signOut(auth)
+
+.then(()=>{
 
 
-
-localStorage.removeItem(
-"seriesList"
-);
+alert("Logged out successfully");
 
 
+window.location.href="login.html";
 
 
-alert(
-"Logged out successfully"
-);
-
-
-
-
-location.href="index.html";
+});
 
 
 
