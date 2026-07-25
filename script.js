@@ -3,11 +3,12 @@
         script.js
         PART 1/3
         CORE SYSTEM
-        CLEAN VERSION
+        CLEAN FIXED VERSION
 ================================== */
 
 
 document.addEventListener("DOMContentLoaded", () => {
+
 
 "use strict";
 
@@ -18,13 +19,15 @@ document.addEventListener("DOMContentLoaded", () => {
 ========================= */
 
 
-const API_KEY = "17a1834e273320eef8a2a36b38a11964";
+window.API_KEY =
+"17a1834e273320eef8a2a36b38a11964";
 
-const BASE_URL =
+
+window.BASE_URL =
 "https://api.themoviedb.org/3";
 
 
-const IMAGE_URL =
+window.IMAGE_URL =
 "https://image.tmdb.org/t/p/w500/";
 
 
@@ -45,12 +48,14 @@ document.querySelectorAll(".movie-container");
 
 
 
+
+
 /* =========================
         TMDB FETCH SYSTEM
 ========================= */
 
 
-async function fetchTMDB(endpoint){
+window.fetchTMDB = async function(endpoint){
 
 
 try{
@@ -95,9 +100,7 @@ return null;
 }
 
 
-
-}
-
+};
 
 
 
@@ -105,7 +108,14 @@ return null;
 
 
 
-async function getMovies(endpoint){
+
+
+/* =========================
+        GET MOVIES
+========================= */
+
+
+window.getMovies = async function(endpoint){
 
 
 const data = await fetchTMDB(
@@ -119,7 +129,7 @@ const data = await fetchTMDB(
 return data?.results || [];
 
 
-}
+};
 
 
 
@@ -134,7 +144,7 @@ return data?.results || [];
 ========================= */
 
 
-function createMovieCard(movie){
+window.createMovieCard = function(movie){
 
 
 
@@ -151,6 +161,7 @@ IMAGE_URL + movie.poster_path
 
 
 
+
 const title =
 
 movie.title ||
@@ -158,6 +169,7 @@ movie.title ||
 movie.name ||
 
 "Unknown";
+
 
 
 
@@ -178,13 +190,13 @@ movie.vote_average.toFixed(1)
 
 
 
+
 return `
 
 
 <div class="movie-card"
 
 data-id="${movie.id}">
-
 
 
 <img
@@ -194,8 +206,6 @@ src="${poster}"
 alt="${title}"
 
 loading="lazy">
-
-
 
 
 
@@ -215,7 +225,6 @@ ${title}
 
 
 
-
 </div>
 
 
@@ -223,7 +232,7 @@ ${title}
 
 
 
-}
+};
 
 
 
@@ -266,7 +275,6 @@ const sections = [
 
 
 
-
 for(
 let i = 0;
 i < movieContainers.length;
@@ -276,6 +284,7 @@ i++
 
 
 if(!sections[i])
+
 continue;
 
 
@@ -291,7 +300,9 @@ sections[i]
 movieContainers[i].innerHTML =
 
 movies
+
 .map(createMovieCard)
+
 .join("");
 
 
@@ -309,13 +320,16 @@ movies
 
 
 
+
 /* =========================
         MOVIE CLICK SYSTEM
 ========================= */
 
 
 document.addEventListener(
+
 "click",
+
 (e)=>{
 
 
@@ -329,13 +343,16 @@ e.target.closest(
 
 
 if(!card)
+
 return;
+
 
 
 
 
 const id =
 card.dataset.id;
+
 
 
 
@@ -362,11 +379,11 @@ window.location.href =
 
 
 /* =========================
-        WATCH HISTORY SAVE
+        WATCH HISTORY
 ========================= */
 
 
-function saveHistory(movie){
+window.saveHistory = function(movie){
 
 
 
@@ -385,11 +402,12 @@ localStorage.getItem(
 
 
 
+
 const exists =
 
 history.some(
 
-item=>item.id === movie.id
+item => item.id == movie.id
 
 );
 
@@ -400,7 +418,30 @@ item=>item.id === movie.id
 if(!exists){
 
 
-history.unshift(movie);
+
+history.unshift({
+
+id:movie.id,
+
+title:
+movie.title,
+
+poster:
+
+movie.poster_path
+
+?
+
+IMAGE_URL + movie.poster_path
+
+:
+
+"assets/images/no-image.jpg"
+
+
+});
+
+
 
 
 
@@ -408,6 +449,8 @@ history = history.slice(
 0,
 50
 );
+
+
 
 
 
@@ -425,7 +468,7 @@ JSON.stringify(history)
 
 
 
-}
+};
 
 
 
@@ -436,7 +479,7 @@ JSON.stringify(history)
 
 
 /* =========================
-        FAVORITE SYSTEM
+        FAVORITES
 ========================= */
 
 
@@ -460,11 +503,12 @@ localStorage.getItem(
 
 
 
+
 const exists =
 
 favorites.some(
 
-item=>item.id === movie.id
+item => item.id == movie.id
 
 );
 
@@ -472,8 +516,8 @@ item=>item.id === movie.id
 
 
 
-if(!exists){
 
+if(!exists){
 
 
 favorites.push(movie);
@@ -518,7 +562,8 @@ loadMovies();
         TRAP MOVIES
         script.js
         PART 2/3
-        MENU + SEARCH + SLIDER
+        MENU + SLIDER + SEARCH
+        CLEAN FIXED VERSION
 ================================== */
 
 
@@ -558,7 +603,6 @@ sideMenu?.classList.add(
 overlay?.classList.add(
 "active"
 );
-
 
 
 document.body.style.overflow =
@@ -658,31 +702,24 @@ let sliderTimer;
 function showSlide(index){
 
 
-
 slides.forEach(slide=>{
-
 
 slide.classList.remove(
 "active"
 );
 
-
 });
-
 
 
 
 
 dots.forEach(dot=>{
 
-
 dot.classList.remove(
 "active"
 );
 
-
 });
-
 
 
 
@@ -722,19 +759,13 @@ if(
 currentSlide >= slides.length
 ){
 
-
 currentSlide = 0;
-
 
 }
 
 
 
-
-
-showSlide(
-currentSlide
-);
+showSlide(currentSlide);
 
 
 
@@ -750,16 +781,13 @@ currentSlide
 function startSlider(){
 
 
-
 clearInterval(
 sliderTimer
 );
 
 
 
-sliderTimer =
-
-setInterval(
+sliderTimer = setInterval(
 
 nextSlide,
 
@@ -779,11 +807,14 @@ nextSlide,
 
 
 dots.forEach(
+
 (dot,index)=>{
 
 
 dot.addEventListener(
+
 "click",
+
 ()=>{
 
 
@@ -831,15 +862,29 @@ startSlider();
 ========================= */
 
 
-const searchBtn = document.querySelector(".search-btn");
 
-const searchPage = document.querySelector(".search-page");
+const searchBtn =
+document.querySelector(".search-btn");
 
-const backSearch = document.querySelector(".back-search");
 
-const searchInput = document.querySelector("#searchInput");
+const searchPage =
+document.querySelector(".search-page");
 
-const searchResults = document.querySelector("#searchResults");
+
+const backSearch =
+document.querySelector(".back-search");
+
+
+const searchInput =
+document.querySelector("#searchInput");
+
+
+const searchResults =
+document.querySelector("#searchResults");
+
+
+
+
 
 
 
@@ -847,13 +892,26 @@ const searchResults = document.querySelector("#searchResults");
 
 function openSearch(){
 
-    searchPage?.classList.add("active");
 
-    document.body.style.overflow = "hidden";
+searchPage?.classList.add(
+"active"
+);
 
-    searchInput?.focus();
+
+
+document.body.style.overflow =
+"hidden";
+
+
+
+searchInput?.focus();
+
+
 
 }
+
+
+
 
 
 
@@ -861,9 +919,16 @@ function openSearch(){
 
 function closeSearch(){
 
-    searchPage?.classList.remove("active");
 
-    document.body.style.overflow = "";
+searchPage?.classList.remove(
+"active"
+);
+
+
+
+document.body.style.overflow =
+"";
+
 
 }
 
@@ -871,17 +936,31 @@ function closeSearch(){
 
 
 
+
+
+
 searchBtn?.addEventListener(
-    "click",
-    openSearch
+
+"click",
+
+openSearch
+
 );
+
+
+
 
 
 
 backSearch?.addEventListener(
-    "click",
-    closeSearch
+
+"click",
+
+closeSearch
+
 );
+
+
 
 
 
@@ -896,34 +975,67 @@ backSearch?.addEventListener(
 
 async function searchMovies(query){
 
-    try{
 
-        const response = await fetch(
-            `${BASE_URL}/search/movie?api_key=${API_KEY}&language=en-US&query=${encodeURIComponent(query)}`
-        );
+try{
 
 
-        const data = await response.json();
+const response = await fetch(
+
+`${BASE_URL}/search/movie?api_key=${API_KEY}&language=en-US&query=${encodeURIComponent(query)}`
+
+);
 
 
-        return data.results || [];
 
 
-    }
 
-    catch(error){
+if(!response.ok){
 
-        console.error(
-            "SEARCH ERROR:",
-            error
-        );
-
-
-        return [];
-
-    }
+throw new Error(
+"Search Failed"
+);
 
 }
+
+
+
+
+
+const data =
+await response.json();
+
+
+
+
+
+return data.results || [];
+
+
+
+}
+
+catch(error){
+
+
+console.error(
+
+"SEARCH ERROR:",
+
+error
+
+);
+
+
+
+return [];
+
+
+
+}
+
+
+}
+
 
 
 
@@ -937,30 +1049,50 @@ let searchTimer;
 
 
 
+
+
 searchInput?.addEventListener(
+
 "input",
+
 ()=>{
 
 
-clearTimeout(searchTimer);
+
+clearTimeout(
+searchTimer
+);
+
+
 
 
 
 searchTimer = setTimeout(
+
 async()=>{
 
 
-const value = searchInput.value.trim();
+
+const value =
+searchInput.value.trim();
+
+
 
 
 
 if(!value){
 
-    searchResults.innerHTML = "";
 
-    return;
+searchResults.innerHTML = "";
+
+
+return;
+
 
 }
+
+
+
 
 
 
@@ -968,7 +1100,9 @@ if(!value){
 searchResults.innerHTML = `
 
 <div class="loading">
+
 Searching...
+
 </div>
 
 `;
@@ -977,7 +1111,15 @@ Searching...
 
 
 
-const movies = await searchMovies(value);
+
+
+const movies =
+
+await searchMovies(
+value
+);
+
+
 
 
 
@@ -996,39 +1138,11 @@ No movies found
 
 `;
 
+
 return;
 
 
 }
-
-
-
-
-
-searchResults.innerHTML = movies
-.map(movie => createMovieCard(movie))
-.join("");
-
-
-
-
-},
-500
-);
-
-
-
-});
-
-
-
-
-
-const movies =
-
-await searchMovies(
-value
-);
 
 
 
@@ -1048,8 +1162,11 @@ movies
 
 
 
-},500);
+},
 
+500
+
+);
 
 
 
@@ -1064,7 +1181,7 @@ movies
 
 
 /* =========================
-        ESC KEY CLOSE
+        ESC CLOSE
 ========================= */
 
 
@@ -1075,9 +1192,7 @@ document.addEventListener(
 (e)=>{
 
 
-
 if(e.key === "Escape"){
-
 
 
 closeMenu();
@@ -1086,17 +1201,21 @@ closeMenu();
 closeSearch();
 
 
-
 }
 
 
 
 });
 /* ==================================
-        PART 3
-        REELS + MOVIE DETAILS
-        TRAILER + WATCHLIST
+        TRAP MOVIES
+        script.js
+        PART 3/3
+        DETAILS + TRAILER + WATCHLIST
+        CLEAN FIXED VERSION
 ================================== */
+
+
+
 
 
 /* =========================
@@ -1108,10 +1227,102 @@ const reels =
 document.querySelectorAll(".reel");
 
 
+
+function showHeart(reel){
+
+
+const heart =
+document.createElement("div");
+
+
+heart.className =
+"double-heart";
+
+
+heart.innerHTML =
+"❤️";
+
+
+reel.appendChild(heart);
+
+
+
+setTimeout(()=>{
+
+heart.remove();
+
+},800);
+
+
+
+}
+
+
+
+
+
+
+
+function increaseViews(reel){
+
+
+const views =
+reel.querySelector(".views");
+
+
+
+if(!views)
+return;
+
+
+
+if(reel.dataset.viewed)
+return;
+
+
+
+
+let count =
+Number(
+views.dataset.views || 0
+);
+
+
+
+count++;
+
+
+views.dataset.views =
+count;
+
+
+
+views.textContent =
+count + " views";
+
+
+
+reel.dataset.viewed =
+true;
+
+
+
+}
+
+
+
+
+
+
+
+
 if(reels.length){
 
 
-const reelObserver = new IntersectionObserver(
+
+const reelObserver =
+
+new IntersectionObserver(
 
 (entries)=>{
 
@@ -1135,14 +1346,18 @@ increaseViews(entry.target);
 threshold:0.75
 }
 
-
 );
+
+
 
 
 
 reels.forEach(reel=>{
 
+
 reelObserver.observe(reel);
+
+
 
 });
 
@@ -1150,7 +1365,20 @@ reelObserver.observe(reel);
 
 
 
-/* LIKE BUTTON */
+}
+
+
+
+
+
+
+
+
+
+/* =========================
+        REEL LIKE SYSTEM
+========================= */
+
 
 
 document
@@ -1158,8 +1386,11 @@ document
 .forEach(button=>{
 
 
+
 button.addEventListener(
+
 "click",
+
 (e)=>{
 
 
@@ -1170,6 +1401,7 @@ e.stopPropagation();
 button.classList.toggle(
 "liked"
 );
+
 
 
 
@@ -1186,17 +1418,23 @@ button.classList.contains("liked")
 "🤍";
 
 
-});
-
 
 });
 
 
+});
 
 
 
 
-/* DOUBLE TAP LIKE */
+
+
+
+
+
+/* =========================
+        DOUBLE TAP LIKE
+========================= */
 
 
 reels.forEach(reel=>{
@@ -1207,12 +1445,16 @@ let lastTap = 0;
 
 
 reel.addEventListener(
+
 "click",
+
 (e)=>{
 
 
 if(e.target.closest("button"))
+
 return;
+
 
 
 
@@ -1221,15 +1463,22 @@ Date.now();
 
 
 
+
+
 if(now - lastTap < 300){
 
 
+
 const likeBtn =
-reel.querySelector(".like-btn");
+
+reel.querySelector(
+".like-btn"
+);
 
 
 
 if(likeBtn){
+
 
 
 likeBtn.classList.add(
@@ -1237,13 +1486,18 @@ likeBtn.classList.add(
 );
 
 
-likeBtn.innerHTML="❤️";
+
+likeBtn.innerHTML =
+"❤️";
+
 
 
 showHeart(reel);
 
 
+
 }
+
 
 
 }
@@ -1261,97 +1515,6 @@ lastTap = now;
 
 
 
-}
-
-
-
-
-
-
-
-
-function showHeart(reel){
-
-
-const heart =
-document.createElement("div");
-
-
-heart.className =
-"double-heart";
-
-
-heart.innerHTML="❤️";
-
-
-reel.appendChild(heart);
-
-
-
-setTimeout(()=>{
-
-
-heart.remove();
-
-
-},800);
-
-
-}
-
-
-
-
-
-
-
-
-function increaseViews(reel){
-
-
-
-const views =
-reel.querySelector(".views");
-
-
-
-if(!views)
-return;
-
-
-
-if(reel.dataset.viewed)
-return;
-
-
-
-let count =
-Number(
-views.dataset.views || 0
-);
-
-
-
-count++;
-
-
-views.dataset.views =
-count;
-
-
-views.textContent =
-count+" views";
-
-
-
-reel.dataset.viewed =
-true;
-
-
-}
-
-
-
 
 
 
@@ -1359,14 +1522,18 @@ true;
 
 
 /* =========================
-        MOVIE DETAILS PAGE
+        MOVIE DETAILS
 ========================= */
 
 
 const movieContent =
+
 document.querySelector(
 ".movie-content"
 );
+
+
+
 
 
 
@@ -1375,6 +1542,7 @@ async function loadMovieDetails(){
 
 
 const params =
+
 new URLSearchParams(
 window.location.search
 );
@@ -1386,14 +1554,19 @@ params.get("id");
 
 
 
+
+
 if(!id || !movieContent)
+
 return;
 
 
 
 
 
+
 const movie =
+
 await fetchTMDB(
 
 `/movie/${id}?api_key=${API_KEY}&language=en-US`
@@ -1402,8 +1575,12 @@ await fetchTMDB(
 
 
 
+
+
 if(!movie)
+
 return;
+
 
 
 
@@ -1425,17 +1602,15 @@ IMAGE_URL + movie.poster_path
 
 
 
+
 movieContent.innerHTML = `
 
 
 <div class="movie-poster">
 
-<img 
-src="${poster}"
-alt="${movie.title}">
+<img src="${poster}">
 
 </div>
-
 
 
 
@@ -1459,25 +1634,15 @@ ${movie.overview ||
 
 
 
-
 <div class="movie-meta">
 
-
-<span>
 ⭐ ${movie.vote_average?.toFixed(1) || "N/A"}
-</span>
-
 
 <br>
 
-
-<span>
 📅 ${movie.release_date || "Unknown"}
-</span>
-
 
 </div>
-
 
 
 
@@ -1486,7 +1651,6 @@ ${movie.overview ||
 ▶ Watch Trailer
 
 </button>
-
 
 
 
@@ -1501,8 +1665,8 @@ ${movie.overview ||
 </div>
 
 
-
 `;
+
 
 
 
@@ -1513,7 +1677,9 @@ saveHistory(movie);
 loadTrailer(id);
 
 
+
 }
+
 
 
 
@@ -1537,6 +1703,7 @@ loadMovieDetails();
 function saveHistory(movie){
 
 
+
 let history =
 
 JSON.parse(
@@ -1552,24 +1719,34 @@ localStorage.getItem(
 
 
 
+
+
 const exists =
 
 history.some(
 
-item=>item.id === movie.id
+item=>item.id == movie.id
 
 );
+
+
+
+
 
 
 
 if(!exists){
 
 
+
 history.unshift({
+
 
 id:movie.id,
 
+
 title:movie.title,
+
 
 poster:
 
@@ -1581,29 +1758,24 @@ IMAGE_URL + movie.poster_path
 
 :
 
-"assets/images/no-image.jpg",
+"assets/images/no-image.jpg"
 
-
-year:
-
-movie.release_date
-
-?
-
-movie.release_date.substring(0,4)
-
-:
-
-"N/A"
 
 
 });
 
 
 
+
+
 history =
 
-history.slice(0,30);
+history.slice(
+0,
+30
+);
+
+
 
 
 
@@ -1641,6 +1813,7 @@ async function loadTrailer(id){
 
 
 const button =
+
 document.querySelector(
 ".trailer-btn"
 );
@@ -1648,6 +1821,7 @@ document.querySelector(
 
 
 const modal =
+
 document.querySelector(
 ".trailer-modal"
 );
@@ -1655,25 +1829,33 @@ document.querySelector(
 
 
 const frame =
+
 document.getElementById(
 "trailerFrame"
 );
 
 
 
+
+
 if(!button)
+
 return;
 
 
 
 
 
+
+
 const data =
+
 await fetchTMDB(
 
 `/movie/${id}/videos?api_key=${API_KEY}&language=en-US`
 
 );
+
 
 
 
@@ -1685,11 +1867,11 @@ data?.results?.find(
 
 video=>
 
-video.type==="Trailer"
+video.type === "Trailer"
 
 &&
 
-video.site==="YouTube"
+video.site === "YouTube"
 
 );
 
@@ -1697,7 +1879,9 @@ video.site==="YouTube"
 
 
 
+
 if(!trailer)
+
 return;
 
 
@@ -1705,9 +1889,13 @@ return;
 
 
 
+
 button.addEventListener(
+
 "click",
+
 ()=>{
+
 
 
 modal?.classList.add(
@@ -1717,6 +1905,7 @@ modal?.classList.add(
 
 
 if(frame){
+
 
 frame.src =
 
@@ -1737,7 +1926,9 @@ frame.src =
 document
 .querySelector(".close-trailer")
 ?.addEventListener(
+
 "click",
+
 ()=>{
 
 
@@ -1746,9 +1937,10 @@ modal?.classList.remove(
 );
 
 
+
 if(frame)
 
-frame.src="";
+frame.src = "";
 
 
 });
@@ -1769,25 +1961,34 @@ frame.src="";
 ========================= */
 
 
-
 document.addEventListener(
+
 "click",
+
 (e)=>{
 
 
 const button =
+
 e.target.closest(
 ".watch-btn"
 );
 
 
 
+
+
 if(!button)
+
 return;
 
 
 
+
+
+
 const params =
+
 new URLSearchParams(
 window.location.search
 );
@@ -1799,8 +2000,12 @@ params.get("id");
 
 
 
+
+
 if(!id)
+
 return;
+
 
 
 
@@ -1835,7 +2040,10 @@ movie=>movie.id == id
 
 
 
+
+
 if(saved){
+
 
 
 watchlist =
@@ -1864,9 +2072,12 @@ button.classList.remove(
 else{
 
 
+
 watchlist.push({
 
+
 id:id,
+
 
 title:
 
@@ -1879,10 +2090,8 @@ poster:
 
 document.querySelector(
 ".movie-poster img"
-)?.src.replace(
-IMAGE_URL,
-""
-)
+)?.src
+
 
 
 });
@@ -1895,9 +2104,11 @@ button.innerHTML =
 "✓ Saved";
 
 
+
 button.classList.add(
 "saved"
 );
+
 
 
 }
@@ -1936,7 +2147,9 @@ JSON.stringify(watchlist)
 document
 .querySelector(".back-btn")
 ?.addEventListener(
+
 "click",
+
 ()=>{
 
 
