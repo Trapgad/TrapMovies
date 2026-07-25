@@ -831,52 +831,15 @@ startSlider();
 ========================= */
 
 
-const searchBtn =
+const searchBtn = document.querySelector(".search-btn");
 
-document.querySelector(
-".search-btn"
-);
+const searchPage = document.querySelector(".search-page");
 
+const backSearch = document.querySelector(".back-search");
 
+const searchInput = document.querySelector("#searchInput");
 
-
-const searchPage =
-
-document.querySelector(
-".search-page"
-);
-
-
-
-
-const backSearch =
-
-document.querySelector(
-".back-search"
-);
-
-
-
-
-const searchInput =
-
-document.querySelector(
-"#searchInput"
-);
-
-
-
-
-const searchResults =
-
-document.querySelector(
-"#searchResults"
-);
-
-
-
-
-
+const searchResults = document.querySelector("#searchResults");
 
 
 
@@ -884,27 +847,13 @@ document.querySelector(
 
 function openSearch(){
 
+    searchPage?.classList.add("active");
 
+    document.body.style.overflow = "hidden";
 
-searchPage?.classList.add(
-"active"
-);
-
-
-
-document.body.style.overflow =
-"hidden";
-
-
-
-searchInput?.focus();
-
-
+    searchInput?.focus();
 
 }
-
-
-
 
 
 
@@ -912,17 +861,9 @@ searchInput?.focus();
 
 function closeSearch(){
 
+    searchPage?.classList.remove("active");
 
-
-searchPage?.classList.remove(
-"active"
-);
-
-
-
-document.body.style.overflow =
-"";
-
+    document.body.style.overflow = "";
 
 }
 
@@ -930,32 +871,17 @@ document.body.style.overflow =
 
 
 
-
-
-
-
 searchBtn?.addEventListener(
-
-"click",
-
-openSearch
-
+    "click",
+    openSearch
 );
-
-
-
 
 
 
 backSearch?.addEventListener(
-
-"click",
-
-closeSearch
-
+    "click",
+    closeSearch
 );
-
-
 
 
 
@@ -970,24 +896,34 @@ closeSearch
 
 async function searchMovies(query){
 
+    try{
+
+        const response = await fetch(
+            `${BASE_URL}/search/movie?api_key=${API_KEY}&language=en-US&query=${encodeURIComponent(query)}`
+        );
 
 
-const data = await fetchTMDB(
+        const data = await response.json();
 
 
-`/search/movie?api_key=${API_KEY}&query=${encodeURIComponent(query)}`
+        return data.results || [];
 
 
-);
+    }
+
+    catch(error){
+
+        console.error(
+            "SEARCH ERROR:",
+            error
+        );
 
 
+        return [];
 
-return data?.results || [];
-
+    }
 
 }
-
-
 
 
 
@@ -1001,42 +937,64 @@ let searchTimer;
 
 
 
-
 searchInput?.addEventListener(
-
 "input",
-
 ()=>{
 
 
-
-clearTimeout(
-searchTimer
-);
+clearTimeout(searchTimer);
 
 
 
+searchTimer = setTimeout(
+async()=>{
 
 
-searchTimer =
-
-setTimeout(async()=>{
-
-
-
-const value =
-
-searchInput.value.trim();
-
-
+const value = searchInput.value.trim();
 
 
 
 if(!value){
 
+    searchResults.innerHTML = "";
+
+    return;
+
+}
 
 
-searchResults.innerHTML = "";
+
+
+searchResults.innerHTML = `
+
+<div class="loading">
+Searching...
+</div>
+
+`;
+
+
+
+
+
+const movies = await searchMovies(value);
+
+
+
+
+
+if(!movies.length){
+
+
+searchResults.innerHTML = `
+
+<div class="no-results">
+
+No movies found
+
+</div>
+
+`;
 
 return;
 
@@ -1047,19 +1005,20 @@ return;
 
 
 
+searchResults.innerHTML = movies
+.map(movie => createMovieCard(movie))
+.join("");
 
-searchResults.innerHTML =
 
-`
 
-<div class="loading">
 
-Searching...
+},
+500
+);
 
-</div>
 
-`;
 
+});
 
 
 
