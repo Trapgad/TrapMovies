@@ -1,0 +1,282 @@
+/* =========================================
+TRAP MOVIES - CENTERED CONTACT PAGE
+========================================= */
+
+.contact-hero {
+display: flex;
+justify-content: center;
+align-items: center;
+text-align: center;
+}
+
+.contact-hero-content {
+width: 100%;
+max-width: 800px;
+margin: 0 auto;
+text-align: center;
+}
+
+.contact-icon {
+margin: 0 auto 20px;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+/* =========================================
+CONTACT SECTION
+========================================= */
+
+.contact-section {
+width: 100%;
+padding: 60px 20px;
+}
+
+.contact-container {
+width: 100%;
+max-width: 1100px;
+margin: 0 auto;
+
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+gap: 40px;
+
+}
+
+/* =========================================
+CONTACT INFORMATION
+========================================= */
+
+.contact-info {
+width: 100%;
+max-width: 750px;
+
+margin: 0 auto;
+text-align: center;
+display: flex;
+flex-direction: column;
+align-items: center;
+
+}
+
+.contact-info > h2,
+.contact-info > p {
+text-align: center;
+}
+
+/* =========================================
+CONTACT ITEMS
+========================================= */
+
+.contact-item {
+width: 100%;
+max-width: 650px;
+
+display: flex;
+align-items: center;
+justify-content: center;
+text-align: center;
+margin: 15px auto;
+
+}
+
+.contact-item-icon {
+display: flex;
+align-items: center;
+justify-content: center;
+
+flex-shrink: 0;
+
+}
+
+.contact-item > div:last-child {
+text-align: center;
+}
+
+.contact-item p {
+margin-left: 0;
+}
+
+/* =========================================
+SOCIAL MEDIA
+========================================= */
+
+.contact-socials {
+width: 100%;
+
+text-align: center;
+display: flex;
+flex-direction: column;
+align-items: center;
+margin-top: 25px;
+
+}
+
+.contact-socials h3 {
+text-align: center;
+}
+
+.social-icons {
+display: flex;
+justify-content: center;
+align-items: center;
+
+flex-wrap: wrap;
+gap: 15px;
+margin-top: 15px;
+
+}
+
+.social-icons a {
+display: flex;
+align-items: center;
+justify-content: center;
+}
+
+/* =========================================
+CONTACT FORM
+========================================= */
+
+.contact-form-card {
+width: 100%;
+max-width: 750px;
+
+margin: 0 auto;
+text-align: center;
+
+}
+
+.contact-form-card h2 {
+text-align: center;
+}
+
+.contact-form-card form {
+width: 100%;
+}
+
+.form-group {
+width: 100%;
+text-align: left;
+}
+
+.form-group label {
+display: block;
+text-align: left;
+}
+
+.input-box {
+width: 100%;
+}
+
+.contact-submit-btn {
+display: flex;
+
+align-items: center;
+justify-content: center;
+margin: 25px auto 0;
+
+}
+
+.form-message {
+text-align: center;
+}
+
+/* =========================================
+FAQ
+========================================= */
+
+.faq-section {
+width: 100%;
+
+text-align: center;
+padding: 60px 20px;
+
+}
+
+.faq-section > h2 {
+text-align: center;
+margin-left: auto;
+margin-right: auto;
+}
+
+.faq-container {
+width: 100%;
+max-width: 1100px;
+
+margin: 30px auto 0;
+display: flex;
+justify-content: center;
+align-items: stretch;
+flex-wrap: wrap;
+gap: 25px;
+
+}
+
+.faq-card {
+width: 100%;
+max-width: 330px;
+
+margin: 0 auto;
+text-align: center;
+display: flex;
+flex-direction: column;
+align-items: center;
+
+}
+
+.faq-icon {
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+/* =========================================
+FOOTER
+========================================= */
+
+footer {
+text-align: center;
+
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+
+}
+
+/* =========================================
+MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+
+.contact-section {
+    padding: 40px 15px;
+}
+.contact-container {
+    gap: 30px;
+}
+.contact-item {
+    flex-direction: column;
+    gap: 10px;
+}
+.contact-item-icon {
+    margin: 0 auto;
+}
+.contact-item > div:last-child {
+    width: 100%;
+    text-align: center;
+}
+.contact-form-card {
+    padding: 25px 20px;
+}
+.faq-section {
+    padding: 40px 15px;
+}
+.faq-card {
+    max-width: 100%;
+}
+
+}
