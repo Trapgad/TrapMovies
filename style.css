@@ -1382,208 +1382,299 @@ button{
 
 
 
+
 /* ==================================
-        SEARCH PAGE
+   TRAP MOVIES — SEARCH PAGE FIX
+   GLASS CINEMA DESIGN V3
 ================================== */
 
+.search-page {
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
 
-.search-page{
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
 
+    padding: 35px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
 
-    position:fixed;
+    background: rgba(5, 5, 5, 0.97);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
 
+    transform: translateY(100%);
+    visibility: hidden;
+    pointer-events: none;
 
-    inset:0;
-
-
-    z-index:3000;
-
-
-
-    padding:35px;
-
-
-
-    background:
-
-
-    rgba(5,5,5,.95);
-
-
-
-    backdrop-filter:
-
-
-    blur(25px);
-
-
-
-    transform:translateY(100%);
-
-
-
-    transition:.5s;
-
+    transition:
+        transform 0.45s ease,
+        visibility 0.45s ease;
 }
 
-
-
-
-
-
-
-.search-page.active{
-
-
-    transform:translateY(0);
-
+.search-page.active {
+    transform: translateY(0);
+    visibility: visible;
+    pointer-events: auto;
 }
 
+/* SEARCH HEADER */
 
+.search-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 
+    position: sticky;
+    top: -35px;
+    z-index: 5;
 
-
-
-
-.search-header{
-
-
-    display:flex;
-
-
-    align-items:center;
-
-
-    gap:20px;
-
+    padding: 12px 0 18px;
+    background: rgba(5, 5, 5, 0.95);
+    backdrop-filter: blur(20px);
 }
 
-
-
-
-
-
-
-.back-search{
-
-
-    width:45px;
-
-
-    height:45px;
-
-
-    border-radius:50%;
-
-
-    color:white;
-
-
-    background:
-
-
-    rgba(255,255,255,.12);
-
+.search-header h1,
+.search-header h2 {
+    color: #fff;
+    font-size: 24px;
 }
 
+/* BACK BUTTON */
 
+.back-search {
+    flex: 0 0 45px;
+    width: 45px;
+    height: 45px;
 
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
+    border-radius: 50%;
+    color: white;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.15);
 
-
-
-.search-box{
-
-
-    max-width:850px;
-
-
-    margin:40px auto;
-
-
-    padding:18px 25px;
-
-
-    border-radius:40px;
-
-
-
-    background:
-
-
-    rgba(255,255,255,.1);
-
-
-
-    border:
-
-
-    1px solid rgba(255,255,255,.15);
-
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-
-
-
-
-
-
-.search-box input{
-
-
-    width:100%;
-
-
-    background:none;
-
-
-    border:none;
-
-
-    outline:none;
-
-
-    color:white;
-
-
-    font-size:17px;
-
+.back-search:hover {
+    background: linear-gradient(135deg, #e50914, #8a2be2);
+    transform: scale(1.05);
 }
 
+/* SEARCH INPUT */
 
+.search-box {
+    width: 100%;
+    max-width: 850px;
 
+    display: flex;
+    align-items: center;
 
+    margin: 35px auto;
+    padding: 18px 25px;
 
+    border-radius: 40px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.15);
 
-
-.search-results{
-
-
-    display:grid;
-
-
-    grid-template-columns:
-
-
-    repeat(auto-fit,minmax(160px,1fr));
-
-
-    gap:25px;
-
+    transition: 0.3s;
 }
 
-
-
-
-
-
-
-.search-results .movie-card{
-
-
-    min-width:0;
-
+.search-box:focus-within {
+    border-color: #8a2be2;
+    box-shadow: 0 0 25px rgba(138, 43, 226, 0.2);
 }
+
+.search-box input {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+
+    padding: 3px 0;
+
+    background: transparent;
+    border: none;
+    outline: none;
+
+    color: white;
+    font-size: 17px;
+}
+
+.search-box input::placeholder {
+    color: #aaa;
+}
+
+/* SEARCH FILTERS
+   Supports common filter class names */
+
+.search-filters,
+.search-filter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    margin: 0 auto 30px;
+}
+
+.search-filters button,
+.search-filter button,
+.filter-btn,
+[data-filter] {
+    padding: 10px 20px;
+
+    border-radius: 30px;
+    color: #ddd;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.search-filters button:hover,
+.search-filter button:hover,
+.filter-btn:hover,
+[data-filter]:hover,
+.search-filters button.active,
+.search-filter button.active,
+.filter-btn.active,
+[data-filter].active {
+    color: #fff;
+    background: linear-gradient(135deg, #e50914, #8a2be2);
+    border-color: transparent;
+}
+
+/* SEARCH RESULTS */
+
+.search-results,
+#searchResults {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fill,
+        minmax(160px, 1fr)
+    );
+
+    align-items: start;
+    gap: 25px;
+    padding-bottom: 40px;
+}
+
+.search-results .movie-card,
+#searchResults .movie-card {
+    width: 100%;
+    min-width: 0;
+    flex: initial;
+}
+
+.search-results .movie-card img,
+#searchResults .movie-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+}
+
+.search-results .loading,
+.search-results .no-results,
+#searchResults .loading,
+#searchResults .no-results {
+    grid-column: 1 / -1;
+    padding: 40px 15px;
+
+    text-align: center;
+    color: #ccc;
+}
+
+/* MOBILE RESPONSIVENESS */
+
+@media (max-width: 768px) {
+    .search-page {
+        padding: 18px 15px;
+    }
+
+    .search-header {
+        top: -18px;
+        gap: 12px;
+        padding: 8px 0 15px;
+    }
+
+    .search-header h1,
+    .search-header h2 {
+        font-size: 20px;
+    }
+
+    .search-box {
+        margin: 22px auto;
+        padding: 15px 18px;
+    }
+
+    .search-box input {
+        font-size: 16px;
+    }
+
+    .search-filters,
+    .search-filter {
+        justify-content: flex-start;
+        gap: 8px;
+        margin-bottom: 22px;
+    }
+
+    .search-filters button,
+    .search-filter button,
+    .filter-btn,
+    [data-filter] {
+        padding: 9px 14px;
+        font-size: 13px;
+    }
+
+    .search-results,
+    #searchResults {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 15px;
+    }
+
+    .search-results .movie-card img,
+    #searchResults .movie-card img {
+        height: 230px;
+    }
+}
+
+@media (max-width: 360px) {
+    .search-page {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
+    .search-results .movie-card img,
+    #searchResults .movie-card img {
+        height: 190px;
+    }
+}
+
+/* REDUCE MOTION WHEN REQUESTED */
+
+@media (prefers-reduced-motion: reduce) {
+    .search-page,
+    .back-search,
+    .search-box {
+        transition: none;
+    }
+}
+
 /* ==================================
         MOVIE DETAILS
 ================================== */
