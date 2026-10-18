@@ -3171,7 +3171,7 @@ overflow: hidden;
 }
 
 .about-hero::before {
-content: “”;
+content: "";
 position: absolute;
 width: 420px;
 height: 420px;
