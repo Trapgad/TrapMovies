@@ -3792,3 +3792,103 @@ animation: none;
 }
 
 }
+/* =========================================
+TRAP MOVIES — LOGIN PAGE ONLY
+========================================= */
+
+/* Login heading */
+body:has(#loginBtn) .auth-card h1 {
+letter-spacing: -0.6px;
+}
+
+/* Login description */
+body:has(#loginBtn) .auth-card > p:not(.switch):not(.forgot) {
+margin-bottom: 30px;
+}
+
+/* Login button */
+body:has(#loginBtn) .auth-card #loginBtn {
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 10px;
+width: 100%;
+min-height: 55px;
+margin-top: 23px;
+padding: 15px 20px;
+border: none;
+border-radius: 13px;
+color: #ffffff;
+background: linear-gradient(110deg, #e50914 0%, #a20c64 52%, #7028dc 100%);
+box-shadow: 0 8px 25px rgba(229, 9, 20, 0.19);
+font-family: inherit;
+font-size: 14px;
+font-weight: 700;
+cursor: pointer;
+transition: transform 0.25s ease,
+box-shadow 0.25s ease,
+filter 0.25s ease;
+}
+
+body:has(#loginBtn) .auth-card #loginBtn:hover {
+transform: translateY(-2px);
+filter: brightness(1.12);
+box-shadow: 0 12px 30px rgba(138, 43, 226, 0.3);
+}
+
+body:has(#loginBtn) .auth-card #loginBtn:active {
+transform: scale(0.98);
+}
+
+/* Forgot password */
+body:has(#loginBtn) .auth-card .forgot {
+margin: 18px 0 0;
+text-align: right;
+font-size: 12px;
+}
+
+body:has(#loginBtn) .auth-card .forgot a {
+color: #bd78ff;
+font-weight: 500;
+text-decoration: none;
+transition: color 0.2s ease;
+}
+
+body:has(#loginBtn) .auth-card .forgot a:hover {
+color: #ff4050;
+text-decoration: underline;
+}
+
+/* Space between password link and signup link */
+body:has(#loginBtn) .auth-card .switch {
+margin-top: 23px;
+padding-top: 19px;
+border-top: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+/* Login input focus */
+body:has(#loginBtn) .auth-card .input-box:focus-within {
+border-color: #a43bff;
+box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.12);
+}
+
+/* Mobile adjustments */
+@media (max-width: 480px) {
+body:has(#loginBtn) .auth-card .forgot {
+font-size: 12px;
+}
+
+body:has(#loginBtn) .auth-card .switch {
+    margin-top: 20px;
+    padding-top: 17px;
+}
+
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+body:has(#loginBtn) .auth-card #loginBtn,
+body:has(#loginBtn) .auth-card .forgot a {
+transition: none;
+}
+}
