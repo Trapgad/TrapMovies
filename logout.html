@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRAP MOVIES | Logout</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    >
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+</head>
+<body class="logout-page">
+    <main class="logout-container">
+        <section class="logout-card">
+            <div class="logout-logo">
+                TRAP <span>MOVIES</span>
+            </div>
+            <div class="logout-icon">
+                <i class="fa-solid fa-right-from-bracket"></i>
+            </div>
+            <h1>Leaving So Soon?</h1>
+            <p class="logout-description">
+                Are you sure you want to log out of TRAP MOVIES?
+                Your next movie adventure will be waiting for you.
+            </p>
+            <div class="logout-actions">
+                <button type="button" id="logoutBtn" class="logout-confirm">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    Yes, Log Me Out
+                </button>
+                <a href="index.html" class="logout-cancel">
+                    <i class="fa-solid fa-house"></i>
+                    Stay Logged In
+                </a>
+            </div>
+            <p class="logout-footer">
+                <i class="fa-solid fa-film"></i>
+                Thanks for watching with TRAP MOVIES.
+            </p>
+        </section>
+    </main>
+    <!-- Connect this button to your existing authentication system. -->
+    <script type="module">
+        import { auth } from "./firebase.js";
+        import { signOut } from
+            "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+        const logoutBtn = document.getElementById("logoutBtn");
+        logoutBtn.addEventListener("click", async () => {
+            logoutBtn.disabled = true;
+            logoutBtn.innerHTML =
+                '<i class="fa-solid fa-spinner fa-spin"></i> Logging out...';
+            try {
+                await signOut(auth);
+                window.location.href = "login.html";
+            } catch (error) {
+                console.error("Logout failed:", error);
+                logoutBtn.disabled = false;
+                logoutBtn.innerHTML =
+                    '<i class="fa-solid fa-right-from-bracket"></i> Try Again';
+                alert("Unable to log out. Please try again.");
+            }
+        });
+    </script>
+</body>
+</html>
