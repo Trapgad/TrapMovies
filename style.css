@@ -3493,3 +3493,302 @@ MOBILE
 }
 
 }
+/* =========================================
+TRAP MOVIES — SIGN UP PAGE ONLY
+Premium red, purple & cinematic black
+========================================= */
+
+body:has(.auth-container) {
+margin: 0;
+min-height: 100vh;
+min-height: 100dvh;
+font-family: ‘Poppins’, sans-serif;
+color: #ffffff;
+background:
+radial-gradient(ellipse at 15% 15%, rgba(229, 9, 20, 0.18), transparent 42%),
+radial-gradient(ellipse at 85% 85%, rgba(138, 43, 226, 0.20), transparent 45%),
+#08080d;
+overflow-x: hidden;
+}
+
+body:has(.auth-container) * {
+box-sizing: border-box;
+}
+
+.auth-container {
+position: relative;
+min-height: 100vh;
+min-height: 100dvh;
+width: 100%;
+padding: 35px 18px;
+display: flex;
+align-items: center;
+justify-content: center;
+overflow: hidden;
+}
+
+/* Background glow effects */
+.auth-container::before,
+.auth-container::after {
+content: “”;
+position: absolute;
+width: 300px;
+height: 300px;
+border-radius: 50%;
+filter: blur(100px);
+pointer-events: none;
+opacity: 0.28;
+}
+
+.auth-container::before {
+top: -120px;
+left: -100px;
+background: #e50914;
+}
+
+.auth-container::after {
+bottom: -130px;
+right: -100px;
+background: #8a2be2;
+}
+
+/* Signup card */
+.auth-card.glass {
+position: relative;
+z-index: 1;
+width: 100%;
+max-width: 460px;
+padding: 42px 36px;
+border: 1px solid rgba(255, 255, 255, 0.12);
+border-radius: 24px;
+background: rgba(17, 17, 24, 0.82);
+-webkit-backdrop-filter: blur(24px);
+backdrop-filter: blur(24px);
+box-shadow:
+0 25px 80px rgba(0, 0, 0, 0.5),
+0 0 35px rgba(138, 43, 226, 0.08);
+animation: authCardAppear 0.65s ease both;
+}
+
+/* Logo */
+.auth-card .logo {
+margin-bottom: 27px;
+text-align: center;
+font-size: 29px;
+font-weight: 800;
+letter-spacing: 1.5px;
+color: #ffffff;
+}
+
+.auth-card .logo span {
+color: #e50914;
+text-shadow: 0 0 20px rgba(229, 9, 20, 0.35);
+}
+
+/* Heading and description */
+.auth-card h1 {
+margin: 0 0 10px;
+color: #ffffff;
+text-align: center;
+font-size: 29px;
+font-weight: 700;
+line-height: 1.35;
+}
+
+.auth-card > p:not(.switch) {
+margin: 0 0 27px;
+color: #aaaab8;
+text-align: center;
+font-size: 13px;
+line-height: 1.7;
+}
+
+/* Input fields */
+.auth-card .input-box {
+display: flex;
+align-items: center;
+gap: 13px;
+width: 100%;
+min-height: 57px;
+margin: 0 0 15px;
+padding: 0 17px;
+border: 1px solid rgba(255, 255, 255, 0.11);
+border-radius: 13px;
+background: rgba(255, 255, 255, 0.045);
+transition: border-color 0.25s ease,
+background 0.25s ease,
+box-shadow 0.25s ease;
+}
+
+.auth-card .input-box:focus-within {
+border-color: #a43bff;
+background: rgba(138, 43, 226, 0.07);
+box-shadow: 0 0 0 3px rgba(138, 43, 226, 0.12);
+}
+
+.auth-card .input-box > i {
+flex: 0 0 18px;
+color: #a43bff;
+font-size: 16px;
+text-align: center;
+}
+
+.auth-card .input-box input {
+width: 100%;
+min-width: 0;
+padding: 17px 0;
+border: none;
+outline: none;
+color: #ffffff;
+background: transparent;
+font-family: inherit;
+font-size: 13px;
+}
+
+.auth-card .input-box input::placeholder {
+color: #888895;
+opacity: 1;
+}
+
+.auth-card .input-box input:focus {
+outline: none;
+}
+
+.auth-card .input-box input:-webkit-autofill,
+.auth-card .input-box input:-webkit-autofill:hover,
+.auth-card .input-box input:-webkit-autofill:focus {
+-webkit-text-fill-color: #ffffff;
+transition: background-color 9999s ease-in-out 0s;
+}
+
+/* Create account button */
+.auth-card #signupBtn {
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 10px;
+width: 100%;
+min-height: 55px;
+margin-top: 23px;
+padding: 15px 20px;
+border: none;
+border-radius: 13px;
+color: #ffffff;
+background: linear-gradient(110deg, #e50914 0%, #a20c64 52%, #7028dc 100%);
+box-shadow: 0 8px 25px rgba(229, 9, 20, 0.19);
+font-family: inherit;
+font-size: 14px;
+font-weight: 700;
+cursor: pointer;
+transition: transform 0.25s ease,
+box-shadow 0.25s ease,
+filter 0.25s ease;
+}
+
+.auth-card #signupBtn:hover {
+transform: translateY(-2px);
+filter: brightness(1.12);
+box-shadow: 0 12px 30px rgba(138, 43, 226, 0.3);
+}
+
+.auth-card #signupBtn:active {
+transform: scale(0.98);
+}
+
+.auth-card #signupBtn:focus-visible,
+.auth-card a:focus-visible {
+outline: 2px solid #c58aff;
+outline-offset: 4px;
+}
+
+/* Login link */
+.auth-card .switch {
+margin: 25px 0 0;
+color: #aaaab8;
+text-align: center;
+font-size: 12px;
+line-height: 1.8;
+}
+
+.auth-card .switch a {
+margin-left: 5px;
+color: #ff4050;
+font-weight: 700;
+text-decoration: none;
+transition: color 0.2s ease;
+}
+
+.auth-card .switch a:hover {
+color: #bd78ff;
+text-decoration: underline;
+}
+
+/* Authentication messages */
+.auth-card #message:not(:empty) {
+margin: 0 0 18px;
+padding: 12px 14px;
+border: 1px solid rgba(229, 9, 20, 0.25);
+border-radius: 10px;
+color: #ffffff;
+background: rgba(229, 9, 20, 0.09);
+font-size: 12px;
+line-height: 1.6;
+overflow-wrap: anywhere;
+}
+
+/* Entrance animation */
+@keyframes authCardAppear {
+from {
+opacity: 0;
+transform: translateY(18px);
+}
+to {
+opacity: 1;
+transform: translateY(0);
+}
+}
+
+/* Mobile layout */
+@media (max-width: 480px) {
+.auth-container {
+padding: 22px 15px;
+}
+
+.auth-card.glass {
+    max-width: 100%;
+    padding: 32px 22px;
+    border-radius: 20px;
+}
+.auth-card .logo {
+    margin-bottom: 23px;
+    font-size: 26px;
+}
+.auth-card h1 {
+    font-size: 25px;
+}
+.auth-card > p:not(.switch) {
+    font-size: 12px;
+}
+.auth-card .input-box {
+    min-height: 54px;
+    padding: 0 14px;
+}
+.auth-card .input-box input {
+    font-size: 13px;
+}
+
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+.auth-card.glass {
+animation: none;
+}
+
+.auth-card .input-box,
+.auth-card #signupBtn,
+.auth-card .switch a {
+    transition: none;
+}
+
+}
